@@ -617,7 +617,7 @@ Resources:
       LaunchConfigurationName: !Ref NodeLaunchConfig
       MinSize: !Ref NumberOfNodes
       MaxSize: !If [ MaxNodes, !Ref MaxNumberOfNodes, !Ref NumberOfNodes ]
-      VPCZoneIdentifier: [ !Ref PrivateSubnet1ID, !Ref PrivateSubnet2ID, !Ref PrivateSubnet3ID ]
+      VPCZoneIdentifier: [ !Ref PrivateSubnet1ID, !Ref PrivateSubnet2ID ]
       TargetGroupARNs: !If [ DisableTargetGroups, !Ref "AWS::NoValue", !Ref TargetGroupARNs ]
       Tags:
         - Key: Name

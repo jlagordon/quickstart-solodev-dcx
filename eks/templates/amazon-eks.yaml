@@ -316,7 +316,7 @@ Resources:
         CopyZipsRoleArn: !GetAtt IamStack.Outputs.CopyZipsRoleArn
         EKSProvisionRoleArn: !GetAtt IamStack.Outputs.ControlPlaneProvisionRoleArn
         ControlPlaneSecurityGroup: !Ref ControlPlaneSecurityGroup
-        EKSSubnetIds: !Sub "${PrivateSubnet1ID},${PrivateSubnet2ID},${PrivateSubnet3ID}"
+        EKSSubnetIds: !Sub "${PrivateSubnet1ID},${PrivateSubnet2ID}"
         DeleteBucketContentsRoleArn: !GetAtt IamStack.Outputs.DeleteBucketContentsRoleArn
         QuickStartStackMakerRoleArn: !GetAtt IamStack.Outputs.QuickStartStackMakerRoleArn
         DeleteLambdaZipsBucketContents: !If [ CreateLambdaZipsBucket, "True", "False" ]
