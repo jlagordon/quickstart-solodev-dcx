@@ -14,6 +14,7 @@ phases:
       - aws configure set aws_access_key_id `./jq -r '.AccessKeyId' aws_credentials.json`
       - aws configure set aws_secret_access_key `./jq -r '.SecretAccessKey' aws_credentials.json`
       - aws configure set aws_session_token `./jq -r '.Token' aws_credentials.json`
+      - yum install git
       - git submodule update --recursive
       - aws s3 sync eks s3://solodev-quickstarts/eks --delete
       - DATE=$(date +%d%H%M)
