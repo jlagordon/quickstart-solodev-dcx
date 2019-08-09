@@ -71,14 +71,10 @@ Metadata:
         default: Public subnet 1 ID
       PublicSubnet2ID:
         default: Public subnet 2 ID
-      PublicSubnet3ID:
-        default: Public subnet 3 ID
       PrivateSubnet1ID:
         default: Private subnet 1 ID
       PrivateSubnet2ID:
         default: Private subnet 2 ID
-      PrivateSubnet3ID:
-        default: Private subnet 3 ID
       VPCID:
         default: VPC ID
       AdditionalEKSAdminArns:
