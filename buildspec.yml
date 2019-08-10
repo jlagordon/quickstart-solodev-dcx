@@ -16,7 +16,7 @@ phases:
       - aws configure set aws_session_token `./jq -r '.Token' aws_credentials.json`
       - yum -y install git
       - git submodule update --remote --merge
-      - ls -alh submodules
+      - ls -alh submodules/quickstart-linux-bastion
       - aws s3 sync submodules s3://solodev-quickstarts/submodules --delete
       - aws s3 sync eks s3://solodev-quickstarts/eks --delete
       - DATE=$(date +%d%H%M)
