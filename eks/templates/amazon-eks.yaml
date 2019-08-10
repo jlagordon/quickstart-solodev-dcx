@@ -224,7 +224,7 @@ Resources:
     Condition: EnableBastion
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-linux-bastion/templates/linux-bastion.template'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/submodules/quickstart-linux-bastion/templates/linux-bastion.template'
       Parameters:
         VPCID: !Ref VPCID
         PublicSubnet1ID: !Ref PublicSubnet1ID
