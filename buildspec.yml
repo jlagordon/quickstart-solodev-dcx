@@ -19,6 +19,7 @@ phases:
       - git submodule update
       - ls -alh submodules/quickstart-linux-bastion
       - aws s3 sync submodules s3://solodev-quickstarts/submodules --delete
+      - aws s3 sync scripts s3://solodev-quickstarts/scripts --delete
       - aws s3 sync eks s3://solodev-quickstarts/eks --delete
       - DATE=$(date +%d%H%M)
       - chmod 700 bin/cleanStacks.sh bin/stacks.sh
