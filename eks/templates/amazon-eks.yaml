@@ -237,7 +237,7 @@ Resources:
         RootVolumeSize: !Ref BastionRootVolumeSize
         AlternativeInitializationScript: !If
           - DefaultBastionBootstrap
-          - !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/scripts/bastion_bootstrap.sh'
+          - !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/bastion_bootstrap.sh'
           - !Ref BastionBootstrapScript
         AlternativeIAMRole: !If [CustomBastionRole, !Ref BastionIAMRoleName, !GetAtt IamStack.Outputs.BastionRole]
         BastionAMIOS: !Ref BastionOS
