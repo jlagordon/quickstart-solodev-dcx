@@ -423,6 +423,7 @@ EOF
 
 function install_kubernetes_client_tools() {
     mkdir -p /usr/local/bin/
+    export PATH="$PATH:/usr/local/bin"
     retry_command 20 curl --retry 5 -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator
     chmod +x ./aws-iam-authenticator
     mv ./aws-iam-authenticator /usr/local/bin/
@@ -431,6 +432,36 @@ function install_kubernetes_client_tools() {
     mv ./kubectl /usr/local/bin/
     echo "source <(kubectl completion bash)" >> ~/.bashrc
     retry_command 20 curl --retry 5 -o helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.12.2-linux-amd64.tar.gz
+    kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts;
+    # curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+    # chmod 700 get_helm.sh
+    # ./get_helm.sh
+    # helm init
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/rbac/heapster-rbac.yaml
+    cat > eks-admin-service-account.yaml << EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: eks-admin
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: eks-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: eks-admin
+  namespace: kube-system
+EOF
+    kubectl apply -f eks-admin-service-account.yaml
     tar -xvf helm.tar.gz
     chmod +x ./linux-amd64/helm
     chmod +x ./linux-amd64/tiller
