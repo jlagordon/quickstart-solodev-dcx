@@ -254,12 +254,12 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: "route53:ChangeResourceRecordSets"
-                Resource: !Sub "arn:aws:route53:::hostedzone/*"
+                Resource: "arn:aws:route53:::hostedzone/*"
               - Effect: Allow
                 Action: 
                   - "route53:ListHostedZones"
                   - "route53:ListResourceRecordSets"
-                Resource: !Sub "*"
+                Resource: "*"
   BastionRole:
     Condition: EnableBastionRole
     Type: "AWS::IAM::Role"
