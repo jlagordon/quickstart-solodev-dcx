@@ -143,7 +143,7 @@ Parameters:
     Default: "Disabled"
   BootstrapArguments:
     Type: String
-    Default: ""
+    Default: "--use-max-pods false"
   BastionOS:
     Type: String
     AllowedValues: [ "Amazon-Linux-HVM", "CentOS-7-HVM", "Ubuntu-Server-14.04-LTS-HVM", "Ubuntu-Server-16.04-LTS-HVM", "SUSE-SLES-15-HVM" ]
