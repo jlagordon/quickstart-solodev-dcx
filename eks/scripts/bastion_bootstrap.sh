@@ -452,6 +452,7 @@ exit ${EXIT_CODE}
 EOF
     chmod +x /usr/local/bin/helm
     su ${user_group} -c "/usr/local/bin/helm init --client-only"
+    # su ${user_group} -c "/usr/local/bin/kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts;"
 }
 
 ##################################### End Function Definitions
