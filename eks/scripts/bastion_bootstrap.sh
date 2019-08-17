@@ -561,7 +561,6 @@ install_kubernetes_client_tools
 setup_kubeconfig
 
 #Disable default AWS CNI
-/usr/local/bin/kubectl delete ds --namespace=kube-system aws-node 
 rm -f /etc/cni/net.d/10-aws.conflist
 
 echo "Bootstrap complete."
