@@ -1,0 +1,73 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: >
+    Solodev DCX Network for an existing kubernetes cluster
+
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "DNS Settings"
+        Parameters: 
+            - ZoneName
+            - ZoneId
+      - 
+        Label: 
+          default: "EKS Cluster"
+        Parameters: 
+          - KubeClusterName
+          - HelmLambdaArn
+          - KubeConfigPath
+          - KubeManifestLambdaArn
+          - KubeConfigKmsContext
+
+Parameters:
+  ZoneName:
+    Type: String
+
+  ZoneId:
+    Type: String
+
+  KubeClusterName:
+    Type: String
+
+  HelmLambdaArn:
+    Type: String
+
+  KubeManifestLambdaArn:
+    Type: String
+
+  KubeConfigPath:
+    Type: String
+
+  KubeConfigKmsContext:
+    Type: String
+    Default: "EKSQuickStart"
+
+Resources:
+
+  SolodevDCXNetwork:
+    Type: "Custom::Helm"
+    Version: '1.0'
+    Properties:
+      ServiceToken: !Ref HelmLambdaArn
+      KubeConfigPath: !Ref KubeConfigPath
+      KubeConfigKmsContext: !Ref KubeConfigKmsContext
+      RepoUrl: https://raw.githubusercontent.com/techcto/charts/master/
+      Chart: charts/solodev-network
+      Name: !Ref AWS::StackName
+      Namespace: "solodev-network"
+      ValueYaml: !Sub |
+        env: prod
+        dns:
+          zone:
+            name: ${ZoneName}
+            id: ${ZoneId}
+
+Outputs:
+  ExampleUid:
+    Value: !GetAtt KubeManifest.uid
+  ExampleSelfLink:
+    Value: !Ref KubeManifest
