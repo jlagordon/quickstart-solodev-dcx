@@ -1,8 +1,5 @@
----
 AWSTemplateFormatVersion: '2010-09-09'
-
-Description: >
-    Solodev DCX for an existing kubernetes cluster
+Description: Solodev DCX for an existing kubernetes cluster
 
 Metadata: 
   AWS::CloudFormation::Interface: 
@@ -20,7 +17,6 @@ Metadata:
           - ZoneName
           - DatabaseName
           - DatabasePassword
-
       - 
         Label: 
           default: "EKS Cluster"
@@ -180,7 +176,7 @@ Outputs:
 
     AdminUrl: 
         Description: Point your DNS to this CNAME.
-        Value: !Join [ "", !Ref AWS::StackName, ".", !Ref ZoneName ]
+        Value: !Join ["", [ !Ref "AWS::StackName", ".", !Ref ZoneName ]]
     AdminUsername: 
         Description: Solodev admin username.
         Value: !Ref AdminUser
