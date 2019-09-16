@@ -392,7 +392,6 @@ Resources:
         HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
         KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
         KubeConfigKmsContext: !Ref KubeConfigKmsContext
-        NodeGroupSecurityGroup: !GetAtt NodeGroupStack.Outputs.EKSNodeSecurityGroup
         ZoneName: !Ref ZoneName
         ZoneId: !Ref ZoneId
   SolodevDCXStack:
@@ -404,7 +403,6 @@ Resources:
         HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
         KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
         KubeConfigKmsContext: !Ref KubeConfigKmsContext
-        NodeGroupSecurityGroup: !GetAtt NodeGroupStack.Outputs.EKSNodeSecurityGroup
         AdminPassword: !Ref AdminPassword
         DatabasePassword: !Ref DatabasePassword
         ZoneName: !Ref ZoneName

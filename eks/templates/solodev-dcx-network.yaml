@@ -1,9 +1,5 @@
----
 AWSTemplateFormatVersion: '2010-09-09'
-
-Description: >
-    Solodev DCX Network for an existing kubernetes cluster
-
+Description: Solodev DCX Network for an existing kubernetes cluster
 Metadata: 
   AWS::CloudFormation::Interface: 
     ParameterGroups: 
@@ -39,7 +35,6 @@ Parameters:
     Default: "EKSQuickStart"
 
 Resources:
-
   SolodevDCXNetwork:
     Type: "Custom::Helm"
     Version: '1.0'
@@ -57,3 +52,11 @@ Resources:
           zone:
             name: ${ZoneName}
             id: ${ZoneId}
+
+Outputs:
+    ZoneName: 
+        Description: ZoneName
+        Value: !Ref ZoneName
+    ZoneId: 
+        Description: ZoneId
+        Value: !Ref ZoneId
