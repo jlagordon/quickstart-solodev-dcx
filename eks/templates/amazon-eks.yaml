@@ -385,6 +385,7 @@ Resources:
         ThroughputMode: !Ref EfsThroughputMode
   SolodevNetworkStack:
     Condition: EnableSolodevDCXNetwork
+    DependsOn: EfsStack
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/solodev-dcx-network.yaml'
@@ -396,6 +397,7 @@ Resources:
         ZoneId: !Ref ZoneId
   SolodevDCXStack:
     Condition: EnableSolodevDCX
+    DependsOn: EfsStack
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/solodev-dcx.yaml'
