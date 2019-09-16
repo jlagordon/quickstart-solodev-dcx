@@ -38,7 +38,7 @@ Parameters:
       AllowedPattern: .+
       ConstraintDescription: Please set admin username
 
-  AdminPassword:
+  AdminPassword: 
       NoEcho: true
       Description: The solodev admin password
       Type: String
