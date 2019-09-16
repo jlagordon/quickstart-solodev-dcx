@@ -9,13 +9,18 @@ Metadata:
     ParameterGroups: 
       - 
         Label: 
-          default: "CMS Settings"
+          default: "User Settings"
         Parameters: 
-          - ZoneName
           - AdminUser
           - AdminPassword
+      - 
+        Label: 
+          default: "Advanced Settings"
+        Parameters: 
+          - ZoneName
           - DatabaseName
           - DatabasePassword
+
       - 
         Label: 
           default: "EKS Cluster"
@@ -170,3 +175,15 @@ Resources:
           port: 6379
           storage:
             mount: "/data"
+
+Outputs:
+
+    AdminUrl: 
+        Description: Point your DNS to this CNAME.
+        Value: !Join [ "", !Ref AWS::StackName, ".", !Ref ZoneName ]
+    AdminUsername: 
+        Description: Solodev admin username.
+        Value: !Ref AdminUser
+    AdminPassword: 
+        Description: Solodev admin password.
+        Value: !Ref AdminPassword
