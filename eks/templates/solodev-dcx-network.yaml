@@ -57,9 +57,3 @@ Resources:
           zone:
             name: ${ZoneName}
             id: ${ZoneId}
-
-Outputs:
-  ExampleUid:
-    Value: !GetAtt KubeManifest.uid
-  ExampleSelfLink:
-    Value: !Ref KubeManifest
