@@ -17,6 +17,7 @@ Metadata:
           - ZoneName
           - DatabaseName
           - DatabasePassword
+          - AppSecret
       - 
         Label: 
           default: "EKS Cluster"

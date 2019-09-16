@@ -295,8 +295,10 @@ Parameters:
     Description: Choose Enabled to enable the Solodev DCX Network.
   ZoneName:
     Type: String
+    Default: ''
   ZoneId:
     Type: String
+    Default: ''
   SolodevDCX:
     Type: String
     AllowedValues: [ Enabled, Disabled ]
