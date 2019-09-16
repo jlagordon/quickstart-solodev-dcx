@@ -17,10 +17,8 @@ Metadata:
         Label: 
           default: "EKS Cluster"
         Parameters: 
-          - KubeClusterName
           - HelmLambdaArn
           - KubeConfigPath
-          - KubeManifestLambdaArn
           - KubeConfigKmsContext
 
 Parameters:
@@ -30,13 +28,7 @@ Parameters:
   ZoneId:
     Type: String
 
-  KubeClusterName:
-    Type: String
-
   HelmLambdaArn:
-    Type: String
-
-  KubeManifestLambdaArn:
     Type: String
 
   KubeConfigPath:
