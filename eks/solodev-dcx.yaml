@@ -22,10 +22,8 @@ Metadata:
         Label: 
           default: "EKS Cluster"
         Parameters: 
-          - KubeClusterName
           - HelmLambdaArn
           - KubeConfigPath
-          - KubeManifestLambdaArn
           - KubeConfigKmsContext
 
 Parameters:
@@ -71,13 +69,7 @@ Parameters:
     Description: Secret Key for App Encryption
     Default: 'c5d3adbb98f43thc0d12f0cc8fbcd7f8'
 
-  KubeClusterName:
-    Type: String
-
   HelmLambdaArn:
-    Type: String
-
-  KubeManifestLambdaArn:
     Type: String
 
   KubeConfigPath:
