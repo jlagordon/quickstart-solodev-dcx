@@ -79,26 +79,10 @@ Parameters:
     Type: String
     Default: "EKSQuickStart"
 
-Resources:
-
   MarketplaceRole:
-      Type: AWS::IAM::Role
-      Properties:
-          AssumeRolePolicyDocument:
-              Version: 2012-10-17
-              Statement:
-              - {Action: "sts:AssumeRole", Effect: Allow, Principal: {Service: ecs-tasks.amazonaws.com}}
-          Path: "/"
-          Policies: 
-              - 
-                  PolicyName: "register-usage"
-                  PolicyDocument: 
-                      Version: "2012-10-17"
-                      Statement: 
-                          - 
-                              Effect: "Allow"
-                              Action: [ "aws-marketplace:RegisterUsage" ]
-                              Resource: "*"
+    Type: String
+
+Resources:
   SolodevDCX:
     Type: "Custom::Helm"
     Version: '1.0'

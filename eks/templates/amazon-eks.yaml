@@ -383,31 +383,50 @@ Resources:
         PerformanceMode: !Ref EfsPerformanceMode
         ProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
         ThroughputMode: !Ref EfsThroughputMode
-  # SolodevNetworkStack:
-  #   Condition: EnableSolodevDCXNetwork
-  #   DependsOn: EfsStack
-  #   Type: AWS::CloudFormation::Stack
-  #   Properties:
-  #     TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/solodev-dcx-network.yaml'
-  #     Parameters:
-  #       HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
-  #       KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
-  #       KubeConfigKmsContext: !Ref KubeConfigKmsContext
-  #       ZoneName: !Ref ZoneName
-  #       ZoneId: !Ref ZoneId
-  # SolodevDCXStack:
-  #   Condition: EnableSolodevDCX
-  #   DependsOn: EfsStack
-  #   Type: AWS::CloudFormation::Stack
-  #   Properties:
-  #     TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/eks/solodev-dcx.yaml'
-  #     Parameters:
-  #       HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
-  #       KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
-  #       KubeConfigKmsContext: !Ref KubeConfigKmsContext
-  #       AdminPassword: !Ref AdminPassword
-  #       DatabasePassword: !Ref DatabasePassword
-  #       ZoneName: !Ref ZoneName
+  SolodevNetworkStack:
+    Condition: EnableSolodevDCXNetwork
+    DependsOn: EfsStack
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/solodev-dcx-network.yaml'
+      Parameters:
+        HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
+        KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
+        KubeConfigKmsContext: !Ref KubeConfigKmsContext
+        ZoneName: !Ref ZoneName
+        ZoneId: !Ref ZoneId
+  MarketplaceRole:
+      Type: AWS::IAM::Role
+      Properties:
+          AssumeRolePolicyDocument:
+              Version: 2012-10-17
+              Statement:
+              - {Action: "sts:AssumeRole", Effect: Allow, Principal: {Service: ecs-tasks.amazonaws.com}}
+          Path: "/"
+          Policies: 
+              - 
+                  PolicyName: "register-usage"
+                  PolicyDocument: 
+                      Version: "2012-10-17"
+                      Statement: 
+                          - 
+                              Effect: "Allow"
+                              Action: [ "aws-marketplace:RegisterUsage" ]
+                              Resource: "*"
+  SolodevDCXStack:
+    Condition: EnableSolodevDCX
+    DependsOn: EfsStack
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/eks/solodev-dcx.yaml'
+      Parameters:
+        HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
+        KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
+        KubeConfigKmsContext: !Ref KubeConfigKmsContext
+        AdminPassword: !Ref AdminPassword
+        DatabasePassword: !Ref DatabasePassword
+        ZoneName: !Ref ZoneName
+        MarketplaceRole: !Ref MarketplaceRole
 
   LambdaZipsBucket:
     Type: AWS::S3::Bucket
