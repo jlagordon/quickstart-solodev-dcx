@@ -383,18 +383,18 @@ Resources:
         PerformanceMode: !Ref EfsPerformanceMode
         ProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
         ThroughputMode: !Ref EfsThroughputMode
-  SolodevNetworkStack:
-    Condition: EnableSolodevDCXNetwork
-    DependsOn: EfsStack
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/solodev-dcx-network.yaml'
-      Parameters:
-        HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
-        KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
-        KubeConfigKmsContext: !Ref KubeConfigKmsContext
-        ZoneName: !Ref ZoneName
-        ZoneId: !Ref ZoneId
+  # SolodevNetworkStack:
+  #   Condition: EnableSolodevDCXNetwork
+  #   DependsOn: EfsStack
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/solodev-dcx-network.yaml'
+  #     Parameters:
+  #       HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
+  #       KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
+  #       KubeConfigKmsContext: !Ref KubeConfigKmsContext
+  #       ZoneName: !Ref ZoneName
+  #       ZoneId: !Ref ZoneId
   # SolodevDCXStack:
   #   Condition: EnableSolodevDCX
   #   DependsOn: EfsStack
