@@ -395,19 +395,19 @@ Resources:
         KubeConfigKmsContext: !Ref KubeConfigKmsContext
         ZoneName: !Ref ZoneName
         ZoneId: !Ref ZoneId
-  SolodevDCXStack:
-    Condition: EnableSolodevDCX
-    DependsOn: EfsStack
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/eks/solodev-dcx.yaml'
-      Parameters:
-        HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
-        KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
-        KubeConfigKmsContext: !Ref KubeConfigKmsContext
-        AdminPassword: !Ref AdminPassword
-        DatabasePassword: !Ref DatabasePassword
-        ZoneName: !Ref ZoneName
+  # SolodevDCXStack:
+  #   Condition: EnableSolodevDCX
+  #   DependsOn: EfsStack
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/eks/solodev-dcx.yaml'
+  #     Parameters:
+  #       HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
+  #       KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
+  #       KubeConfigKmsContext: !Ref KubeConfigKmsContext
+  #       AdminPassword: !Ref AdminPassword
+  #       DatabasePassword: !Ref DatabasePassword
+  #       ZoneName: !Ref ZoneName
 
   LambdaZipsBucket:
     Type: AWS::S3::Bucket
