@@ -42,7 +42,7 @@ if [ $MPDEPLOYMENT == 1 ]; then
 
 echo "Install Solodev DCX for Marketplace"
 echo $(aws s3 cp s3://build-secure/params/solodev-dcx.json - ) > solodev-dcx.json
-aws cloudformation create-stack --disable-rollback --stack-name solo-tmp-${DATE} --disable-rollback --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+aws cloudformation create-stack --disable-rollback --stack-name solom-tmp-${DATE}mp --disable-rollback --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
     --parameters file:///${CODEBUILD_SRC_DIR}/solodev-dcx.json \
     --template-url https://s3.amazonaws.com/solodev-quickstarts/eks/solodev-dcx-aws.yaml \
     # --notification-arns $NOTIFICATION_ARN
