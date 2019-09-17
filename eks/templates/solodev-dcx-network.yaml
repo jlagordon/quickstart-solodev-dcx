@@ -44,7 +44,7 @@ Resources:
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       RepoUrl: https://raw.githubusercontent.com/techcto/charts/master/
       Chart: charts/solodev-network
-      Name: !Ref AWS::StackName
+      Name: "solodev-network"
       Namespace: "solodev-network"
       ValueYaml: !Sub |
         env: prod
