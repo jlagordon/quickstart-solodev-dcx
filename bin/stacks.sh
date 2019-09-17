@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-CLUSTER=0
+CLUSTER=1
 NETWORK=0
 DEPLOYMENT=0
-MPDEPLOYMENT=1
+MPDEPLOYMENT=0
 
 if [ $CLUSTER == 1 ]; then
 

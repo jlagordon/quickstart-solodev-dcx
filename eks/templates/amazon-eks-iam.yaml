@@ -260,6 +260,14 @@ Resources:
                   - "route53:ListHostedZones"
                   - "route53:ListResourceRecordSets"
                 Resource: "*"
+        - PolicyName: registerUsage
+          PolicyDocument: 
+              Version: 2012-10-17
+              Statement: 
+                - 
+                  Effect: "Allow"
+                  Action: [ "aws-marketplace:RegisterUsage" ]
+                  Resource: "*"
   BastionRole:
     Condition: EnableBastionRole
     Type: "AWS::IAM::Role"

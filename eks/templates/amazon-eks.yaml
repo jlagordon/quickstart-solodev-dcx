@@ -395,27 +395,9 @@ Resources:
         KubeConfigKmsContext: !Ref KubeConfigKmsContext
         ZoneName: !Ref ZoneName
         ZoneId: !Ref ZoneId
-  MarketplaceRole:
-      Type: AWS::IAM::Role
-      Properties:
-          AssumeRolePolicyDocument:
-              Version: 2012-10-17
-              Statement:
-              - {Action: "sts:AssumeRole", Effect: Allow, Principal: {Service: ecs-tasks.amazonaws.com}}
-          Path: "/"
-          Policies: 
-              - 
-                  PolicyName: "register-usage"
-                  PolicyDocument: 
-                      Version: "2012-10-17"
-                      Statement: 
-                          - 
-                              Effect: "Allow"
-                              Action: [ "aws-marketplace:RegisterUsage" ]
-                              Resource: "*"
   SolodevDCXStack:
     Condition: EnableSolodevDCX
-    DependsOn: EfsStack
+    DependsOn: SolodevNetworkStack
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/eks/solodev-dcx.yaml'
