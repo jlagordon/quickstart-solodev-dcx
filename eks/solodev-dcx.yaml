@@ -80,6 +80,25 @@ Parameters:
     Default: "EKSQuickStart"
 
 Resources:
+
+  MarketplaceRole:
+      Type: AWS::IAM::Role
+      Properties:
+          AssumeRolePolicyDocument:
+              Version: 2012-10-17
+              Statement:
+              - {Action: "sts:AssumeRole", Effect: Allow, Principal: {Service: ecs-tasks.amazonaws.com}}
+          Path: "/"
+          Policies: 
+              - 
+                  PolicyName: "register-usage"
+                  PolicyDocument: 
+                      Version: "2012-10-17"
+                      Statement: 
+                          - 
+                              Effect: "Allow"
+                              Action: [ "aws-marketplace:RegisterUsage" ]
+                              Resource: "*"
   SolodevDCX:
     Type: "Custom::Helm"
     Version: '1.0'
@@ -93,6 +112,7 @@ Resources:
       Namespace: "solodev-dcx"
       ValueYaml: !Sub |
         env: prod
+        serviceAccountName: ${MarketplaceRole}
         storage:
           className: standard
           size: 10G
@@ -124,6 +144,7 @@ Resources:
           image:
             registry: docker.io
             repository: solodev/cms-apache
+            tag: latest
             pullPolicy: IfNotPresent
           http:
             port: 80
@@ -159,7 +180,7 @@ Resources:
           image:
             registry: docker.io
             repository: redis
-            tag: alpine
+            tag: latest
             pullPolicy: IfNotPresent
           port: 6379
           storage:

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-CLUSTER=1
+CLUSTER=0
 NETWORK=0
-DEPLOYMENT=0
+DEPLOYMENT=1
 
 if [ $CLUSTER == 1 ]; then
 
