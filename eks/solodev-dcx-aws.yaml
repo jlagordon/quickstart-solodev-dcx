@@ -1,0 +1,198 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Solodev DCX for an existing kubernetes cluster
+
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "User Settings"
+        Parameters: 
+          - AdminUser
+          - AdminPassword
+      - 
+        Label: 
+          default: "Advanced Settings"
+        Parameters: 
+          - ZoneName
+          - DatabaseName
+          - DatabasePassword
+          - AppSecret
+      - 
+        Label: 
+          default: "EKS Cluster"
+        Parameters: 
+          - HelmLambdaArn
+          - KubeConfigPath
+          - KubeConfigKmsContext
+
+Parameters:
+  ZoneName:
+    Type: String
+
+  AdminUser:
+      Description: The solodev admin username
+      Type: String
+      Default: 'solodev'
+      AllowedPattern: .+
+      ConstraintDescription: Please set admin username
+
+  AdminPassword: 
+      NoEcho: true
+      Description: The solodev admin password
+      Type: String
+      MinLength: 1
+      MaxLength: 41
+      AllowedPattern: .+
+      ConstraintDescription: Please set admin password
+
+  DatabaseName:
+      Description: The solodev database name
+      Type: String
+      MinLength: 1
+      MaxLength: 64
+      AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+      ConstraintDescription: must begin with a letter and contain only alphanumeric characters.
+      Default: 'solodev'
+
+  DatabasePassword:
+      NoEcho: true
+      Description: The database root password
+      Type: String
+      MinLength: 1
+      MaxLength: 41
+      AllowedPattern: .+
+      ConstraintDescription: Please set database root password
+
+  AppSecret:
+    Type: String
+    Description: Secret Key for App Encryption
+    Default: 'c5d3adbb98f43thc0d12f0cc8fbcd7f8'
+
+  HelmLambdaArn:
+    Type: String
+
+  KubeConfigPath:
+    Type: String
+
+  KubeConfigKmsContext:
+    Type: String
+    Default: "EKSQuickStart"
+
+Resources:
+
+  MarketplaceRole:
+      Type: AWS::IAM::Role
+      Properties:
+          AssumeRolePolicyDocument:
+              Version: 2012-10-17
+              Statement:
+              - {Action: "sts:AssumeRole", Effect: Allow, Principal: {Service: ecs-tasks.amazonaws.com}}
+          Path: "/"
+          Policies: 
+              - 
+                  PolicyName: "register-usage"
+                  PolicyDocument: 
+                      Version: "2012-10-17"
+                      Statement: 
+                          - 
+                              Effect: "Allow"
+                              Action: [ "aws-marketplace:RegisterUsage" ]
+                              Resource: "*"
+  SolodevDCX:
+    Type: "Custom::Helm"
+    Version: '1.0'
+    Properties:
+      ServiceToken: !Ref HelmLambdaArn
+      KubeConfigPath: !Ref KubeConfigPath
+      KubeConfigKmsContext: !Ref KubeConfigKmsContext
+      RepoUrl: https://raw.githubusercontent.com/techcto/charts/master/
+      Chart: charts/solodev-dcx
+      Namespace: "solodev-dcx"
+      ValueYaml: !Sub |
+        env: prod
+        serviceAccountName: ${MarketplaceRole}
+        storage:
+          className: standard
+          size: 10G
+        solodev:
+          image:
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-827618812
+            repository: solodev-cms
+            tag: DCXEnterpriseeditionfork8s-latest
+            pullPolicy: IfNotPresent
+          cname: ${ZoneName}
+          port: 9000
+          protocol: TCP
+          storage:
+            className: efs
+            size: 10G
+            mount: /var/www/solodev/clients/solodev
+          settings:
+            debug: false
+            appSecret: ${AppSecret}
+            appUser: ${AdminUser}
+            appPassword: ${AdminPassword}
+            dbHost: mysql
+            dbName: ${DatabaseName}
+            dbUser: solodev
+            dbPassword: ${DatabasePassword}
+            mongoDbName: solodev_views
+          pullSecret: solodev
+        ui:
+          image:
+            registry: d709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-827618812
+            repository: solodev-apache
+            tag: DCXEnterpriseeditionfork8s-latest
+            pullPolicy: IfNotPresent
+          http:
+            port: 80
+            protocol: TCP
+          https:
+            port: 443
+            protocol: TCP
+        mysql:
+          image:
+            registry: docker.io
+            repository: mysql
+            tag: 5.7
+            pullPolicy: IfNotPresent
+          port: 3306
+          storage:
+            mount: local-storage
+          read:
+            port: 3307
+          settings:
+        mongo:
+          image:
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-827618812
+            repository: techcto/mongo
+            tag: DCXEnterpriseeditionfork8s-latest
+            pullPolicy: IfNotPresent
+          port: 27017
+          settings:
+            username: solodev
+            password: ${DatabasePassword}
+          storage:
+            mount: "/data"
+        redis:
+          image:
+            registry: docker.io
+            repository: redis
+            tag: latest
+            pullPolicy: IfNotPresent
+          port: 6379
+          storage:
+            mount: "/data"
+
+Outputs:
+
+    AdminUrl: 
+        Description: Point your DNS to this CNAME.
+        Value: !Join ["", [ !Ref "AWS::StackName", ".", !Ref ZoneName ]]
+    AdminUsername: 
+        Description: Solodev admin username.
+        Value: !Ref AdminUser
+    AdminPassword: 
+        Description: Solodev admin password.
+        Value: !Ref AdminPassword
