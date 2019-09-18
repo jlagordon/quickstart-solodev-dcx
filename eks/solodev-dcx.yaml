@@ -79,7 +79,7 @@ Parameters:
     Type: String
     Default: "EKSQuickStart"
 
-  MarketplaceRole:
+  NodeInstanceRoleName:
     Type: String
 
 Resources:
@@ -95,7 +95,7 @@ Resources:
       Namespace: "solodev-dcx"
       ValueYaml: !Sub |
         env: prod
-        serviceAccountName: ${MarketplaceRole}
+        serviceAccountName: ${NodeInstanceRoleName}
         storage:
           className: standard
           size: 10G

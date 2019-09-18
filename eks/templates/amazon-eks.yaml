@@ -408,8 +408,7 @@ Resources:
         AdminPassword: !Ref AdminPassword
         DatabasePassword: !Ref DatabasePassword
         ZoneName: !Ref ZoneName
-        MarketplaceRole: !Ref MarketplaceRole
-
+        NodeInstanceRoleName: !GetAtt IamStack.Outputs.NodeInstanceRoleName
   LambdaZipsBucket:
     Type: AWS::S3::Bucket
     Condition: CreateLambdaZipsBucket
