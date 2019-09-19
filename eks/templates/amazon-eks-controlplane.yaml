@@ -59,18 +59,6 @@ Resources:
         Arns: [ !Ref NodeInstanceRoleArn ]
         Groups: [ 'system:bootstrappers', 'system:nodes' ]
         Username: 'system:node:{{EC2PrivateDNSName}}'
-  AdditionalAdminUsers:
-    Condition: AddUsers
-    DependsOn: [ EksNodeUser, AddCallerUserToClusterAsAdmin ]
-    Type: "Custom::KubeManifest"
-    Version: '1.0'
-    Properties:
-      ServiceToken: !Ref KubeManifestLambdaArn
-      KubeConfigPath: !Sub "s3://${KubeConfigS3Bucket}/${KubeConfigS3Key}"
-      KubeConfigKmsContext: !Ref KmsContext
-      Users:
-        Arns: !Ref AdditionalEKSAdminArns
-        Groups: [ "system:masters" ]
   KubeConfigToS3:
     Type: "Custom::ConfigToS3"
     Version: '1.0'
@@ -105,6 +93,18 @@ Resources:
         Arns: [!GetAtt CallerArn.Arn]
         Groups: [ "system:masters" ]
       Username: !Ref CallerArn
+  AdditionalAdminUsers:
+    Condition: AddUsers
+    DependsOn: [ EksNodeUser, AddCallerUserToClusterAsAdmin ]
+    Type: "Custom::KubeManifest"
+    Version: '1.0'
+    Properties:
+      ServiceToken: !Ref KubeManifestLambdaArn
+      KubeConfigPath: !Sub "s3://${KubeConfigS3Bucket}/${KubeConfigS3Key}"
+      KubeConfigKmsContext: !Ref KmsContext
+      Users:
+        Arns: !Ref AdditionalEKSAdminArns
+        Groups: [ "system:masters" ]
 Outputs:
   EksArn:
     Value: !GetAtt EKS.Arn
