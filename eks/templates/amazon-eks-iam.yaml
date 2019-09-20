@@ -231,6 +231,8 @@ ControlPlaneAdminRole:
             Principal:
               AWS: !Select [ 0, !Ref AdditionalEKSAdminArns ]
             Action: sts:AssumeRole
+        PolicyName: !Sub "${AWS::StackName}-ControlPlaneAdminRole"
+        Roles: [ !Ref ControlPlaneProvisionRole ]
   NodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
