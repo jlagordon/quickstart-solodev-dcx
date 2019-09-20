@@ -64,7 +64,7 @@ init(){
 }
 
 generateConfig(){
-    cat > eksconfig << EOF
+    cat > ${KUBECONFIG} << EOF
 apiVersion: v1
 clusters:
 - cluster:
