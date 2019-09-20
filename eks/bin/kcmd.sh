@@ -100,7 +100,7 @@ rbac(){
     kubectl --kubeconfig=$KUBECONFIG create clusterrolebinding permissive-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts;
 }
 
-initDashboard(){
+installDashboard(){
     #https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html
     helm --kubeconfig $KUBECONFIG install --name kubernetes-dashboard kubernetes-dashboard
     kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml
