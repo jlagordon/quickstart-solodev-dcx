@@ -44,6 +44,7 @@ token(){
 }
 
 update(){
+    helm --kubeconfig $KUBECONFIG repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'
     helm --kubeconfig $KUBECONFIG repo update
     helm --kubeconfig $KUBECONFIG repo list
 }

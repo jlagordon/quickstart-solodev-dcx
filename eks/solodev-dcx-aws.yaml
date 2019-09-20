@@ -25,6 +25,7 @@ Metadata:
           - HelmLambdaArn
           - KubeConfigPath
           - KubeConfigKmsContext
+          - NodeInstanceRoleName
 
 Parameters:
   ZoneName:
@@ -98,13 +99,13 @@ Resources:
         env: prod
         serviceAccountName: ${NodeInstanceRoleName}
         storage:
-          className: standard
+          className: gp2
           size: 10G
         solodev:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-827618812
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
             repository: solodev-cms
-            tag: DCXEnterpriseeditionfork8s-latest
+            tag: 9.0-latest
             pullPolicy: IfNotPresent
           cname: ${ZoneName}
           port: 9000
@@ -125,9 +126,9 @@ Resources:
             mongoDbName: solodev_views
         ui:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-827618812
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
             repository: solodev-apache
-            tag: DCXEnterpriseeditionfork8s-latest
+            tag: 9.0-latest
             pullPolicy: IfNotPresent
           http:
             port: 80
@@ -142,32 +143,26 @@ Resources:
             tag: 5.7
             pullPolicy: IfNotPresent
           port: 3306
-          storage:
-            mount: local-storage
           read:
             port: 3307
           settings:
         mongo:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-827618812
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
             repository: techcto/mongo
-            tag: DCXEnterpriseeditionfork8s-latest
+            tag: 9.0-latest
             pullPolicy: IfNotPresent
           port: 27017
           settings:
             username: solodev
             password: ${DatabasePassword}
-          storage:
-            mount: "/data"
         redis:
           image:
-            registry: docker.io
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
             repository: redis
-            tag: latest
+            tag: 9.0-latest
             pullPolicy: IfNotPresent
           port: 6379
-          storage:
-            mount: "/data"
 
 Outputs:
 

@@ -39,7 +39,7 @@ Metadata:
       - Label:
           default: Optional Solodev DCX configuration
         Parameters:
-          - SolodevDCXNetwork
+          - ProvisionSolodevDCXNetwork
           - ZoneName
           - ZoneId
       - Label:

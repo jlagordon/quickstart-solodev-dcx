@@ -25,6 +25,7 @@ Metadata:
           - HelmLambdaArn
           - KubeConfigPath
           - KubeConfigKmsContext
+          - NodeInstanceRoleName
 
 Parameters:
   ZoneName:
@@ -93,12 +94,13 @@ Resources:
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       RepoUrl: https://raw.githubusercontent.com/techcto/charts/master/
       Chart: charts/solodev-dcx
+      Name: !Ref AWS::StackName
       Namespace: "solodev-dcx"
       ValueYaml: !Sub |
         env: prod
         serviceAccountName: ${NodeInstanceRoleName}
         storage:
-          className: standard
+          className: gp2
           size: 10G
         solodev:
           image:
@@ -143,8 +145,6 @@ Resources:
             tag: 5.7
             pullPolicy: IfNotPresent
           port: 3306
-          storage:
-            mount: local-storage
           read:
             port: 3307
           settings:
@@ -158,8 +158,6 @@ Resources:
           settings:
             username: solodev
             password: ${DatabasePassword}
-          storage:
-            mount: "/data"
         redis:
           image:
             registry: docker.io
@@ -167,8 +165,6 @@ Resources:
             tag: latest
             pullPolicy: IfNotPresent
           port: 6379
-          storage:
-            mount: "/data"
 
 Outputs:
 
