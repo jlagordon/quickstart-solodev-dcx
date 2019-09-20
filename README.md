@@ -29,7 +29,7 @@ Once you’ve configured your <a href="http://docs.aws.amazon.com/AmazonVPC/late
 
 Please follow the instructions below depending upon your current environment. If you do not have an existing EKS cluster, begin by <a href="#" target="_blank">launching a new EKS cluster</a>. Once that is complete, follow the directions to <a href="#" target="_blank">deploy Solodev DCX</a> to that newly created EKS cluster. Conversely, if you wish to deploy Solodev DCX to a preexisting EKS cluster, skip directly to <a href="#" target="_blank">those instructions</a>.
 
-<table>
+<table width="882">
 	<tr>
 		<th width="50%"><a href="#">Launch a New EKS Cluster<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></th>
 		<th width="50%"><a href="#">Deploy Solodev DCX to an EKS Cluster<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></th>
