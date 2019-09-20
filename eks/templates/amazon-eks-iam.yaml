@@ -222,11 +222,12 @@ Resources:
                   - arn:aws:logs:*:*:*
   ControlPlaneAdminRole:
     Condition: AddUsers
+    DependsOn: ControlPlaneProvisionRole
     Type: "AWS::IAM::Role"
     Properties:
       Path: "/"
       ManagedPolicyArns:
-        - !Ref ControlPlaneProvisionRole
+        - !GetAtt ControlPlaneProvisionRole.Arn
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
