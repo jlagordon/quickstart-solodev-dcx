@@ -227,7 +227,7 @@ Resources:
     Properties:
       Roles:
         - !Ref ControlPlaneProvisionRole
-      Users: !Ref AdditionalEKSAdminArns
+      Users: !Join [ ",", !Ref AdditionalEKSAdminArns ]
       PolicyName: 'ControlPlaneAdminRole'
       PolicyDocument:
         Version: '2012-10-17'
