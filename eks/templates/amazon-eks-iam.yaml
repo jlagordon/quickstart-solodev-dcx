@@ -225,10 +225,9 @@ Resources:
     DependsOn: ControlPlaneProvisionRole
     Type: AWS::IAM::Policy
     Properties:
-      Path: "/"
       Roles:
         - !Ref ControlPlaneProvisionRole
-      ManagedPolicyName: 'ControlPlaneAdminRole'
+      PolicyName: 'ControlPlaneAdminRole'
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
