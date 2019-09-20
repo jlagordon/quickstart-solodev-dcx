@@ -190,6 +190,20 @@ Upon launching your CloudFormation stack, you will be able to monitor the instal
 	</tr>
 </table>
 
+## Step 4: Gather Stack Outputs for Solodev DCX
+If your stack builds successfully, you will see the green "CREATE_COMPLETE" message. Click on the primary stack and view the "Outputs" tab. You will find details pertaining to the cluster's BastionIP, EKSClusterName, HelmLambdaArn, KubeConfigPath, and KubeManifestLambdaArn. Save or take note of these output values as you will need them when launching Solodev DCX on the EKS cluster.
+
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/outputs-solodev-cms-eks.jpg" /></td>
+	</tr>
+</table>
+
+## Step 5: Launch Solodev DCX
+With your EKS stack successfully launched, you can proceed to launch Solodev DCX.
+
+<a href="pages/deploy-solodev-dcx"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a>
+
 © 2019 Solodev. All rights reserved worldwide. And off planet. 
 
 Errors or corrections? Email us at help@solodev.com.
