@@ -1,7 +1,7 @@
 # Deploy EKS Cluster
 
 ## Step 1: Launch your CloudFormation Stack
-<center><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template">Launch a New EKS Cluster<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></center>
+<p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template">Launch a New EKS Cluster<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
 ## Step 2: Fill Out the CloudFormation Stack Wizard
 <strong>Continue with the preselected CloudFormation Template</strong><br />
@@ -198,7 +198,7 @@ If your stack builds successfully, you will see the green "CREATE_COMPLETE" mess
 ## Step 5: Launch Solodev DCX
 With your EKS stack successfully launched, you can proceed to launch Solodev DCX.
 
-<center><a href="pages/deploy-solodev-dcx"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></center>
+<p align="center"><a href="pages/deploy-solodev-dcx"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
 
 © 2019 Solodev. All rights reserved worldwide. And off planet. 
 
