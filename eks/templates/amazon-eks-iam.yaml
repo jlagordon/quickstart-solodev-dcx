@@ -36,9 +36,13 @@ Parameters:
     Type: String
     Default: "Enabled"
     AllowedValues: ["Enabled", "Disabled"]
+  AdditionalEKSAdminArns:
+    Type: CommaDelimitedList
+    Default: ""
 Conditions:
   CreateDeleteBucketContentsRole: !Equals [!Ref 'DeleteLambdaZipsBucketContents', "True"]
   EnableBastionRole: !Equals [!Ref CreateBastionRole, "Enabled"]
+  AddUsers: !Not [ !Equals [!Select [ 0, !Ref AdditionalEKSAdminArns ], ""] ]
 Resources:
   DeleteBucketContentsRole:
     Condition: CreateDeleteBucketContentsRole
@@ -216,6 +220,17 @@ Resources:
                   - logs:PutLogEvents
                 Resource:
                   - arn:aws:logs:*:*:*
+ControlPlaneAdminRole:
+    Condition: AddUsers
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Select [ 0, !Ref AdditionalEKSAdminArns ]
+            Action: sts:AssumeRole
   NodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:

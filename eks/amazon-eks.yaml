@@ -384,5 +384,3 @@ Outputs:
     Value: !GetAtt EKSStack.Outputs.BastionIP
   EKSClusterName:
     Value: !GetAtt EKSStack.Outputs.EKSClusterName
-  ControlPlaneProvisionRoleArn:
-    Value: !GetAtt EKSStack.Outputs.ControlPlaneProvisionRoleArn

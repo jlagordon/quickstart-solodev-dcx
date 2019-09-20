@@ -334,6 +334,7 @@ Resources:
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
         KubeConfigBucket: !Ref KubeConfigBucket
+        AdditionalEKSAdminArns: !Join [ ",", !Ref AdditionalEKSAdminArns ]
         CreateBastionRole: !If [CustomBastionRole, "Disabled", !If [EnableBastion, "Enabled", "Disabled"]]
   FunctionStack:
     Type: "AWS::CloudFormation::Stack"
@@ -447,6 +448,7 @@ Resources:
         KmsContext: !Ref KubeConfigKmsContext
         CleanupLoadBalancersLambdaArn: !GetAtt FunctionStack.Outputs.CleanupLoadBalancersLambdaArn
         GetCallerArnLambdaArn: !GetAtt FunctionStack.Outputs.GetCallerArnLambdaArn
+        ControlPlaneProvisionRoleArn: !GetAtt IamStack.Outputs.ControlPlaneProvisionRoleArn
   KmsKey:
     Type: "AWS::KMS::Key"
     Properties:
@@ -517,5 +519,3 @@ Outputs:
     Value: !GetAtt IamStack.Outputs.NodeInstanceRoleArn
   CleanupSecurityGroupDependenciesLambdaArn:
     Value: !GetAtt FunctionStack.Outputs.CleanupSecurityGroupDependenciesLambdaArn
-  ControlPlaneProvisionRoleArn:
-    Value: !GetAtt IamStack.Outputs.ControlPlaneProvisionRoleArn

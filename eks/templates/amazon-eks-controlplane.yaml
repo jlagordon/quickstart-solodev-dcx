@@ -19,6 +19,8 @@ Parameters:
     Type: String
   KubeConfigUploadRoleArn:
     Type: String
+  ControlPlaneProvisionRoleArn:
+    Type: String
   KubeConfigS3Bucket:
     Type: String
   KubeConfigS3Key:
@@ -116,3 +118,5 @@ Outputs:
     Value: !Ref EKS
   KubeConfigPath:
     Value: !Sub "s3://${KubeConfigS3Bucket}/${KubeConfigS3Key}"
+  ControlPlaneProvisionRoleArn:
+    Value: !Ref ControlPlaneProvisionRoleArn
