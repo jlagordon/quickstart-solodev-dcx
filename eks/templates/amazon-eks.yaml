@@ -109,7 +109,7 @@ Parameters:
     ConstraintDescription: Must be a valid EC2 instance type
     Type: String
   NumberOfNodes:
-    Default: 3
+    Default: 2
     Type: Number
   MaxNumberOfNodes:
     Default: 3
@@ -194,34 +194,6 @@ Parameters:
     Type: Number
     MinValue: 0
     Default: 0
-  ProvisionSolodevDCXNetwork:
-    Type: String
-    AllowedValues: [ "Enabled", "Disabled" ]
-    Default: "Disabled"
-  ZoneName:
-    Type: String
-  ZoneId:
-    Type: String
-  ProvisionSolodevDCX:
-    Type: String
-    AllowedValues: [ "Enabled", "Disabled" ]
-    Default: "Disabled"
-  AdminPassword: 
-    NoEcho: true
-    Description: The solodev admin password
-    Type: String
-    MinLength: 1
-    MaxLength: 41
-    AllowedPattern: .+
-    ConstraintDescription: Please set admin password
-  DatabasePassword:
-    NoEcho: true
-    Description: The database root password
-    Type: String
-    MinLength: 1
-    MaxLength: 41
-    AllowedPattern: .+
-    ConstraintDescription: Please set database root password
 Conditions:
   CreateLambdaZipsBucket: !Equals [!Ref 'LambdaZipsBucketName', '']
   DefaultBastionBootstrap: !Equals [!Ref 'BastionBootstrapScript', '']
@@ -230,8 +202,6 @@ Conditions:
   AdditionalVars: !Not [!Equals [!Ref 'BastionVariables', '']]
   EnableClusterAutoScaler: !Equals [!Ref 'ProvisionClusterAutoScaler', 'Enabled']
   EnableEfs: !Equals [!Ref 'EfsStorageClass', 'Enabled']
-  EnableSolodevDCXNetwork: !Equals [!Ref 'ProvisionSolodevDCXNetwork', 'Enabled']
-  EnableSolodevDCX: !Equals [!Ref 'ProvisionSolodevDCX', 'Enabled']
 Resources:
   BastionEksPermissions:
     Condition: EnableBastion
@@ -384,32 +354,6 @@ Resources:
         PerformanceMode: !Ref EfsPerformanceMode
         ProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
         ThroughputMode: !Ref EfsThroughputMode
-  SolodevNetworkStack:
-    Condition: EnableSolodevDCXNetwork
-    DependsOn: EfsStack
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/solodev-dcx-network.yaml'
-      Parameters:
-        HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
-        KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
-        KubeConfigKmsContext: !Ref KubeConfigKmsContext
-        ZoneName: !Ref ZoneName
-        ZoneId: !Ref ZoneId
-  SolodevDCXStack:
-    Condition: EnableSolodevDCX
-    DependsOn: SolodevNetworkStack
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/eks/solodev-dcx.yaml'
-      Parameters:
-        HelmLambdaArn: !GetAtt FunctionStack.Outputs.HelmLambdaArn
-        KubeConfigPath: !Sub "s3://${KubeConfigBucket}/.kube/config.enc"
-        KubeConfigKmsContext: !Ref KubeConfigKmsContext
-        AdminPassword: !Ref AdminPassword
-        DatabasePassword: !Ref DatabasePassword
-        ZoneName: !Ref ZoneName
-        NodeInstanceRoleName: !GetAtt IamStack.Outputs.NodeInstanceRoleName
   LambdaZipsBucket:
     Type: AWS::S3::Bucket
     Condition: CreateLambdaZipsBucket

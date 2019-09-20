@@ -37,15 +37,6 @@ Metadata:
           - AdditionalEKSAdminArns
           - KubernetesVersion
       - Label:
-          default: Optional Solodev DCX configuration
-        Parameters:
-          - SolodevDCXNetwork
-          - ZoneName
-          - ZoneId
-          - SolodevDCX
-          - AdminPassword
-          - DatabasePassword
-      - Label:
           default: AWS Quick Start configuration
         Parameters:
           - QSS3BucketName
@@ -102,10 +93,6 @@ Metadata:
         default: EFS throughput mode
       EfsProvisionedThroughputInMibps:
         default: EFS provisioned throughput in Mibps
-      SolodevDCXNetwork:
-        default: Solodev DCX Network
-      SolodevDCX:
-        default: Solodev DCX
 Parameters:
   KeyPairName:
     Description: The name of an existing public/private key pair, which allows you
@@ -288,38 +275,6 @@ Parameters:
     MinValue: 0
     Default: 0
     Description: Set to 0 if EfsThroughputMode is set to bursting. Only has an effect when EfsStorageClass is enabled.
-  SolodevDCXNetwork:
-    Type: String
-    AllowedValues: [ Enabled, Disabled ]
-    Default: Enabled
-    Description: Choose Enabled to enable the Solodev DCX Network.
-  ZoneName:
-    Type: String
-    Default: ''
-  ZoneId:
-    Type: String
-    Default: ''
-  SolodevDCX:
-    Type: String
-    AllowedValues: [ Enabled, Disabled ]
-    Default: Enabled
-    Description: Choose Enabled to install Solodev DCX.
-  AdminPassword: 
-    NoEcho: true
-    Description: The solodev admin password
-    Type: String
-    MinLength: 1
-    MaxLength: 41
-    AllowedPattern: .+
-    ConstraintDescription: Please set admin password
-  DatabasePassword:
-    NoEcho: true
-    Description: The database root password
-    Type: String
-    MinLength: 1
-    MaxLength: 41
-    AllowedPattern: .+
-    ConstraintDescription: Please set database root password
 Rules:
   EKSSupport:
     Assertions:
@@ -367,12 +322,6 @@ Resources:
         EfsPerformanceMode: !Ref EfsPerformanceMode
         EfsThroughputMode: !Ref EfsThroughputMode
         EfsProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
-        ProvisionSolodevDCXNetwork: !Ref SolodevDCXNetwork
-        ZoneName: !Ref ZoneName
-        ZoneId: !Ref ZoneId
-        ProvisionSolodevDCX: !Ref SolodevDCX
-        AdminPassword: !Ref AdminPassword
-        DatabasePassword: !Ref DatabasePassword
 Outputs:
   KubeConfigPath:
     Value: !GetAtt EKSStack.Outputs.KubeConfigPath

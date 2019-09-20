@@ -81,6 +81,7 @@ Parameters:
 
   NodeInstanceRoleName:
     Type: String
+    Default: ''
 
 Resources:
   SolodevDCX:
