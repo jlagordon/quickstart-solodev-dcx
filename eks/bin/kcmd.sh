@@ -3,7 +3,7 @@
 args=("$@")
 
 export RELEASE="solodev-dcx-aws"
-export NAMESPACE="${NAMESPACE}"
+export NAMESPACE="solodev-dcx"
 export KUBECONFIG="eksconfig"
 export DOMAINNAME="domain.com"
 export DOMAINID="config"
