@@ -37,6 +37,12 @@ Metadata:
           - AdditionalEKSAdminArns
           - KubernetesVersion
       - Label:
+          default: Optional Solodev DCX configuration
+        Parameters:
+          - SolodevDCXNetwork
+          - ZoneName
+          - ZoneId
+      - Label:
           default: AWS Quick Start configuration
         Parameters:
           - QSS3BucketName
@@ -275,6 +281,16 @@ Parameters:
     MinValue: 0
     Default: 0
     Description: Set to 0 if EfsThroughputMode is set to bursting. Only has an effect when EfsStorageClass is enabled.
+  ProvisionSolodevDCXNetwork:
+    Type: String
+    AllowedValues: [ "Enabled", "Disabled" ]
+    Default: "Disabled"
+  ZoneName:
+    Type: String
+    Default: ""
+  ZoneId:
+    Type: String
+    Default: ""
 Rules:
   EKSSupport:
     Assertions:
@@ -294,6 +310,8 @@ Rules:
              - ap-northeast-2
              - ap-south-1
           - !Ref 'AWS::Region'
+Conditions:
+  EnableSolodevDCXNetwork: !Equals [!Ref 'ProvisionSolodevDCXNetwork', 'Enabled']
 Resources:
   EKSStack:
     Type: AWS::CloudFormation::Stack
@@ -322,6 +340,7 @@ Resources:
         EfsPerformanceMode: !Ref EfsPerformanceMode
         EfsThroughputMode: !Ref EfsThroughputMode
         EfsProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
+        BootstrapArguments: !If [EnableSolodevDCXNetwork, '--use-max-pods false --solodev-network true', '']
 Outputs:
   KubeConfigPath:
     Value: !GetAtt EKSStack.Outputs.KubeConfigPath

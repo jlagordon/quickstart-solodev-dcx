@@ -560,7 +560,4 @@ request_eip
 install_kubernetes_client_tools
 setup_kubeconfig
 
-#Disable default AWS CNI
-# rm -f /etc/cni/net.d/10-aws.conflist
-
 echo "Bootstrap complete."
