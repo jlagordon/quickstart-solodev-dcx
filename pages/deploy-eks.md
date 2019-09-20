@@ -198,7 +198,7 @@ If your stack builds successfully, you will see the green "CREATE_COMPLETE" mess
 ## Step 5: Launch Solodev DCX
 With your EKS stack successfully launched, you can proceed to launch Solodev DCX.
 
-<p align="center"><a href="deploy-solodev-dcx"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
+<p align="center"><a href="deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
 
 © 2019 Solodev. All rights reserved worldwide. And off planet. 
 
