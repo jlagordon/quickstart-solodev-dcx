@@ -2,7 +2,8 @@
 
 args=("$@")
 
-export RELEASE="solodev-dcx-aws"
+export RELEASE="${NAMESPACE}-aws"
+export NAMESPACE="${NAMESPACE}"
 export KUBECONFIG="eksconfig"
 export DOMAINNAME="domain.com"
 export DOMAINID="config"
@@ -26,7 +27,7 @@ ls(){
 
 install(){
     NAME="${args[1]}"
-    helm --kubeconfig $KUBECONFIG install --namespace solodev-dcx --name ${NAME} charts/${RELEASE} --set solodev.cname=${DOMAINNAME} --set solodev.settings.appSecret=${SECRET}
+    helm --kubeconfig $KUBECONFIG install --namespace ${NAMESPACE} --name ${NAME} charts/${RELEASE} --set solodev.cname=${DOMAINNAME} --set solodev.settings.appSecret=${SECRET}
 }
 
 delete(){
@@ -51,7 +52,7 @@ log(){
 }
 
 clean(){
-    helm --kubeconfig $KUBECONFIG list --short --namespace solodev-dcx | xargs -L1 helm delete
+    helm --kubeconfig $KUBECONFIG list --short --namespace ${NAMESPACE} | xargs -L1 helm delete
 }
 
 #INIT

@@ -1,3 +1,5 @@
 .vscode
 server.*
 params
+
+eks/bin/kcmd.dev.sh
