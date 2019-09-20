@@ -3,7 +3,7 @@
 ## Step 1: Launch your CloudFormation Stack
 <table>
 	<tr>
-		<th width="882"><a href="#">Launch a New EKS Cluster<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></th>
+		<th width="882"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template">Launch a New EKS Cluster<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></th>
 	</tr>
 </table>
 
@@ -103,29 +103,13 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 	<tr>
 		<td colspan="2"><strong>Optional Solodev DCX configuration</strong></td>
 	<tr>
-		<td width="33%">Solodev DCX Network</td>
-		<td width="600px">Choose Enabled to enable the Solodev DCX Network</td>
-	</tr>
-	<tr>
 		<td width="33%">ZoneName</td>
 		<td width="600px"></td>
 	</tr>
 	<tr>
 		<td width="33%">ZoneId</td>
 		<td width="600px"></td>
-	</tr>
-	<tr>
-		<td width="33%">Solodev DCX</td>
-		<td width="600px">Choose Enabled to install Solodev DCX</td>
-	</tr>
-	<tr>
-		<td width="33%">AdminPassword</td>
-		<td width="600px">The solodev admin password</td>
-	</tr>
-	<tr>
-		<td width="33%">DatabasePassword</td>
-		<td width="600px">The database root password</td>
-	</tr>          
+	</tr>         
 </table>
 
 <table>
@@ -168,6 +152,15 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 		<td width="33%">EFS provisioned throughput in Mibps</td>
 		<td width="600px">Set to 0 if EfsThroughputMode is set to bursting. Only has an effect when EfsStorageClass is enabled.</td>
 	</tr>        
+</table>
+
+<table>
+	<tr>
+		<td colspan="2"><strong>Other parameters</strong></td>
+	<tr>
+		<td width="33%">ProvisionSolodevDCXNetwork</td>
+		<td width="600px">Whether or not to also deploy the <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a>. Recommended to keep "Disabled" unless a Solodev developer.</td>
+	</tr>       
 </table>
 
 <strong>Specify Options</strong><br />
