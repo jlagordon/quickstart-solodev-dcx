@@ -223,12 +223,13 @@ Resources:
   ControlPlaneAdminRole:
     Condition: AddUsers
     DependsOn: ControlPlaneProvisionRole
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Policy
     Properties:
       Path: "/"
-      ManagedPolicyArns:
-        - !GetAtt ControlPlaneProvisionRole.Arn
-      AssumeRolePolicyDocument:
+      Roles:
+        - !Ref ControlPlaneProvisionRole
+      ManagedPolicyName: 'ControlPlaneAdminRole'
+      PolicyDocument:
         Version: '2012-10-17'
         Statement:
           - Effect: Allow
