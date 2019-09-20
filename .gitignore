@@ -3,3 +3,4 @@ server.*
 params
 
 eks/bin/kcmd.dev.sh
+eks/bin/eksconfi*
