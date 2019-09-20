@@ -227,13 +227,12 @@ Resources:
     Properties:
       Roles:
         - !Ref ControlPlaneProvisionRole
+      Users: !Ref AdditionalEKSAdminArns
       PolicyName: 'ControlPlaneAdminRole'
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
           - Effect: Allow
-            Principal:
-              AWS: !Select [ 0, !Ref AdditionalEKSAdminArns ]
             Action: sts:AssumeRole
   NodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
