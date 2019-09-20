@@ -220,17 +220,21 @@ Resources:
                   - logs:PutLogEvents
                 Resource:
                   - arn:aws:logs:*:*:*
-ControlPlaneAdminRole:
+  ControlPlaneAdminRole:
     Condition: AddUsers
     Type: "AWS::IAM::Role"
     Properties:
+      Path: "/"
+      ManagedPolicyArns:
+        - !Ref ControlPlaneProvisionRole
       AssumeRolePolicyDocument:
-        Version: 2012-10-17
+        Version: '2012-10-17'
         Statement:
           - Effect: Allow
             Principal:
               AWS: !Select [ 0, !Ref AdditionalEKSAdminArns ]
             Action: sts:AssumeRole
+        PolicyName: !Sub "${AWS::StackName}-ControlPlaneAdminRole"
   NodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
