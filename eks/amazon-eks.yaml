@@ -253,7 +253,7 @@ Parameters:
   ClusterAutoScaler:
     Type: String
     AllowedValues: [ Enabled, Disabled ]
-    Default: Disabled
+    Default: Enabled
     Description: Choose Enabled to enable Kubernetes cluster autoscaler.
   EfsStorageClass:
     Type: String
