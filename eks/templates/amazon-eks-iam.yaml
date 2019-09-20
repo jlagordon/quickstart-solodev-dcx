@@ -220,20 +220,20 @@ Resources:
                   - logs:PutLogEvents
                 Resource:
                   - arn:aws:logs:*:*:*
-  ControlPlaneAdminRole:
-    Condition: AddUsers
-    DependsOn: ControlPlaneProvisionRole
-    Type: AWS::IAM::Policy
-    Properties:
-      Roles:
-        - !Ref ControlPlaneProvisionRole
-      Users: !Split [",", !Ref AdditionalEKSAdminArns]
-      PolicyName: 'ControlPlaneAdminRole'
-      PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Action: sts:AssumeRole
+  # ControlPlaneAdminRole:
+  #   Condition: AddUsers
+  #   DependsOn: ControlPlaneProvisionRole
+  #   Type: AWS::IAM::Policy
+  #   Properties:
+  #     Roles:
+  #       - !Ref ControlPlaneProvisionRole
+  #     Users: !Split [",", !Ref AdditionalEKSAdminArns]
+  #     PolicyName: 'ControlPlaneAdminRole'
+  #     PolicyDocument:
+  #       Version: '2012-10-17'
+  #       Statement:
+  #         - Effect: Allow
+  #           Action: sts:AssumeRole
   NodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
