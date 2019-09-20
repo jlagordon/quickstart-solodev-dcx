@@ -1,10 +1,18 @@
 #!/bin/bash
 
 args=("$@")
+
+export RELEASE="solodev-dcx-aws"
 export KUBECONFIG="eksconfig"
 export DOMAINNAME="domain.com"
 export DOMAINID="config"
 export SECRET="BigSecret123"
+
+#GET VALUES FROM CLOUDFORMATION OUTPUT OF EKS STACK
+export CAData=""
+export EKSEndpoint=""
+export EKSName=""
+export ControlPlaneProvisionRoleArn=""
 
 #ADMIN
 proxy(){
@@ -18,7 +26,7 @@ ls(){
 
 install(){
     NAME="${args[1]}"
-    helm --kubeconfig $KUBECONFIG install --namespace solodev-dcx --name ${NAME} charts/solodev-dcx-aws --set solodev.cname=${DOMAINNAME} --set solodev.settings.appSecret=${SECRET}
+    helm --kubeconfig $KUBECONFIG install --namespace solodev-dcx --name ${NAME} charts/${RELEASE} --set solodev.cname=${DOMAINNAME} --set solodev.settings.appSecret=${SECRET}
 }
 
 delete(){
@@ -48,6 +56,7 @@ clean(){
 
 #INIT
 init(){
+    generateConfig
     helm --kubeconfig $KUBECONFIG init
     helm --kubeconfig $KUBECONFIG repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'
     rbac
@@ -55,11 +64,6 @@ init(){
 }
 
 generateConfig(){
-    CAData="${args[1]}"
-    EKSEndpoint="${args[2]}"
-    EKSName="${args[3]}"
-    ControlPlaneProvisionRoleArn="${args[4]}"
-
     cat > eksconfig << EOF
 apiVersion: v1
 clusters:
@@ -96,6 +100,7 @@ rbac(){
 }
 
 initDashboard(){
+    #https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html
     helm --kubeconfig $KUBECONFIG install --name kubernetes-dashboard kubernetes-dashboard
     kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml
     kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml
@@ -121,12 +126,6 @@ subjects:
   namespace: kube-system
 EOF
     kubectl --kubeconfig $KUBECONFIG apply -f eks-admin-service-account.yaml
-}
-
-#Optional
-installSolodevNetwork(){
-    kubectl --kubeconfig $KUBECONFIG create namespace solodev-network
-    helm --kubeconfig $KUBECONFIG install --namespace solodev-network --name solodev-network charts/solodev-network --set dns.zone.name=spacedeploy.com --set dns.zone.id=Z3JX0FU96ITK6J
 }
 
 
