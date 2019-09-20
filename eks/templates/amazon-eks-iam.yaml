@@ -37,12 +37,12 @@ Parameters:
     Default: "Enabled"
     AllowedValues: ["Enabled", "Disabled"]
   AdditionalEKSAdminArns:
-    Type: CommaDelimitedList
+    Type: String
     Default: ""
 Conditions:
   CreateDeleteBucketContentsRole: !Equals [!Ref 'DeleteLambdaZipsBucketContents', "True"]
   EnableBastionRole: !Equals [!Ref CreateBastionRole, "Enabled"]
-  AddUsers: !Not [ !Equals [!Select [ 0, !Ref AdditionalEKSAdminArns ], ""] ]
+  AddUsers: !Not [ !Equals [!Ref AdditionalEKSAdminArns, ""] ]
 Resources:
   DeleteBucketContentsRole:
     Condition: CreateDeleteBucketContentsRole
