@@ -55,7 +55,9 @@ log(){
 }
 
 clean(){
-    helm --kubeconfig $KUBECONFIG list --short --namespace ${NAMESPACE} | xargs -L1 helm delete
+    NAME="${args[1]}"
+    kubectl --kubeconfig $KUBECONFIG delete --all daemonsets,replicasets,statefulsets,services,deployments,pods,rc,configmap --namespace=${NAME} --grace-period=0 --force
+    kubectl --kubeconfig $KUBECONFIG delete --namespace ${NAME} --all pvc
 }
 
 #INIT
