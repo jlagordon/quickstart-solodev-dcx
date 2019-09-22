@@ -93,7 +93,8 @@ Resources:
       KubeConfigPath: !Ref KubeConfigPath
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       RepoUrl: https://raw.githubusercontent.com/techcto/charts/master/
-      Chart: charts/solodev-dcx
+      Chart: charts/solodev-dcx-aws
+      Name: !Ref AWS::StackName
       Namespace: "solodev-dcx"
       ValueYaml: !Sub |
         env: prod
