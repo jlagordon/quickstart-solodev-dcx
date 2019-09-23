@@ -104,7 +104,7 @@ Resources:
           size: 10G
         solodev:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2469757812
             repository: solodev-cms
             tag: 9.1-latest
             pullPolicy: IfNotPresent
@@ -127,7 +127,7 @@ Resources:
             mongoDbName: solodev_views
         ui:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2469757812
             repository: solodev-apache
             tag: 9.1-latest
             pullPolicy: IfNotPresent
@@ -139,7 +139,7 @@ Resources:
             protocol: TCP
         mysql:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2469757812
             repository: mariadb
             tag: 9.1-latest
             pullPolicy: IfNotPresent
@@ -149,7 +149,7 @@ Resources:
           settings:
         mongo:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2469757812
             repository: techcto/mongo
             tag: 9.1-latest
             pullPolicy: IfNotPresent
@@ -159,7 +159,7 @@ Resources:
             password: ${DatabasePassword}
         redis:
           image:
-            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2515116976
+            registry: 709373726912.dkr.ecr.us-east-1.amazonaws.com/0c908dc0-e52e-4d48-bf4c-9e883d405d92/cg-2469757812
             repository: redis
             tag: 9.1-latest
             pullPolicy: IfNotPresent
