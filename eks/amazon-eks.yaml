@@ -341,7 +341,7 @@ Resources:
         EfsThroughputMode: !Ref EfsThroughputMode
         EfsProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
         BootstrapArguments: !If [EnableSolodevDCXNetwork, '--use-max-pods false --solodev-network true', '']
-        BastionVariables: !If [EnableSolodevDCXNetwork, !Join [ "", "K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref AWS::StackName], '']
+        BastionVariables: !If [EnableSolodevDCXNetwork, !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']], '']
 Outputs:
   KubeConfigPath:
     Value: !GetAtt EKSStack.Outputs.KubeConfigPath
