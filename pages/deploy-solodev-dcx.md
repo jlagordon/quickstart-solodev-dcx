@@ -106,8 +106,6 @@ Upon launching your CloudFormation stack, you will be able to monitor the instal
 	</tr>
 </table>
 
-<p align="center"><a href="deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
-
 © 2019 Solodev. All rights reserved worldwide. And off planet. 
 
 Errors or corrections? Email us at help@solodev.com.
