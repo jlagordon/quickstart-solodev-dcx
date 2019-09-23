@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#Params
 CLUSTER=1
 NETWORK=0
 DEPLOYMENT=0
