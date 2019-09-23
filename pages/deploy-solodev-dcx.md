@@ -1,10 +1,19 @@
 # Deploy Solodev DCX on an EKS Cluster via CloudFormation
 The following steps will allow you to deploy Solodev DCX to an existing EKS cluster by launching a new stack via AWS CloudFormation. Additional installation methods are available including <a href="https://github.com/techcto/charts">via Helm Charts</a> or via <a href="deploy-solodev-dcx-kcmd.md">custom kubectl commands</a>.
 
-## Step 1: Launch your CloudFormation Stack
+## Step 1: Subscribe on the AWS Marketplace
+Solodev is a professionally managed, enterprise-class Digital Customer Experience Platform and content management system (CMS). Before launching one of our products, you'll first need to subscribe to Solodev on the <a href="https://aws.amazon.com/marketplace/pp/B07XV951M6">AWS Marketplace.</a> Click the button below to get started: 
+<table>
+	<tr>
+		<td width="60%"><a href="https://aws.amazon.com/marketplace/pp/B07XV951M6"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/AWS_Marketplace_Logo.jpg" /></a></td>
+		<td><a href="https://aws.amazon.com/marketplace/pp/B07XV951M6"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Subscribe_Large.jpg" /></a></td>
+	</tr>
+</table>
+
+## Step 2: Launch your CloudFormation Stack
 <p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
-## Step 2: Fill Out the CloudFormation Stack Wizard
+## Step 3: Fill Out the CloudFormation Stack Wizard
 <strong>Continue with the preselected CloudFormation Template</strong><br />
 The Amazon S3 template URL (used for the CloudFormation configuration) should be preselected. Click "Next" to continue.
 
@@ -98,7 +107,7 @@ Review all CloudFront details and options. Click on the "Create" button to launc
 	</tr>
 </table>
 
-## Step 3: Monitor the CloudFormation Stack Creation Process
+## Step 4: Monitor the CloudFormation Stack Creation Process
 Upon launching your CloudFormation stack, you will be able to monitor the installation logs under the "Events" tab. The CloudFormation template will launch multiple stacks related to your Solodev instance. If you encounter any failures during this time, please visit the <a href="https://github.com/solodev/AWS-Launch-Pad/wiki/Common-Issues">Common Issues</a> page to begin troubleshooting.
 
 <table>
