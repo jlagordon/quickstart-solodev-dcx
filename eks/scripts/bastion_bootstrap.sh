@@ -456,7 +456,7 @@ EOF
     curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
     mv /tmp/eksctl /usr/local/bin
     eksctl create iamserviceaccount \
-                --name solodev-serviceaccount \
+                --name ${K8S_SERVICE_ACCOUNT} \
                 --namespace default \
                 --cluster ${K8S_CLUSTER_NAME} \
                 --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess \

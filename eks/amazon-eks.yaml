@@ -312,6 +312,7 @@ Rules:
           - !Ref 'AWS::Region'
 Conditions:
   EnableSolodevDCXNetwork: !Equals [!Ref 'ProvisionSolodevDCXNetwork', 'Enabled']
+  IsMarketPlace: !Not [Condition: EnableSolodevDCXNetwork]
 Resources:
   EKSStack:
     Type: AWS::CloudFormation::Stack
@@ -341,7 +342,7 @@ Resources:
         EfsThroughputMode: !Ref EfsThroughputMode
         EfsProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
         BootstrapArguments: !If [EnableSolodevDCXNetwork, '--use-max-pods false --solodev-network true', '']
-        BastionVariables: !If [EnableSolodevDCXNetwork, !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']], '']
+        BastionVariables: !If [IsMarketPlace, !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']], '']
 Outputs:
   KubeConfigPath:
     Value: !GetAtt EKSStack.Outputs.KubeConfigPath
@@ -353,3 +354,6 @@ Outputs:
     Value: !GetAtt EKSStack.Outputs.BastionIP
   EKSClusterName:
     Value: !GetAtt EKSStack.Outputs.EKSClusterName
+  SolodevServiceAccount:
+    Value: !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']]
+    Condition: IsMarketPlace
