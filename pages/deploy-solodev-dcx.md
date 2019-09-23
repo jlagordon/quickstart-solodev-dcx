@@ -1,1 +1,116 @@
 # Deploy Solodev DCX on an EKS Cluster
+
+## Step 1: Launch your CloudFormation Stack
+<p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
+
+## Step 2: Fill Out the CloudFormation Stack Wizard
+<strong>Continue with the preselected CloudFormation Template</strong><br />
+The Amazon S3 template URL (used for the CloudFormation configuration) should be preselected. Click "Next" to continue.
+
+<strong>Specify Details</strong><br />
+The following parameters must be configured to launch your Solodev DCX CloudFormation stack:
+
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/parameters-solodev-cms-eks-app.jpg" /></td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<th width="33%"><strong>Parameter</strong></th>
+		<th width="600px"><strong>Description</strong></th>
+	</tr>
+	<tr>
+		<td>Stack name</td>
+		<td>The name of your stack (set to "solodev-dcx-aws" by default). Please note, the name must be all lowercase.</td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<td colspan="2"><strong>User Settings</strong></td>
+	</tr>
+	<tr>
+		<td width="33%">AdminUser</td>
+		<td width="600px">The Solodev admin username</td>
+	</tr>
+	<tr>
+		<td>AdminPassword</td>
+		<td>The Solodev admin password</td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<td colspan="2"><strong>Advanced Settings</strong></td>
+	<tr>
+		<td width="33%">ZoneName</td>
+		<td width="600px">The Route53 zone name that will be used to deploy Solodev DCX</td>
+	</tr>
+	<tr>
+		<td>DatabaseName</td>
+		<td>The Solodev database name</td>
+	</tr>
+	<tr>
+		<td>DatabasePassword</td>
+		<td>The database root password</td>
+	</tr>
+	<tr>
+		<td>AppSecret</td>
+		<td>Secret Key for app encryption</td>
+	</tr>          
+</table>
+
+<table>
+	<tr>
+		<td colspan="2"><strong>EKS Cluster</strong></td>
+	<tr>
+		<td width="33%">HelmLambdaArn</td>
+		<td width="600px">The HelmLambdaArn found in the <a href="deploy-eks.md">outputs on your EKS stack</a></td>
+	</tr>
+	<tr>
+		<td>KubeConfigPath</td>
+		<td>The KubeConfigPath found in the <a href="deploy-eks.md">outputs on your EKS stack</td>
+	</tr> 
+	<tr>
+		<td>KubeConfigKmsContext</td>
+		<td></td>
+	</tr>       
+</table>
+
+<strong>Specify Options</strong><br />
+Generally speaking, no additional options need to be configured. If you are experiencing continued problems installing the software, disable "Rollback on failure" under the "Advanced" options. This will allow for further troubleshooting if necessary. Click on the "Next" button to continue.
+
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/options-solodev-cms-eks-app.jpg" /></td>
+	</tr>
+</table>
+
+<strong>Review</strong><br />
+Review all CloudFront details and options. Click on the "Create" button to launch your stack.
+
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/review-solodev-cms-eks-app.jpg" /></td>
+	</tr>
+</table>
+
+## Step 3: Monitor the CloudFormation Stack Creation Process
+Upon launching your CloudFormation stack, you will be able to monitor the installation logs under the "Events" tab. The CloudFormation template will launch multiple stacks related to your Solodev instance. If you encounter any failures during this time, please visit the <a href="https://github.com/solodev/AWS-Launch-Pad/wiki/Common-Issues">Common Issues</a> page to begin troubleshooting.
+
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/monitor-solodev-cms-eks-app.jpg" /></td>
+	</tr>
+</table>
+
+<p align="center"><a href="deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
+
+© 2019 Solodev. All rights reserved worldwide. And off planet. 
+
+Errors or corrections? Email us at help@solodev.com.
+
+---
+Visit [solodev.com](https://www.solodev.com/) to learn more. <img src="https://www.google-analytics.com/collect?v=1&tid=UA-3849724-1&cid=1&t=event&ec=github_aws&ea=main&cs=github&cm=github&cn=github_aws" />
