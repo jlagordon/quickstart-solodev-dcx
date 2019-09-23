@@ -1,7 +1,7 @@
 # Deploy EKS Cluster
 
 ## Step 1: Launch your CloudFormation Stack
-<p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
+<p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=solodev-eks&templateURL=https://solodev-quickstarts.s3.amazonaws.com/eks/amazon-eks.yaml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
 ## Step 2: Fill Out the CloudFormation Stack Wizard
 <strong>Continue with the preselected CloudFormation Template</strong><br />
