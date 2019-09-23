@@ -65,7 +65,7 @@ In addition to the other services deployed, Solodev DCX will deploy a "ui" servi
 </table>
 
 ## Step 5: Login to Solodev 
-Visit the external endpoint retrived in step 4 to load Solodev DCX. Use the the username "solodev" and the appPassword specified during step 3 for login credentials.
+Visit the external endpoint retrived in step 4 to load Solodev DCX. Use the the username "solodev" and the PASSWORD specified during step 2 for login credentials.
 
 <table>
 	<tr>
