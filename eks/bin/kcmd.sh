@@ -108,11 +108,38 @@ rbac(){
 }
 
 initServiceAccount(){
-    eksctl get clusters
-    echo "eksctl utils associate-iam-oidc-provider --region=${Region} --name=${EKSName} --approve"
-    eksctl utils associate-iam-oidc-provider --region=${Region} --name=${EKSName} --approve
-    echo "eksctl create iamserviceaccount --name ${NAMESPACE}-ServiceAccount --namespace default --cluster ${EKSName} --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess --approve --region ${Region}"
-    eksctl create iamserviceaccount --name ${NAMESPACE}-ServiceAccount --namespace default --cluster ${EKSName} --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess --approve --region ${Region}
+    # kubectl --kubeconfig $KUBECONFIG delete sa solodev-serviceaccount
+    ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text )
+    ISSUER_URL_WITHOUT_PROTOCOL=$(echo $ISSUER_URL | sed 's/https:\/\///g' )
+    ISSUER_HOSTPATH=$(echo $ISSUER_URL_WITHOUT_PROTOCOL | sed "s/\/id.*//" )
+    echo $ISSUER_URL
+    ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+    PROVIDER_ARN="arn:aws:iam::$ACCOUNT_ID:oidc-provider/$ISSUER_HOSTPATH"
+    cat > trust-policy.json << EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Principal": {
+            "Federated": "${PROVIDER_ARN}"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+            "StringEquals": {
+                "${ISSUER_HOSTPATH}:sub": "system:serviceaccount:default:solodev-serviceaccount"
+            }
+        }
+    }]
+}
+EOF
+
+    ROLE_NAME=solodev-usage
+    aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://trust-policy.json
+    aws iam update-assume-role-policy --role-name $ROLE_NAME --policy-document file://trust-policy.json
+    aws iam put-role-policy --role-name $ROLE_NAME --policy-name SolodevServiceAccount --policy-document file://service-policy.json
+    S3_ROLE_ARN=$(aws iam get-role --role-name $ROLE_NAME --query Role.Arn --output text)
+    kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount
+    kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$S3_ROLE_ARN
 }
 
 installDashboard(){
