@@ -98,7 +98,7 @@ Resources:
       Namespace: "solodev-dcx"
       ValueYaml: !Sub |
         env: prod
-        serviceAccountName: ${ServiceRoleName}
+        serviceAccountName: "${ServiceRoleName}"
         storage:
           className: gp2
           size: 10G
