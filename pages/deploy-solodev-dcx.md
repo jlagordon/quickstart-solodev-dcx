@@ -11,7 +11,7 @@ Solodev is a professionally managed, enterprise-class Digital Customer Experienc
 </table>
 
 ## Step 2: Launch your CloudFormation Stack
-<p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
+<p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=solodev-dcx&templateURL=https://solodev-quickstarts.s3.amazonaws.com/eks/solodev-dcx-aws.yaml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
 ## Step 3: Fill Out the CloudFormation Stack Wizard
 <strong>Continue with the preselected CloudFormation Template</strong><br />
@@ -33,7 +33,7 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 	</tr>
 	<tr>
 		<td>Stack name</td>
-		<td>The name of your stack (set to "solodev-dcx-aws" by default). Please note, the name must be all lowercase.</td>
+		<td>The name of your stack (set to "solodev-dcx" by default). Please note, the name must be all lowercase.</td>
 	</tr>
 </table>
 
