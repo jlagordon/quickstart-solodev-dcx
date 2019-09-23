@@ -169,7 +169,7 @@ Outputs:
 
     AdminUrl: 
         Description: Point your DNS to this CNAME.
-        Value: !Join ["", [ !Ref "AWS::StackName", ".", !Ref ZoneName ]]
+        Value: "Locate external endpoint address for UI in services"
     AdminUsername: 
         Description: Solodev admin username.
         Value: !Ref AdminUser
