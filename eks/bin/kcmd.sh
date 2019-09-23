@@ -11,6 +11,9 @@ export SECRET="BigSecret123"
 export PASSWORD="password"
 export DBPASSWORD="password"
 
+#AWS
+export Region="us-east-1"
+
 #GET VALUES FROM CLOUDFORMATION OUTPUT OF EKS STACK
 export CAData=""
 export EKSEndpoint=""
@@ -66,7 +69,6 @@ init(){
     helm --kubeconfig $KUBECONFIG init
     helm --kubeconfig $KUBECONFIG repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'
     rbac
-    installDashboard
 }
 
 generateConfig(){
@@ -103,6 +105,14 @@ EOF
 
 rbac(){
     kubectl --kubeconfig=$KUBECONFIG create clusterrolebinding permissive-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts;
+}
+
+initServiceAccount(){
+    eksctl get clusters
+    echo "eksctl utils associate-iam-oidc-provider --region=${Region} --name=${EKSName} --approve"
+    eksctl utils associate-iam-oidc-provider --region=${Region} --name=${EKSName} --approve
+    echo "eksctl create iamserviceaccount --name ${NAMESPACE}-ServiceAccount --namespace default --cluster ${EKSName} --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess --approve --region ${Region}"
+    eksctl create iamserviceaccount --name ${NAMESPACE}-ServiceAccount --namespace default --cluster ${EKSName} --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess --approve --region ${Region}
 }
 
 installDashboard(){
