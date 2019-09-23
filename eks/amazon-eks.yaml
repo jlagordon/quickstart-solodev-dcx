@@ -358,6 +358,6 @@ Outputs:
     Value: !GetAtt EKSStack.Outputs.BastionIP
   EKSClusterName:
     Value: !GetAtt EKSStack.Outputs.EKSClusterName
-  SolodevServiceAccount:
-    Value: !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']]
-    Condition: IsMarketPlace
+  # SolodevServiceAccount:
+  #   Value: !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']]
+  #   Condition: IsMarketPlace
