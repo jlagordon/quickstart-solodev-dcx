@@ -80,10 +80,6 @@ Parameters:
     Type: String
     Default: "EKSQuickStart"
 
-  NodeInstanceRoleName:
-    Type: String
-    Default: ''
-
 Resources:
   SolodevDCX:
     Type: "Custom::Helm"
@@ -98,7 +94,6 @@ Resources:
       Namespace: "solodev-dcx"
       ValueYaml: !Sub |
         env: prod
-        serviceAccountName: ${NodeInstanceRoleName}
         storage:
           className: gp2
           size: 10G

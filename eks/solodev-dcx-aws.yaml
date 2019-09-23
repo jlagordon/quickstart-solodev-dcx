@@ -25,7 +25,7 @@ Metadata:
           - HelmLambdaArn
           - KubeConfigPath
           - KubeConfigKmsContext
-          - NodeInstanceRoleName
+          - ServiceRoleName
 
 Parameters:
   ZoneName:
@@ -80,9 +80,9 @@ Parameters:
     Type: String
     Default: "EKSQuickStart"
 
-  NodeInstanceRoleName:
+  ServiceRoleName:
     Type: String
-    Default: ''
+    Default: 'solodev-serviceaccount'
 
 Resources:
   SolodevDCX:
@@ -98,7 +98,7 @@ Resources:
       Namespace: "solodev-dcx"
       ValueYaml: !Sub |
         env: prod
-        serviceAccountName: ${NodeInstanceRoleName}
+        serviceAccountName: ${ServiceRoleName}
         storage:
           className: gp2
           size: 10G
