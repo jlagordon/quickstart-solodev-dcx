@@ -14,7 +14,6 @@ Metadata:
         Label: 
           default: "Advanced Settings"
         Parameters: 
-          - ZoneName
           - DatabaseName
           - DatabasePassword
           - AppSecret
@@ -28,8 +27,6 @@ Metadata:
           - ServiceRoleName
 
 Parameters:
-  ZoneName:
-    Type: String
 
   AdminUser:
       Description: The solodev admin username
@@ -108,7 +105,6 @@ Resources:
             repository: solodev-cms
             tag: 9.1-latest
             pullPolicy: IfNotPresent
-          cname: ${ZoneName}
           port: 9000
           protocol: TCP
           storage:
