@@ -224,6 +224,10 @@ Parameters:
     Default: 3
     Description: The number of Amazon EKS node instances. The default is one for each of the three Availability Zones.
     Type: Number
+  MaxNumberOfNodes:
+    Default: 5
+    Description: The maximum number of Amazon EKS node instances. 
+    Type: Number
   NodeGroupName:
     Default: Default
     Description: The name for EKS node group.
