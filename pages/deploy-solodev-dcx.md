@@ -1,5 +1,5 @@
 # Deploy Solodev DCX on an EKS Cluster via CloudFormation
-The following steps will allow you to deploy Solodev DCX to an existing EKS cluster by launching a new stack via AWS CloudFormation. Additional installation methods are available including <a href="deploy-solodev-dcx-helm.md">via Helm Charts</a> or via <a href="deploy-solodev-dcx-kcmd.md">custom k commands</a>.
+The following steps will allow you to deploy Solodev DCX to an existing EKS cluster by launching a new stack via AWS CloudFormation. Additional installation methods are available including <a href="deploy-solodev-dcx-helm.md">via Helm Charts</a> or via <a href="deploy-solodev-dcx-kcmd.md">custom kubectl commands</a>.
 
 ## Step 1: Launch your CloudFormation Stack
 <p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
