@@ -22,10 +22,10 @@ Click on the primary stack and view the "Outputs" tab. You will find details per
 </table>
 
 
-## Step 4: Launch your CloudFormation Stack
+## Step 3: Launch your CloudFormation Stack
 <p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=solodev-dcx&templateURL=https://solodev-quickstarts.s3.amazonaws.com/eks/solodev-dcx-aws.yaml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
-## Step 5: Fill Out the CloudFormation Stack Wizard
+## Step 4: Fill Out the CloudFormation Stack Wizard
 <strong>Continue with the preselected CloudFormation Template</strong><br />
 The Amazon S3 template URL (used for the CloudFormation configuration) should be preselected. Click "Next" to continue.
 
