@@ -32,7 +32,7 @@ ls(){
 
 install(){
     NAME="${args[1]}"
-    helm --kubeconfig $KUBECONFIG install --namespace ${NAMESPACE} --name ${NAME} charts/${RELEASE} --set solodev.cname=${DOMAINNAME} --set solodev.settings.appSecret=${SECRET} --set solodev.settings.appPassword=${PASSWORD} --set solodev.settings.dbPassword=${DBPASSWORD}
+    helm --kubeconfig $KUBECONFIG install --namespace ${NAMESPACE} --name ${NAME} charts/${RELEASE} --set serviceAccountName='solodev-serviceaccount' --set solodev.cname=${DOMAINNAME} --set solodev.settings.appSecret=${SECRET} --set solodev.settings.appPassword=${PASSWORD} --set solodev.settings.dbPassword=${DBPASSWORD}
 }
 
 delete(){
@@ -108,8 +108,9 @@ rbac(){
 }
 
 initServiceAccount(){
-    # kubectl --kubeconfig $KUBECONFIG delete sa solodev-serviceaccount
+    echo "aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text"
     ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text )
+    echo $ISSUER_URL
     ISSUER_URL_WITHOUT_PROTOCOL=$(echo $ISSUER_URL | sed 's/https:\/\///g' )
     ISSUER_HOSTPATH=$(echo $ISSUER_URL_WITHOUT_PROTOCOL | sed "s/\/id.*//" )
     echo $ISSUER_URL
@@ -135,11 +136,25 @@ EOF
 
     ROLE_NAME=solodev-usage
     aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://trust-policy.json
-    aws iam update-assume-role-policy --role-name $ROLE_NAME --policy-document file://trust-policy.json
-    aws iam put-role-policy --role-name $ROLE_NAME --policy-name SolodevServiceAccount --policy-document file://service-policy.json
+    cat > iam-policy.json << EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "aws-marketplace:RegisterUsage"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}
+EOF
+    POLICY_ARN=$(aws iam create-policy --policy-name AWSMarketplacePolicy --policy-document file://iam-policy.json --query Policy.Arn | sed 's/"//g')
+    aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn $POLICY_ARN
     S3_ROLE_ARN=$(aws iam get-role --role-name $ROLE_NAME --query Role.Arn --output text)
-    kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount
-    kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$S3_ROLE_ARN
+    kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
+    kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$S3_ROLE_ARN --namespace ${NAMESPACE}
 }
 
 installDashboard(){
