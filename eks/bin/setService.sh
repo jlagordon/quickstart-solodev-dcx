@@ -6,6 +6,7 @@ export Region="us-east-1"
 export NAMESPACE="default"
 
 initServiceAccount(){
+    kubectl delete sa solodev-serviceaccount --namespace ${NAMESPACE}
     eksctl utils associate-iam-oidc-provider --region=${Region} --name=${EKSName} --approve
     echo "aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text"
     ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text )
