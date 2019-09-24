@@ -214,7 +214,7 @@ export ControlPlaneProvisionRoleArn=""
 </pre>
 
 ## Step 6: Create Service Account
-From command line and inside the directory that has the kcmd.sh script, run the following to a needed config file:
+From command line and inside the directory that has the kcmd.sh script, run the following to generate a needed config file:
 <pre>
 ./kcmd.sh init
 </pre>
