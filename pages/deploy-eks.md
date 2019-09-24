@@ -216,7 +216,7 @@ From command line and inside the directory that has the kcmd.sh script, run the 
 
 From command line and inside the directory that has the kcmd.sh script, run the following to create the needed Service Account to launch Solodev DCX:
 <pre>
-./kcmd.sh install solodev-dcx
+./kcmd.sh initServiceAccount
 </pre>
 
 Take note that this will create a service account with the name "solodev-serviceaccount". You will need this value as you launch Solodev DCX.
