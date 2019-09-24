@@ -24,7 +24,7 @@ Already have a Solodev license? Call <a href="tel:1.800.859.7656">1-800-859-7656
 ## Step 2: Configure Your VPC and EC2 Key Pair
 Please note that both a <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">VPC</a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">EC2 Key Pair</a> must be configured within the region you intend to launch your stack.
 
-While not required, <b><i>it is strongly recommended</i></b> to create a new VPC using the <a href="https://github.com/techcto/solodev-aws/blob/master/aws/corp-vpc.yaml">AWS VPC by Solodev</a>. Click the button below to launch the AWS VPC by Solodev.
+While not required, <b><i>it is strongly recommended</i></b> to create a new VPC using the <a href="https://github.com/techcto/solodev-aws/blob/master/aws/corp-vpc.yaml">AWS VPC by Solodev CloudFormation Template</a>. Click the button below to launch the AWS VPC by Solodev.
 
 <p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=solodev-vpc&templateURL=https://solodev-aws-ha.s3.amazonaws.com/aws/corp-vpc.yaml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></a>
 
@@ -33,7 +33,7 @@ Once you’ve configured your <a href="http://docs.aws.amazon.com/AmazonVPC/late
 
 <p align="center"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
-<pre>* Developer? Please see instructions regarding setting up a <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a> for your EKS cluster.</pre>
+<pre>Note: Solodev Developer? Please see instructions regarding setting up a <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a> for your EKS cluster.</pre>
 
 ## Step 4: Launch Solodev DCX
 With an EKS cluster running, you can deploy Solodev DCX.
@@ -57,7 +57,7 @@ To learn more about our add-on support options, call 1-800-859-7656 to speak wit
 ## Need Help?
 Solodev is a professionally managed, enterprise-class solution, and our team of certified engineers are here to support your success. While our self-serve options are easy to launch, you’ve always got a co-pilot at the helm. If you have any questions – or if you already have a Solodev license and need support with your AWS subscription – call <a href="tel:1.800.859.7656">1-800-859-7656</a> and we’ll help you get to the launchpad.
 
-
+---
 © 2019 Solodev. All rights reserved worldwide. And off planet. 
 
 Errors or corrections? Email us at help@solodev.com.
