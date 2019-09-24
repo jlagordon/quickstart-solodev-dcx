@@ -35,7 +35,7 @@ Once you’ve configured your <a href="http://docs.aws.amazon.com/AmazonVPC/late
 
 <pre>* Developer? Please see instructions regarding setting up a <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a> for your EKS cluster.</pre>
 
-## Step 34: Launch Solodev DCX
+## Step 4: Launch Solodev DCX
 With an EKS cluster running, you can deploy Solodev DCX.
 
 <p align="center"><a href="pages/deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
