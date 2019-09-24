@@ -157,8 +157,13 @@ EOF
 }
 
 applyServiceAccount(){
-    ROLE_NAME="${args[1]}"
-    S3_ROLE_ARN=$(aws iam get-role --role-name $ROLE_NAME --query Role.Arn --output text)
+    if [ "$1" == "" ]; then
+        ROLE_NAME="${args[1]}"
+    else
+        ROLE_NAME=$1
+    fi
+    echo "Role="$ROLE_NAME
+    S3_ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
     kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
     kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$S3_ROLE_ARN --namespace ${NAMESPACE}
     echo "Service Account Created: solodev-serviceaccount"
