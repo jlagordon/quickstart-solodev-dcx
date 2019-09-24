@@ -9,8 +9,10 @@ export SECRET="BigSecret123"
 export PASSWORD="password"
 export DBPASSWORD="password"
 
+
 #AWS
 export Region="us-east-1"
+
 
 #GET VALUES FROM CLOUDFORMATION OUTPUT OF EKS STACK
 export CAData=""
@@ -151,6 +153,11 @@ EOF
 EOF
     POLICY_ARN=$(aws iam create-policy --policy-name AWSMarketplacePolicy --policy-document file://iam-policy.json --query Policy.Arn | sed 's/"//g')
     aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn $POLICY_ARN
+    applyServiceAccount($ROLE_NAME)
+}
+
+applyServiceAccount(){
+    ROLE_NAME="${args[1]}"
     S3_ROLE_ARN=$(aws iam get-role --role-name $ROLE_NAME --query Role.Arn --output text)
     kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
     kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$S3_ROLE_ARN --namespace ${NAMESPACE}
