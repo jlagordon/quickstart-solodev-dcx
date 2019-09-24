@@ -52,7 +52,7 @@ From command line and inside the directory that has the kcmd.sh script, run the 
 
 From command line and inside the directory that has the kcmd.sh script, run the following to install Solodev DCX:
 <pre>
-./kcmd.sh install solodev-dcx
+./kcmd.sh initServiceAccount
 </pre>
 
 ## Step 4: Retrieve the External Endpoints of the "ui" Service
