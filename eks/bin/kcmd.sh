@@ -5,8 +5,6 @@ args=("$@")
 export RELEASE="solodev-dcx-aws"
 export NAMESPACE="solodev-dcx"
 export KUBECONFIG="eksconfig"
-export DOMAINNAME="domain.com"
-export DOMAINID="config"
 export SECRET="BigSecret123"
 export PASSWORD="password"
 export DBPASSWORD="password"
@@ -32,7 +30,7 @@ ls(){
 
 install(){
     NAME="${args[1]}"
-    helm --kubeconfig $KUBECONFIG install --namespace ${NAMESPACE} --name ${NAME} charts/${RELEASE} --set serviceAccountName='solodev-serviceaccount' --set solodev.cname=${DOMAINNAME} --set solodev.settings.appSecret=${SECRET} --set solodev.settings.appPassword=${PASSWORD} --set solodev.settings.dbPassword=${DBPASSWORD}
+    helm --kubeconfig $KUBECONFIG install --namespace ${NAMESPACE} --name ${NAME} charts/${RELEASE} --set serviceAccountName='solodev-serviceaccount' --set solodev.settings.appSecret=${SECRET} --set solodev.settings.appPassword=${PASSWORD} --set solodev.settings.dbPassword=${DBPASSWORD}
 }
 
 delete(){
