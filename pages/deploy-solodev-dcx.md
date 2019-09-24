@@ -2,7 +2,7 @@
 The following steps will allow you to deploy Solodev DCX to an existing EKS cluster by launching a new stack via AWS CloudFormation. Additional installation methods are available including <a href="https://github.com/techcto/charts">via Helm Charts</a> or via <a href="deploy-solodev-dcx-kcmd.md">custom kubectl commands</a>.
 
 ## Step 1: Subscribe on the AWS Marketplace
-Solodev is a professionally managed, enterprise-class Digital Customer Experience Platform and content management system (CMS). Before launching one of our products, you'll first need to subscribe to Solodev on the <a href="https://aws.amazon.com/marketplace/pp/B07XV951M6">AWS Marketplace.</a> Click the button below to get started: 
+If you have not already done so, you'll first need to subscribe to Solodev on the <a href="https://aws.amazon.com/marketplace/pp/B07XV951M6">AWS Marketplace.</a> Click the button below to get started: 
 <table>
 	<tr>
 		<td width="60%"><a href="https://aws.amazon.com/marketplace/pp/B07XV951M6"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/AWS_Marketplace_Logo.jpg" /></a></td>
@@ -55,12 +55,8 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 	<tr>
 		<td colspan="2"><strong>Advanced Settings</strong></td>
 	<tr>
-		<td width="33%">ZoneName</td>
-		<td width="600px">The Route53 zone name that will be used to deploy Solodev DCX</td>
-	</tr>
-	<tr>
-		<td>DatabaseName</td>
-		<td>The Solodev database name</td>
+		<td width="33%">DatabaseName</td>
+		<td width="600px">The Solodev database name</td>
 	</tr>
 	<tr>
 		<td>DatabasePassword</td>
@@ -85,8 +81,12 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 	</tr> 
 	<tr>
 		<td>KubeConfigKmsContext</td>
-		<td></td>
-	</tr>       
+		<td>The KubeConfigKmsContext found in the <a href="deploy-eks.md">outputs on your EKS stack</td>
+	</tr>
+	<tr>
+		<td>ServiceRoleName</td>
+		<td>The service account name created <a href="deploy-eks.md#step-5-download-and-configure-kcmdsh">after deploying your EKS stack</a></td>
+	</tr>  	       
 </table>
 
 <strong>Specify Options</strong><br />
