@@ -195,8 +195,34 @@ If your stack builds successfully, you will see the green "CREATE_COMPLETE" mess
 	</tr>
 </table>
 
-## Step 5: Launch Solodev DCX
-With your EKS stack successfully launched, you can proceed to launch Solodev DCX.
+## Step 5: Download and Configure kcmd.sh
+Access and download the <a href="https://github.com/techcto/quickstart-solodev-dcx/blob/master/eks/bin/kcmd.sh">Solodev DCX custom kcmd.sh script</a>. Place the shell script inside a directory you will use to access your Kubernetes cluster.
+
+Modify lines 8-11; the values will correspond to your stack's output.
+
+<pre>
+#GET VALUES FROM CLOUDFORMATION OUTPUT OF EKS STACK
+export CAData=""
+export EKSEndpoint=""
+export EKSName=""
+export ControlPlaneProvisionRoleArn=""
+</pre>
+
+## Step 6: Create Service Account
+From command line and inside the directory that has the kcmd.sh script, run the following to a needed config file:
+<pre>
+./kcmd.sh init
+</pre>
+
+From command line and inside the directory that has the kcmd.sh script, run the following to create the needed Service Account to launch Solodev DCX:
+<pre>
+./kcmd.sh install solodev-dcx
+</pre>
+
+Take note that this will create a service account with the name "solodev-serviceaccount". You will need this value as you launch Solodev DCX.
+
+## Step 7: Launch Solodev DCX
+With your EKS stack successfully launched and a service account properly configured, you can proceed to launch Solodev DCX.
 
 <p align="center"><a href="deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
 
