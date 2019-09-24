@@ -5,6 +5,7 @@ export EKSName=""
 export Region="us-east-1"
 
 initServiceAccount(){
+    eksctl utils associate-iam-oidc-provider --region=${Region} --name=${EKSName} --approve
     echo "aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text"
     ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text )
     echo $ISSUER_URL
