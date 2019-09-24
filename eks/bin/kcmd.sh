@@ -153,7 +153,7 @@ EOF
 EOF
     POLICY_ARN=$(aws iam create-policy --policy-name AWSMarketplacePolicy --policy-document file://iam-policy.json --query Policy.Arn | sed 's/"//g')
     aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn $POLICY_ARN
-    applyServiceAccount($ROLE_NAME)
+    applyServiceAccount $ROLE_NAME
 }
 
 applyServiceAccount(){
