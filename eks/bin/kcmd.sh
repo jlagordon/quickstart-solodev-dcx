@@ -66,6 +66,7 @@ clean(){
 #INIT
 init(){
     generateConfig
+    kubectl --kubeconfig $KUBECONFIG create namespace ${NAMESPACE} 
     helm --kubeconfig $KUBECONFIG init
     helm --kubeconfig $KUBECONFIG repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'
     rbac
