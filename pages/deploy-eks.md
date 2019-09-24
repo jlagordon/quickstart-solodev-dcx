@@ -187,7 +187,11 @@ Upon launching your CloudFormation stack, you will be able to monitor the instal
 </table>
 
 ## Step 4: Gather Stack Outputs for Solodev DCX
-If your stack builds successfully, you will see the green "CREATE_COMPLETE" message. Click on the primary stack and view the "Outputs" tab. You will find details pertaining to the cluster's BastionIP, EKSClusterName, HelmLambdaArn, KubeConfigPath, and KubeManifestLambdaArn. Save or take note of these output values as you will need them when launching Solodev DCX on the EKS cluster.
+If your stack builds successfully, you will see the green "CREATE_COMPLETE" message.
+
+Click on the primary stack and view the "Outputs" tab. You will find details pertaining to the cluster's BastionIP, EKSClusterName, HelmLambdaArn, KubeConfigPath, and KubeManifestLambdaArn. Click on the "ControlPlane" stack to see details pertaining to the cluster's CADATA, ControlPlaneProvisionRoleArn, EKSEndpoint, EKSName, EksArn, and KubeConfigPath.
+
+Save or take note of these output values as you will need them when launching Solodev DCX on the EKS cluster.
 
 <table>
 	<tr>
