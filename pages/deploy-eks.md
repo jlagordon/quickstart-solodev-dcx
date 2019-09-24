@@ -74,37 +74,41 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 		<td width="600px">The type of EC2 instance for the node instances.</td>
 	</tr>
 	<tr>
-		<td width="33%">Number of nodes</td>
-		<td width="600px">The number of Amazon EKS node instances. The default is one for each of the three Availability Zones.</td>
+		<td>Number of nodes</td>
+		<td>The number of Amazon EKS node instances. The default is one for each of the three Availability Zones.</td>
 	</tr> 
 	<tr>
-		<td width="33%">Node group name</td>
-		<td width="600px">The name for EKS node group.</td>
+		<td>Node group name</td>
+		<td>The name for EKS node group.</td>
 	</tr>
 	<tr>
-		<td width="33%">Node volume size</td>
-		<td width="600px">The size for the node's root EBS volumes.</td>
+		<td>Node volume size</td>
+		<td>The size for the node's root EBS volumes.</td>
 	</tr>
 	<tr>
-		<td width="33%">Additional EKS admin ARNs</td>
-		<td width="600px">[OPTIONAL] Comma separated list of IAM user/role Amazon Resource Names (ARNs) to be granted admin access to the EKS cluster</td>
+		<td>Additional EKS admin ARNs</td>
+		<td>[OPTIONAL] Comma separated list of IAM user/role Amazon Resource Names (ARNs) to be granted admin access to the EKS cluster</td>
 	</tr>
 	<tr>
-		<td width="33%">Kubernetes version</td>
-		<td width="600px">The Kubernetes control plane version.</td>
+		<td>Kubernetes version</td>
+		<td>The Kubernetes control plane version.</td>
 	</tr>          
 </table>
 
 <table>
 	<tr>
-		<td colspan="2"><strong>Optional Solodev DCX configuration</strong></td>
+		<td><strong>Optional Solodev DCX configuration</strong></td>
 	<tr>
-		<td width="33%">ZoneName</td>
-		<td width="600px"></td>
+		<td width="33%">ProvisionSolodevDCXNetwork</td>
+		<td width="600px">Whether or not to also deploy the <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a>. Recommended to keep "Disabled" unless a Solodev developer.</td>
+	</tr>   		
+	<tr>
+		<td>ZoneName</td>
+		<td></td>
 	</tr>
 	<tr>
-		<td width="33%">ZoneId</td>
-		<td width="600px"></td>
+		<td>ZoneId</td>
+		<td></td>
 	</tr>         
 </table>
 
@@ -116,12 +120,12 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 		<td width="600px">S3 bucket name for the Quick Start assets. This string can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</td>
 	</tr>
 	<tr>
-		<td width="33%">Quick Start S3 key prefix</td>
-		<td width="600px">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), dots(.) and forward slash (/).</td>
+		<td>Quick Start S3 key prefix</td>
+		<td>S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), dots(.) and forward slash (/).</td>
 	</tr>
 	<tr>
-		<td width="33%">Lambda zips bucket name</td>
-		<td width="600px">[OPTIONAL] The name of the S3 bucket where the Lambda zip files should be placed. If you leave this parameter blank, an S3 bucket will be created.</td>
+		<td>Lambda zips bucket name</td>
+		<td>[OPTIONAL] The name of the S3 bucket where the Lambda zip files should be placed. If you leave this parameter blank, an S3 bucket will be created.</td>
 	</tr>    
 </table>
 
@@ -133,30 +137,21 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 		<td width="600px">Choose Enabled to enable Kubernetes cluster autoscaler.</td>
 	</tr>
 	<tr>
-		<td width="33%">EFS storage class</td>
-		<td width="600px">Choose Enabled to enable EFS storage class, which will create the required EFS volume.</td>
+		<td>EFS storage class</td>
+		<td>Choose Enabled to enable EFS storage class, which will create the required EFS volume.</td>
 	</tr>
 	<tr>
-		<td width="33%">EFS performance mode</td>
-		<td width="600px">Choose maxIO mode to provide greater IOPS with an increased latency. Only has an effect when EfsStorageClass is enabled.</td>
+		<td>EFS performance mode</td>
+		<td>Choose maxIO mode to provide greater IOPS with an increased latency. Only has an effect when EfsStorageClass is enabled.</td>
 	</tr>
 	<tr>
-		<td width="33%">EFS throughput mode</td>
-		<td width="600px">Choose provisioned for throughput that is not dependent on the amount of data stored in the file system. Only has an effect when EfsStorageClass is enabled.</td>
+		<td>EFS throughput mode</td>
+		<td>Choose provisioned for throughput that is not dependent on the amount of data stored in the file system. Only has an effect when EfsStorageClass is enabled.</td>
 	</tr>
 	<tr>
-		<td width="33%">EFS provisioned throughput in Mibps</td>
-		<td width="600px">Set to 0 if EfsThroughputMode is set to bursting. Only has an effect when EfsStorageClass is enabled.</td>
+		<td>EFS provisioned throughput in Mibps</td>
+		<td>Set to 0 if EfsThroughputMode is set to bursting. Only has an effect when EfsStorageClass is enabled.</td>
 	</tr>        
-</table>
-
-<table>
-	<tr>
-		<td colspan="2"><strong>Other parameters</strong></td>
-	<tr>
-		<td width="33%">ProvisionSolodevDCXNetwork</td>
-		<td width="600px">Whether or not to also deploy the <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a>. Recommended to keep "Disabled" unless a Solodev developer.</td>
-	</tr>       
 </table>
 
 <strong>Specify Options</strong><br />
