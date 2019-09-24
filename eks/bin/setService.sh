@@ -3,6 +3,7 @@ args=("$@")
 
 export EKSName=""
 export Region="us-east-1"
+export NAMESPACE="default"
 
 initServiceAccount(){
     eksctl utils associate-iam-oidc-provider --region=${Region} --name=${EKSName} --approve
