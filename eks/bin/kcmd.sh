@@ -163,6 +163,11 @@ applyServiceAccount(){
     kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$S3_ROLE_ARN --namespace ${NAMESPACE}
 }
 
+setServiceAccount(){
+    SERVICE_ACCOUNT="${args[1]}"
+    kubectl --kubeconfig $KUBECONFIG set serviceaccount deployment solodev-deployment ${SERVICE_ACCOUNT}
+}
+
 installDashboard(){
     #https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html
     kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
