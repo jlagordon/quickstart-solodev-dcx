@@ -109,8 +109,6 @@ rbac(){
 }
 
 initServiceAccount(){
-    kubectl --kubeconfig $KUBECONFIG create namespace ${NAMESPACE} 
-    kubectl --kubeconfig $KUBECONFIG delete sa solodev-serviceaccount --namespace ${NAMESPACE}
     ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text )
     echo $ISSUER_URL
     ISSUER_URL_WITHOUT_PROTOCOL=$(echo $ISSUER_URL | sed 's/https:\/\///g' )
