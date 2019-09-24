@@ -79,7 +79,7 @@ Parameters:
 
   ServiceRoleName:
     Type: String
-    Default: 'solodev-serviceaccount'
+    Default: ''
 
 Resources:
   SolodevDCX:
