@@ -28,19 +28,17 @@ While not required, <b><i>it is strongly recommended</i></b> to create a new VPC
 
 <p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=solodev-vpc&templateURL=https://solodev-aws-ha.s3.amazonaws.com/aws/corp-vpc.yaml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></a>
 
-## Step 3: Launch your CloudFormation Stack(s)
-Once you’ve configured your <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">VPC</a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">EC2 Key Pair</a>, you can launch your CloudFormation stack(s). 
+## Step 3: Launch AWS EKS by Solodev
+Once you’ve configured your <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">VPC</a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">EC2 Key Pair</a>, you can launch AWS EKS by Solodev.
 
-Please follow the instructions below depending upon your current environment. If you do not have an existing EKS cluster, begin by <a href="pages/deploy-eks.md" target="_blank">launching a new EKS cluster</a>. Once that is complete, follow the directions to <a href="pages/deploy-solodev-dcx.md" target="_blank">deploy Solodev DCX</a> to that newly created EKS cluster. Conversely, if you wish to deploy Solodev DCX to a preexisting EKS cluster, skip directly to <a href="pages/deploy-solodev-dcx.md" target="_blank">those instructions</a>.
-
-<table>
-	<tr>
-		<th width="441"><a href="pages/deploy-eks.md">Launch a New EKS Cluster*<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></th>
-		<th width="441"><a href="pages/deploy-solodev-dcx.md">Deploy Solodev DCX to an EKS Cluster<br /><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></th>
-	</tr>
-</table>
+<p align="center"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
 <pre>* Developer? Please see instructions regarding setting up a <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a> for your EKS cluster.</pre>
+
+## Step 34: Launch Solodev DCX
+With an EKS cluster running, you can deploy Solodev DCX.
+
+<p align="center"><a href="pages/deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
 
 ## Support
 Houston, we have no problems… because Solodev Customer Care has your back at every step! From our world-class HelpDesk to our focused training sessions, you’ve got the best team on the ground to get you to the stars. 
