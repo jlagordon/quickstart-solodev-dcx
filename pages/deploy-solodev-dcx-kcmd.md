@@ -12,39 +12,30 @@ Solodev is a professionally managed, enterprise-class Digital Customer Experienc
 	</tr>
 </table>
 
-## Step 2: Download the Solodev DCX Custom kcmd.sh Script
-Access and download the <a href="https://github.com/techcto/quickstart-solodev-dcx/blob/master/eks/bin/kcmd.sh">Solodev DCX custom kcmd.sh script</a>. Place the shell script inside a directory you will use to access your Kubernetes cluster.
+## Step 2: Download and Configure kcmd.sh
+Access and download the <a href="https://github.com/techcto/quickstart-solodev-dcx/blob/master/eks/bin/kcmd.sh">Solodev custom kcmd.sh script</a>. Place the shell script inside a directory you will use to access your Kubernetes cluster.
 
-Modify lines 5-21 with values specific to your environment. Lines 5-12 correspond to the values used to launch Solodev DCX. Line 15 corresponds to the region you want to launch within. Lines 18-21 correspond to the values of your Kubernetes cluster, which can be retrieved as <a href="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/outputs-solodev-cms-eks.jpg">stack outputs</a> if the cluster was launched via CloudFormation.
+Modify lines 8-21 with values specific to your environment. Line 15 corresponds to the region you want to launch within. Lines 8-11 correspond to the values of your Kubernetes cluster, which can be retrieved as <a href="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/outputs-solodev-cms-eks.jpg">stack outputs</a> if the cluster was launched via CloudFormation. Lines 17-21 correspond to the values used to launch Solodev DCX. 
 
 <pre>
-export RELEASE="solodev-dcx-aws"
-export NAMESPACE="solodev-dcx"
-export KUBECONFIG="eksconfig"
-export DOMAINNAME="domain.com"
-export DOMAINID="config"
-export SECRET="BigSecret123"
-export PASSWORD="password"
-export DBPASSWORD="password"
-
-#AWS
-export Region="us-east-1"
-
 #GET VALUES FROM CLOUDFORMATION OUTPUT OF EKS STACK
 export CAData=""
 export EKSEndpoint=""
 export EKSName=""
 export ControlPlaneProvisionRoleArn=""
+
+#AWS
+export Region="us-east-1"
+
+#Solodev
+export RELEASE="solodev-dcx-aws"
+export NAMESPACE="solodev-dcx"
+export SECRET="BigSecret123"
+export PASSWORD="password"
+export DBPASSWORD="password"
 </pre>
 
 ## Step 3: Deploy Solodev DCX on your Kubernetes Cluster
-From command line and inside the directory that has the kcmd.sh script, run the following to provides access to the Kubernetes API via an HTTP proxy:
-<pre>
-./kcmd.sh proxy
-</pre>
-
-Open a new separate terminal to run the following two commands. The proxy must remain open while the following two commands execute.
-
 From command line and inside the directory that has the kcmd.sh script, run the following to download the necessary Helm Charts and configure a needed config file:
 <pre>
 ./kcmd.sh init
@@ -72,3 +63,11 @@ Visit the external endpoint retrived in step 4 to load Solodev DCX. Use the the 
 		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/login-solodev-cms-eks.jpg" /></td>
 	</tr>
 </table>
+
+---
+© 2019 Solodev. All rights reserved worldwide. And off planet. 
+
+Errors or corrections? Email us at help@solodev.com.
+
+---
+Visit [solodev.com](https://www.solodev.com/) to learn more. <img src="https://www.google-analytics.com/collect?v=1&tid=UA-3849724-1&cid=1&t=event&ec=github_aws&ea=main&cs=github&cm=github&cn=github_aws" />

@@ -104,11 +104,11 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 	</tr>   		
 	<tr>
 		<td>ZoneName</td>
-		<td></td>
+		<td>(Optional) The Route53 ZoneName that corresponds to the Solodev DCX Network</td>
 	</tr>
 	<tr>
 		<td>ZoneId</td>
-		<td></td>
+		<td>(Optional) The Route53 ZoneID that corresponds to the Solodev DCX Network</td>
 	</tr>         
 </table>
 
@@ -224,13 +224,14 @@ From command line and inside the directory that has the kcmd.sh script, run the 
 ./kcmd.sh initServiceAccount
 </pre>
 
-Take note that this will create a service account with the name "solodev-serviceaccount". You will need this value as you launch Solodev DCX.
+Take note that this will create a Service Account with the name "solodev-serviceaccount". You will need this value as you launch Solodev DCX.
 
 ## Step 7: Launch Solodev DCX
 With your EKS stack successfully launched and a service account properly configured, you can proceed to launch Solodev DCX.
 
 <p align="center"><a href="deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
 
+---
 © 2019 Solodev. All rights reserved worldwide. And off planet. 
 
 Errors or corrections? Email us at help@solodev.com.
