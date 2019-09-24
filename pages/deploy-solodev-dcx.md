@@ -10,10 +10,24 @@ If you have not already done so, you'll first need to subscribe to Solodev on th
 	</tr>
 </table>
 
-## Step 2: Launch your CloudFormation Stack
+## Step 2: Gather EKS Stack Outputs for Solodev DCX
+If your stack builds successfully, you will see the green "CREATE_COMPLETE" message.
+
+Click on the primary stack and view the "Outputs" tab. You will find details pertaining to the cluster's BastionIP, EKSClusterName, HelmLambdaArn, KubeConfigPath, and KubeManifestLambdaArn. 
+
+Save or take note of these output values as you will need them when launching Solodev DCX on the EKS cluster.
+
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/outputs-solodev-cms-eks.jpg" /></td>
+	</tr>
+</table>
+
+
+## Step 4: Launch your CloudFormation Stack
 <p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=solodev-dcx&templateURL=https://solodev-quickstarts.s3.amazonaws.com/eks/solodev-dcx-aws.yaml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
 
-## Step 3: Fill Out the CloudFormation Stack Wizard
+## Step 5: Fill Out the CloudFormation Stack Wizard
 <strong>Continue with the preselected CloudFormation Template</strong><br />
 The Amazon S3 template URL (used for the CloudFormation configuration) should be preselected. Click "Next" to continue.
 
@@ -107,7 +121,7 @@ Review all CloudFront details and options. Click on the "Create" button to launc
 	</tr>
 </table>
 
-## Step 4: Monitor the CloudFormation Stack Creation Process
+## Step 5: Monitor the CloudFormation Stack Creation Process
 Upon launching your CloudFormation stack, you will be able to monitor the installation logs under the "Events" tab. The CloudFormation template will launch multiple stacks related to your Solodev instance. If you encounter any failures during this time, please visit the <a href="https://github.com/solodev/AWS-Launch-Pad/wiki/Common-Issues">Common Issues</a> page to begin troubleshooting.
 
 <table>
