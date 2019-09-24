@@ -11,11 +11,9 @@ If you have not already done so, you'll first need to subscribe to Solodev on th
 </table>
 
 ## Step 2: Gather EKS Stack Outputs for Solodev DCX
-If your stack builds successfully, you will see the green "CREATE_COMPLETE" message.
+Take note of several of your <a href="deploy-eks.md#step-4-gather-stack-outputs-for-solodev-dcx">EKS stack outputs</a>. You will need these output values when launching Solodev DCX on the EKS cluster.
 
 Click on the primary stack and view the "Outputs" tab. You will find details pertaining to the cluster's BastionIP, EKSClusterName, HelmLambdaArn, KubeConfigPath, and KubeManifestLambdaArn. 
-
-Save or take note of these output values as you will need them when launching Solodev DCX on the EKS cluster.
 
 <table>
 	<tr>
