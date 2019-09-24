@@ -195,6 +195,12 @@ If your stack builds successfully, you will see the green "CREATE_COMPLETE" mess
 	</tr>
 </table>
 
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/AWS-Launch-Pad/master/pages/images/install/outputs-solodev-cms-eks-2.jpg" /></td>
+	</tr>
+</table>
+
 ## Step 5: Download and Configure kcmd.sh
 Access and download the <a href="https://github.com/techcto/quickstart-solodev-dcx/blob/master/eks/bin/kcmd.sh">Solodev DCX custom kcmd.sh script</a>. Place the shell script inside a directory you will use to access your Kubernetes cluster.
 
