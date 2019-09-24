@@ -1,24 +1,24 @@
 #!/bin/bash
-
 args=("$@")
 
-export RELEASE="solodev-dcx-aws"
-export NAMESPACE="solodev-dcx"
+#Config
 export KUBECONFIG="eksconfig"
-export SECRET="BigSecret123"
-export PASSWORD="password"
-export DBPASSWORD="password"
-
-
-#AWS
-export Region="us-east-1"
-
 
 #GET VALUES FROM CLOUDFORMATION OUTPUT OF EKS STACK
 export CAData=""
 export EKSEndpoint=""
 export EKSName=""
 export ControlPlaneProvisionRoleArn=""
+
+#AWS
+export Region="us-east-1"
+
+#Solodev
+export RELEASE="solodev-dcx-aws"
+export NAMESPACE="solodev-dcx"
+export SECRET="BigSecret123"
+export PASSWORD="password"
+export DBPASSWORD="password"
 
 #ADMIN
 proxy(){
