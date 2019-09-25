@@ -345,6 +345,7 @@ Resources:
         EfsPerformanceMode: !Ref EfsPerformanceMode
         EfsThroughputMode: !Ref EfsThroughputMode
         EfsProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
+        ProvisionSolodevDCXNetwork: !Ref ProvisionSolodevDCXNetwork
         BootstrapArguments: !If [EnableSolodevDCXNetwork, '--use-max-pods false --solodev-network true', '']
         # BastionVariables: !If [IsMarketPlace, !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']], '']
 Outputs:
@@ -358,6 +359,3 @@ Outputs:
     Value: !GetAtt EKSStack.Outputs.BastionIP
   EKSClusterName:
     Value: !GetAtt EKSStack.Outputs.EKSClusterName
-  # SolodevServiceAccount:
-  #   Value: !Join [ "", ["K8S_SERVICE_ACCOUNT=", "ServiceAccount", !Ref 'AWS::StackName']]
-  #   Condition: IsMarketPlace

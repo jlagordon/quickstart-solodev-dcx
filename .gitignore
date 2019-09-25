@@ -3,6 +3,7 @@ server.*
 params
 
 eks/bin/*.dev.sh
+eks/bin/*.*.sh
 eks/bin/eksconfi*
 eks/bin/eks-admin-service-account.yaml
 eks/bin/*.crt
