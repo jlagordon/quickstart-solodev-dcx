@@ -12,6 +12,7 @@ export ControlPlaneProvisionRoleArn=""
 
 #AWS
 export Region="us-east-1"
+export USER_ARN=""
 
 #Solodev
 export RELEASE="solodev-dcx-aws"
@@ -70,6 +71,7 @@ init(){
     helm --kubeconfig $KUBECONFIG init
     helm --kubeconfig $KUBECONFIG repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'
     rbac
+    addTrustPolicy
 }
 
 generateConfig(){
@@ -102,6 +104,22 @@ users:
       command: aws-iam-authenticator
       env: null
 EOF
+}
+
+addTrustPolicy(){
+    if [ "$USER_ARN" != "" ]; then
+        ROLE_NAME=$(echo $ControlPlaneProvisionRoleArn | awk -F/ '{print $NF}')
+        aws iam get-role --role-name ${ROLE_NAME} > role-trust-policy.json
+        POLICY='{
+        "Effect": "Allow",
+        "Principal": {
+            "AWS": "'${USER_ARN}'"
+        },
+        "Action": "sts:AssumeRole"
+        }'
+        jq --argjson obj "${POLICY}" '.Role.AssumeRolePolicyDocument.Statement += [$obj] | .Role.AssumeRolePolicyDocument' role-trust-policy.json > output-policy.json
+        aws iam update-assume-role-policy --role-name ${ROLE_NAME} --policy-document file://output-policy.json
+    fi
 }
 
 rbac(){
