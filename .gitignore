@@ -8,3 +8,4 @@ eks/bin/eksconfi*
 eks/bin/eks-admin-service-account.yaml
 eks/bin/*.crt
 eks/bin/*.json
+eks/bin/*.yaml

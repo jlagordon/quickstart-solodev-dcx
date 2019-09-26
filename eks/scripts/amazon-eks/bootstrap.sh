@@ -143,6 +143,9 @@ Environment='KUBELET_EXTRA_ARGS=$KUBELET_EXTRA_ARGS'
 EOF
 fi
 
+#iscsi
+yum -y install iscsi-initiator-utils
+
 systemctl daemon-reload
 systemctl enable kubelet
 systemctl start kubelet
