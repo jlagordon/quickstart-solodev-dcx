@@ -763,9 +763,6 @@ Resources:
                 update-alternatives --set easy_install /usr/bin/easy_install-2.7
             fi
 
-            #iscsi
-            yum -y install iscsi-initiator-utils
-
             easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.zip
             /usr/bin/cfn-init \
                 --stack ${AWS::StackName} \

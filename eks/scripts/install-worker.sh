@@ -124,6 +124,9 @@ sudo systemctl disable kubelet
 ### EKS ########################################################################
 ################################################################################
 
+#iscsi
+sudo yum -y install iscsi-initiator-utils
+
 sudo mkdir -p /etc/eks
 sudo mv $TEMPLATE_DIR/eni-max-pods.txt /etc/eks/eni-max-pods.txt
 sudo mv $TEMPLATE_DIR/bootstrap.sh /etc/eks/bootstrap.sh

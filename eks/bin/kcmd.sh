@@ -67,6 +67,7 @@ clean(){
 #INIT
 init(){
     addTrustPolicy
+    sleep 30
     generateConfig
     kubectl --kubeconfig $KUBECONFIG create namespace ${NAMESPACE} 
     helm --kubeconfig $KUBECONFIG init
