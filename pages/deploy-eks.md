@@ -229,7 +229,7 @@ Take note that this will create a Service Account with the name "solodev-service
 ## Step 7: Launch Solodev DCX
 With your EKS stack successfully launched and a service account properly configured, you can proceed to launch Solodev DCX.
 
-<p align="center"><a href="deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
+<p align="center"><a href="deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" width="200" /></p>
 
 ---
 © 2019 Solodev. All rights reserved worldwide. And off planet. 

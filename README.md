@@ -38,7 +38,7 @@ Please follow the instructions below depending upon your current environment. If
 		<td width="25%"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/amazon-eks-by-solodev.jpg" /></a></td>
 		<td>
 			<h3>Amazon EKS by Solodev*</h3>
-			<p>Launch Amazon Elastic Kubernets Service (EKS) in a new cluster and manager your containers at any scale with Solodev. Launch your applications rapidly and across AWS Regions and Availability Zones, and move from environment to environment regardless of operating system.</p>
+			<p>Launch Amazon Elastic Kubernets Service (EKS) in a new cluster and manage your containers at any scale with Solodev. Launch your applications rapidly and across AWS Regions and Availability Zones, and move from environment to environment regardless of operating system.</p>
 			<p align="right"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" width="200" /></a></p>
 		</td>
 	</tr>
