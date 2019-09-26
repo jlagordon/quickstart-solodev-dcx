@@ -31,14 +31,31 @@ While not required, <b><i>it is strongly recommended</i></b> to create a new VPC
 ## Step 3: Launch AWS EKS by Solodev
 Once you’ve configured your <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">VPC</a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">EC2 Key Pair</a>, you can launch AWS EKS by Solodev.
 
-<p align="center"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn2.png" /></a></p>
-
+<table>
+	<tr>
+		<td width="33%"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/amazon-eks-by-solodev.jpg" /></a></td>
+		<td>
+			<h3>Amazon EKS by Solodev*</h3>
+			<p>Launch Amazon Elastic Kubernets Service (EKS) in a new cluster and manager your containers at any scale with Solodev. Launch your applications rapidly and across AWS Regions and Availability Zones, and move from environment to environment regardless of operating system.</p>
+			<p><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" /></a></p>
+		</td>
+	</tr>
+</table>
 <pre>Note: Solodev Developer? Please see instructions regarding setting up a <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a> for your EKS cluster.</pre>
 
 ## Step 4: Launch Solodev DCX
 With an EKS cluster running, you can deploy Solodev DCX.
 
-<p align="center"><a href="pages/deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/launch-btn.png" /></a></p>
+<table>
+	<tr>
+		<td width="33%"><a href="pages/deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-dcx-for-eks.jpg" /></a></td>
+		<td>
+			<h3>Solodev DCX for Kubernetes</h3>
+			<p>Deploy Solodev DCX for Kubernetes ands tart managing and scaling your websites and digital experiences on AWS. Rapidly move from your local environment to the cloud, add or remove containers to meet shifts in traffic, and manage entire fleets of Solodev applications with the power of Amazon EKS.</p>
+			<p><a href="pages/deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" /></a></p>
+		</td>
+	</tr>
+</table>
 
 ## Support
 Houston, we have no problems… because Solodev Customer Care has your back at every step! From our world-class HelpDesk to our focused training sessions, you’ve got the best team on the ground to get you to the stars. 
