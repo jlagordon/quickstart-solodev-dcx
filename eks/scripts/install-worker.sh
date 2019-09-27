@@ -126,6 +126,8 @@ sudo systemctl disable kubelet
 
 #iscsi
 sudo yum -y install iscsi-initiator-utils
+sudo systemctl enable iscsid
+sudo systemctl start iscsid
 
 sudo mkdir -p /etc/eks
 sudo mv $TEMPLATE_DIR/eni-max-pods.txt /etc/eks/eni-max-pods.txt
