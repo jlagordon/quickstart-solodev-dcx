@@ -2,11 +2,11 @@
 args=("$@")
 
 export EKSName=""
-export Region="us-east-1"
+export REGION="us-east-1"
 export NAMESPACE="default"
 
 initServiceAccount(){
-    ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${Region} --query cluster.identity.oidc.issuer --output text )
+    ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${REGION} --query cluster.identity.oidc.issuer --output text )
     echo $ISSUER_URL
     ISSUER_URL_WITHOUT_PROTOCOL=$(echo $ISSUER_URL | sed 's/https:\/\///g' )
     ISSUER_HOSTPATH=$(echo $ISSUER_URL_WITHOUT_PROTOCOL | sed "s/\/id.*//" )
@@ -19,7 +19,7 @@ initServiceAccount(){
                         --url $ISSUER_URL \
                         --thumbprint-list $ROOT_CA_FINGERPRINT \
                         --client-id-list sts.amazonaws.com \
-                        --region ${Region} || echo "A provider for $ISSUER_URL already exists"
+                        --region ${REGION} || echo "A provider for $ISSUER_URL already exists"
     ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
     PROVIDER_ARN="arn:aws:iam::$ACCOUNT_ID:oidc-provider/$ISSUER_URL_WITHOUT_PROTOCOL"
     cat > trust-policy.json << EOF
@@ -40,7 +40,7 @@ initServiceAccount(){
 }
 EOF
 
-    ROLE_NAME=solodev-usage
+    ROLE_NAME=solodev-usage-${EKSName}
     aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://trust-policy.json
     cat > iam-policy.json << EOF
 {
@@ -57,7 +57,7 @@ EOF
 }
 EOF
 
-    POLICY_ARN=$(aws iam create-policy --policy-name AWSMarketplacePolicy --policy-document file://iam-policy.json --query Policy.Arn | sed 's/"//g')
+    POLICY_ARN=$(aws iam create-policy --policy-name AWSMarketplacePolicy-${EKSName} --policy-document file://iam-policy.json --query Policy.Arn | sed 's/"//g')
     echo ${POLICY_ARN}
     aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn $POLICY_ARN
     echo $ROLE_NAME
@@ -70,9 +70,10 @@ applyServiceAccount(){
     else
         ROLE_NAME=$1
     fi
-    ROLE_ARN=$(aws iam get-role --role-name $ROLE_NAME --query Role.Arn --output text)
-    kubectl create sa solodev-serviceaccount --namespace ${NAMESPACE}
-    kubectl annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
+    echo "Role="$ROLE_NAME
+    ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
+    kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
+    kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
     echo "Service Account Created: solodev-serviceaccount"
 }
 
