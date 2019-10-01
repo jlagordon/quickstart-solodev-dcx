@@ -77,6 +77,8 @@ Metadata:
         default: Nodes instance type
       NumberOfNodes:
         default: Number of nodes
+      MaxNumberOfNodes:
+        default: Max Number of nodes
       NodeGroupName:
         default: Node group name
       NodeVolumeSize:
@@ -271,7 +273,7 @@ Parameters:
   ClusterAutoScaler:
     Type: String
     AllowedValues: [ Enabled, Disabled ]
-    Default: Enabled
+    Default: Disabled
     Description: Choose Enabled to enable Kubernetes cluster autoscaler.
   EfsStorageClass:
     Type: String

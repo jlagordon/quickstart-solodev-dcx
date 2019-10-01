@@ -25,7 +25,6 @@ Metadata:
           - HelmLambdaArn
           - KubeConfigPath
           - KubeConfigKmsContext
-          - NodeInstanceRoleName
 
 Parameters:
   ZoneName:
