@@ -72,10 +72,9 @@ applyServiceAccount(){
     fi
     echo "Role="$ROLE_NAME
     ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
-    kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
-    kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
+    kubectl create sa solodev-serviceaccount --namespace ${NAMESPACE}
+    kubectl annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
     echo "Service Account Created: solodev-serviceaccount"
 }
-
 
 $*
