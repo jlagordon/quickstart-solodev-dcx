@@ -1,61 +1,121 @@
-<a href="#"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_Lite_Header.jpg"/></a>
+<a href="https://aws.amazon.com/marketplace/pp/B01LXZKO21?qid=1534773581495&sr=0-1&ref_=srh_res_product_title"><img src="pages/images/LaunchPad.jpg"/></a>
 
-# Solodev DCX Enterprise Edition for Kubernetes
-Designed for enterprise-level demands, Solodev DCX Enterprise Edition for EKS gives you best-of-breed features and advanced capabilities on a secure archtiecture managed by Amazon EKS. Launch Solodev DCX in a new EKS cluster or even deploy to an existing cluster.
+<b>Solodev is the Digital Customer Experience Platform for AWS.</b> Built from the ground up to leverage the power and scalability of AWS services, Solodev is a cloud-first enterprise content management system (CMS) and customer experience platform that lets individuals and teams collaborate on their digital transformation. 
 
-## Overview
-Solodev DCX Enterprise Edition for Kubernetes on AWS uses a set of YAML templates to (1) optionally create a new EKS cluster, and (2) deploy Solodev DCX to an EKS cluster.
+Easy to use for non-technical content marketers yet robust enough for ambitious developers, Solodev lets everyone work together to launch your most inspiring ideas. Create rich, enterprise-grade websites that engage and convert. Share comments and review ideas. Run content operations with little or no code. Build complex, API-driven applications like eCommerce shopping carts, inventory systems and more. Customize advanced integrations with best-of-breed software and IoT devices. Get access to training and U.S. based support. With Solodev, the customer experience is yours.
 
-Full deployment consists of either deploying a new EKS cluster and Solodev DCX to that cluster or deploying Solodev DCX to a preexisting EKS cluster. All YAML templates are deployed via <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a>.
 
-![AWS Diagram](https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_EKS_Architecture.jpg)
-
-## Step 1: Subscribe on the AWS Marketplace
-Solodev is a professionally managed, enterprise-class Digital Customer Experience Platform and content management system (CMS). Before launching one of our products, you'll first need to subscribe to Solodev on the <a href="https://aws.amazon.com/marketplace/pp/B07XV951M6">AWS Marketplace.</a> Click the button below to get started: 
+## Choose Your Solodev Stack
+Mission control, we have options! Choose from a range of Solodev DCX products that fit your needs – and launch your stack in seconds:
 <table>
 	<tr>
-		<td width="60%"><a href="https://aws.amazon.com/marketplace/pp/B07XV951M6"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/AWS_Marketplace_Logo.jpg" /></a></td>
-		<td><a href="https://aws.amazon.com/marketplace/pp/B07XV951M6"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Subscribe_Large.jpg" /></a></td>
+		<td width="50%"><a href="eks/README.md"><img src="pages/images/Solodev_Docker_Architecture_Thumbnail.jpg"/></a></td>
+		<td width="50%"><strong><h3><a href="eks/README.md">Solodev DCX Enterprise Edition for Kubernetes</a></h3></strong>Dock with the space-age power of a fully containerized platform built exclusively for Docker and AWS Elastic Container Service. Includes YAML templates for <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">Amazon Virtual Private Cloud (VPC)</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">Amazon Elastic Compute Cloud (EC2)</a>, <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html">Amazon Elastic Load Balancing</a>,  <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html">Amazon Relational Database Service (RDS)</a>,  <a href="http://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon Elastic File System (EFS)</a>, <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">Amazon Simple Storage Service (S3)</a>, <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudWatch</a>, <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html">Amazon Route 53</a>, <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html">Amazon Certificate Manager (ACM)</a>, <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/WhatIsAutoScaling.html">Amazon WAF</a> managed by Amazon Auto Scaling and deployed by <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a>.<br /><br /><strong>Quick Launch:</strong> <a href="https://aws.amazon.com/marketplace/pp/B07K6TRSMP/ref=_ptnr_solodev_github_B07K6TRSMP">AWS Marketplace</a><br /><a href="eks/README.md"><br/><img src="pages/images/Details_Button.png" width="150" /></a></td>	
+	</tr>
+    <tr>
+		<td width="50%"><a href="ecs/README.md"><img src="pages/images/Solodev_Docker_Architecture_Thumbnail.jpg"/></a></td>
+		<td width="50%"><strong><h3><a href="ecs/README.md">Solodev DCX Enterprise Edition for ECS</a></h3></strong>Dock with the space-age power of a fully containerized platform built exclusively for Docker and AWS Elastic Container Service. Includes YAML templates for <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">Amazon Virtual Private Cloud (VPC)</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">Amazon Elastic Compute Cloud (EC2)</a>, <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html">Amazon Elastic Load Balancing</a>,  <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html">Amazon Relational Database Service (RDS)</a>,  <a href="http://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon Elastic File System (EFS)</a>, <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">Amazon Simple Storage Service (S3)</a>, <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudWatch</a>, <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html">Amazon Route 53</a>, <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html">Amazon Certificate Manager (ACM)</a>, <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/WhatIsAutoScaling.html">Amazon WAF</a> managed by Amazon Auto Scaling and deployed by <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a>.<br /><br /><strong>Quick Launch:</strong> <a href="https://aws.amazon.com/marketplace/pp/B07K6TRSMP/ref=_ptnr_solodev_github_B07K6TRSMP">AWS Marketplace</a><br /><a href="ecs/README.md"><br/><img src="pages/images/Details_Button.png" width="150" /></a></td>	
 	</tr>
 </table>
 
-Already have a Solodev license? Call <a href="tel:1.800.859.7656">1-800-859-7656</a> and we’ll activate your subscription for you.<br /><br />
-
-## Step 2: Configure Your VPC and EC2 Key Pair
-Please note that both a <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">VPC</a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">EC2 Key Pair</a> must be configured within the region you intend to launch your stack.
-
-While not required, <b><i>it is strongly recommended</i></b> to create a new VPC using the <a href="https://github.com/techcto/solodev-aws/blob/master/aws/corp-vpc.yaml">AWS VPC by Solodev CloudFormation Template</a>. Click the button below to launch the AWS VPC by Solodev.
-
-<p align="center"><a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=solodev-vpc&templateURL=https://solodev-aws-ha.s3.amazonaws.com/aws/corp-vpc.yaml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" width="200" /></a></p>
-
-## Step 3: Launch your CloudFormation Stack(s)
-Once you’ve configured your <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">VPC</a> and <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">EC2 Key Pair</a>, you can your CloudFormation stack(s).
-
-Please follow the instructions below depending upon your current environment. If you do not have an existing EKS cluster, begin by launching <a href="pages/deploy-eks.md">Amazon EKS by Solodev</a>. Once that is complete, follow the directions to deploy <a href="pages/deploy-solodev-dcx.md">Solodev DCX for Kubernetes</a> to that newly created EKS cluster. Conversely, if you wish to deploy Solodev DCX for Kubernetes to a preexisting EKS cluster, skip directly to <a href="pages/deploy-solodev-dcx.md">those instructions</a>.
+## Compare Solodev Features
+Enterprise-class software. Best-of-breed capabilities. World-class cloud hosting. It’s all here – and it’s all yours – with Solodev. Compare features and choose the stack that’s right for you:
 
 <table>
 	<tr>
-		<td width="25%"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/amazon-eks-by-solodev.jpg" /></a></td>
-		<td>
-			<h3>Amazon EKS by Solodev*</h3>
-			<p>Launch Amazon Elastic Kubernets Service (EKS) in a new cluster and manage your containers at any scale with Solodev. Launch your applications rapidly and across AWS Regions and Availability Zones, and move from environment to environment regardless of operating system.</p>
-			<p align="right"><a href="pages/deploy-eks.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" width="200" /></a></p>
-		</td>
+		<th width="415">Feature</th>
+		<th>Lite</th>
+		<th>Pro</th>
+		<th>Enterprise</th>
 	</tr>
-</table>
-
-<table>
 	<tr>
-		<td width="25%"><a href="pages/deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-dcx-for-eks.jpg" /></a></td>
-		<td>
-			<h3>Solodev DCX for Kubernetes</h3>
-			<p>Deploy Solodev DCX for Kubernetes ands tart managing and scaling your websites and digital experiences on AWS. Rapidly move from your local environment to the cloud, add or remove containers to meet shifts in traffic, and manage entire fleets of Solodev applications with the power of Amazon EKS.</p>
-			<p align="right"><a href="pages/deploy-solodev-dcx.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" width="200" /></a></p>
-		</td>
+		<td>Web Studio</td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Modules + Forms</td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Users + Permissions</td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Scheduling + Versioning</td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Landing Pages + Blog + Experiments</td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Staging Server</td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>External Database</td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Load Balancing</td>
+		<td></td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Workflows</td>
+		<td></td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Integrations</td>
+		<td></td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Tasks</td>
+		<td></td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>Theme Builder</td>
+		<td></td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
+	</tr>
+	<tr>
+		<td>API Access</td>
+		<td></td>
+		<td></td>
+		<td><img src="pages/images/features-checkmark.png" /></td>
 	</tr>
 </table>
 
-<pre>Note: Solodev Developer? Please see instructions regarding setting up a <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a> for your EKS cluster.</pre>
+
+## Solodev: The CMS for AWS
+Built for the cloud – and built for the future. With Solodev and AWS, the possibilities are limitless. Now you can focus on your business, and not the infrastructure that powers it. Scale your capacity in seconds, and meet unexpected spikes in traffic without any downtime. Solodev and AWS give you the freedom to focus on your customers, and leave behind the heavy lifting of racking, stacking, and managing servers. And now, you can get it all with an AWS Marketplace subscription.
+
+As an <a href="https://aws.amazon.com/partners/technology/">AWS Advanced Technology Partner</a>, Solodev delivers best-of-breed features, service, and support with rigorous competencies in key areas such as education, government, and marketing & commerce.
+
+
+<a href="https://aws.amazon.com/partners/technology/"><img src="pages/images/AWS_Badges.jpg"/></a>
 
 ## Support
 Houston, we have no problems… because Solodev Customer Care has your back at every step! From our world-class HelpDesk to our focused training sessions, you’ve got the best team on the ground to get you to the stars. 
@@ -65,16 +125,22 @@ Solodev Customer Care Includes
 * Online HelpDesk ticketing
 * Phone and email support
 * Live training courses
-* Over 300 pages of searchable documentation and tutorials
+* Over 600 pages of searchable documentation and tutorials
 
 To learn more about our add-on support options, call 1-800-859-7656 to speak with one of our Solodev Customer Care Specialists.
 
-<a href="https://www.solodev.com/product/support.stml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_Git_Support.jpg"/></a>
+<a href="https://www.solodev.com/product/support.stml"><img src="pages/images/Solodev_Git_Support.jpg"/></a>
+
+## Case Studies
+Solodev is reinventing the CMS market with our innovative solutions. That’s why we’ve been selected as the leader in the “High Performer” category of the G2 Crowd Grid for the last five consecutive quarters. We’re launching our partners to new galaxies of digital performance, and you can read how in our [Mission Case Studies](https://www.solodev.com/resources/case-studies/)
+
+<a href="https://www.solodev.com/resources/case-studies/"><img src="pages/images/Solodev_Git_Badges.jpg"/></a>
 
 ## Need Help?
-Solodev is a professionally managed, enterprise-class solution, and our team of certified engineers are here to support your success. While our self-serve options are easy to launch, you’ve always got a co-pilot at the helm. If you have any questions – or if you already have a Solodev license and need support with your AWS subscription – call <a href="tel:1.800.859.7656">1-800-859-7656</a> and we’ll help you get to the launchpad.
 
----
+Solodev is a professionally managed, enterprise-class solution, and our team of certified engineers are here to support your success. While our self-serve options are easy to launch, you’ve always got a co-pilot at the helm. If you have any questions – or if you already have a Solodev license and need support with your AWS subscription – call [1-800-859-7656](tel:1.800.859.7656) and we’ll help you get to the launchpad.
+
+
 © 2019 Solodev. All rights reserved worldwide. And off planet. 
 
 Errors or corrections? Email us at help@solodev.com.
