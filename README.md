@@ -1,4 +1,4 @@
-<a href="https://aws.amazon.com/marketplace/pp/B01LXZKO21?qid=1534773581495&sr=0-1&ref_=srh_res_product_title"><img src="pages/images/LaunchPad.jpg"/></a>
+<a href="https://aws.amazon.com/marketplace/pp/B01LXZKO21?qid=1534773581495&sr=0-1&ref_=srh_res_product_title"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/LaunchPad.jpg"/></a>
 
 <b>Solodev is the Digital Customer Experience Platform for AWS.</b> Built from the ground up to leverage the power and scalability of AWS services, Solodev is a cloud-first enterprise content management system (CMS) and customer experience platform that lets individuals and teams collaborate on their digital transformation. 
 
@@ -9,105 +9,14 @@ Easy to use for non-technical content marketers yet robust enough for ambitious 
 Mission control, we have options! Choose from a range of Solodev DCX products that fit your needs – and launch your stack in seconds:
 <table>
 	<tr>
-		<td width="50%"><a href="eks/README.md"><img src="pages/images/Solodev_Docker_Architecture_Thumbnail.jpg"/></a></td>
-		<td width="50%"><strong><h3><a href="eks/README.md">Solodev DCX Enterprise Edition for Kubernetes</a></h3></strong>Dock with the space-age power of a fully containerized platform built exclusively for Docker and AWS Elastic Container Service. Includes YAML templates for <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">Amazon Virtual Private Cloud (VPC)</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">Amazon Elastic Compute Cloud (EC2)</a>, <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html">Amazon Elastic Load Balancing</a>,  <a href="http://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon Elastic File System (EFS)</a>, <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">Amazon Simple Storage Service (S3)</a>, <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudWatch</a>, <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html">Amazon Route 53</a>, <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html">Amazon Certificate Manager (ACM)</a>, <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/WhatIsAutoScaling.html">Amazon WAF</a> managed by Amazon Auto Scaling and deployed by <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a>.<br /><br /><strong>Quick Launch:</strong> <a href="https://aws.amazon.com/marketplace/pp/B07K6TRSMP/ref=_ptnr_solodev_github_B07K6TRSMP">AWS Marketplace</a><br /><a href="eks/README.md"><br/><img src="pages/images/Details_Button.png" width="150" /></a></td>	
+		<td width="50%"><a href="eks/README.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_Docker_Architecture_Thumbnail.jpg"/></a></td>
+		<td width="50%"><strong><h3><a href="eks/README.md">Solodev DCX Enterprise Edition for Kubernetes</a></h3></strong>Dock with the space-age power of a fully containerized platform built exclusively for Docker and AWS Elastic Container Service. Includes YAML templates for <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">Amazon Virtual Private Cloud (VPC)</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">Amazon Elastic Compute Cloud (EC2)</a>, <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html">Amazon Elastic Load Balancing</a>,  <a href="http://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon Elastic File System (EFS)</a>, <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">Amazon Simple Storage Service (S3)</a>, <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudWatch</a>, <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html">Amazon Route 53</a>, <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html">Amazon Certificate Manager (ACM)</a>, <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/WhatIsAutoScaling.html">Amazon WAF</a> managed by Amazon Auto Scaling and deployed by <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a>.<br /><br /><strong>Quick Launch:</strong> <a href="https://aws.amazon.com/marketplace/pp/B07K6TRSMP/ref=_ptnr_solodev_github_B07K6TRSMP">AWS Marketplace</a><br /><a href="eks/README.md"><br/><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Details_Button.png" width="150" /></a></td>	
 	</tr>
     <tr>
-		<td width="50%"><a href="ecs/README.md"><img src="pages/images/Solodev_Docker_Architecture_Thumbnail.jpg"/></a></td>
-		<td width="50%"><strong><h3><a href="ecs/README.md">Solodev DCX Enterprise Edition for ECS</a></h3></strong>Dock with the space-age power of a fully containerized platform built exclusively for Docker and AWS Elastic Container Service. Includes YAML templates for <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">Amazon Virtual Private Cloud (VPC)</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">Amazon Elastic Compute Cloud (EC2)</a>, <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html">Amazon Elastic Load Balancing</a>,  <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html">Amazon Relational Database Service (RDS)</a>,  <a href="http://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon Elastic File System (EFS)</a>, <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">Amazon Simple Storage Service (S3)</a>, <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudWatch</a>, <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html">Amazon Route 53</a>, <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html">Amazon Certificate Manager (ACM)</a>, <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/WhatIsAutoScaling.html">Amazon WAF</a> managed by Amazon Auto Scaling and deployed by <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a>.<br /><br /><strong>Quick Launch:</strong> <a href="https://aws.amazon.com/marketplace/pp/B07K6TRSMP/ref=_ptnr_solodev_github_B07K6TRSMP">AWS Marketplace</a><br /><a href="ecs/README.md"><br/><img src="pages/images/Details_Button.png" width="150" /></a></td>	
+		<td width="50%"><a href="ecs/README.md"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_Docker_Architecture_Thumbnail.jpg"/></a></td>
+		<td width="50%"><strong><h3><a href="ecs/README.md">Solodev DCX Enterprise Edition for ECS</a></h3></strong>Dock with the space-age power of a fully containerized platform built exclusively for Docker and AWS Elastic Container Service. Includes YAML templates for <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html">Amazon Virtual Private Cloud (VPC)</a>, <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html">Amazon Elastic Compute Cloud (EC2)</a>, <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html">Amazon Elastic Load Balancing</a>,  <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html">Amazon Relational Database Service (RDS)</a>,  <a href="http://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon Elastic File System (EFS)</a>, <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html">Amazon Simple Storage Service (S3)</a>, <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudWatch</a>, <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html">Amazon Route 53</a>, <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html">Amazon Certificate Manager (ACM)</a>, <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/WhatIsAutoScaling.html">Amazon WAF</a> managed by Amazon Auto Scaling and deployed by <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a>.<br /><br /><strong>Quick Launch:</strong> <a href="https://aws.amazon.com/marketplace/pp/B07K6TRSMP/ref=_ptnr_solodev_github_B07K6TRSMP">AWS Marketplace</a><br /><a href="ecs/README.md"><br/><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Details_Button.png" width="150" /></a></td>	
 	</tr>
 </table>
-
-## Compare Solodev Features
-Enterprise-class software. Best-of-breed capabilities. World-class cloud hosting. It’s all here – and it’s all yours – with Solodev. Compare features and choose the stack that’s right for you:
-
-<table>
-	<tr>
-		<th width="415">Feature</th>
-		<th>Lite</th>
-		<th>Pro</th>
-		<th>Enterprise</th>
-	</tr>
-	<tr>
-		<td>Web Studio</td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Modules + Forms</td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Users + Permissions</td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Scheduling + Versioning</td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Landing Pages + Blog + Experiments</td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Staging Server</td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>External Database</td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Load Balancing</td>
-		<td></td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Workflows</td>
-		<td></td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Integrations</td>
-		<td></td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Tasks</td>
-		<td></td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>Theme Builder</td>
-		<td></td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-	<tr>
-		<td>API Access</td>
-		<td></td>
-		<td></td>
-		<td><img src="pages/images/features-checkmark.png" /></td>
-	</tr>
-</table>
-
 
 ## Solodev: The CMS for AWS
 Built for the cloud – and built for the future. With Solodev and AWS, the possibilities are limitless. Now you can focus on your business, and not the infrastructure that powers it. Scale your capacity in seconds, and meet unexpected spikes in traffic without any downtime. Solodev and AWS give you the freedom to focus on your customers, and leave behind the heavy lifting of racking, stacking, and managing servers. And now, you can get it all with an AWS Marketplace subscription.
@@ -115,7 +24,7 @@ Built for the cloud – and built for the future. With Solodev and AWS, the poss
 As an <a href="https://aws.amazon.com/partners/technology/">AWS Advanced Technology Partner</a>, Solodev delivers best-of-breed features, service, and support with rigorous competencies in key areas such as education, government, and marketing & commerce.
 
 
-<a href="https://aws.amazon.com/partners/technology/"><img src="pages/images/AWS_Badges.jpg"/></a>
+<a href="https://aws.amazon.com/partners/technology/"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/AWS_Badges.jpg"/></a>
 
 ## Support
 Houston, we have no problems… because Solodev Customer Care has your back at every step! From our world-class HelpDesk to our focused training sessions, you’ve got the best team on the ground to get you to the stars. 
@@ -129,12 +38,7 @@ Solodev Customer Care Includes
 
 To learn more about our add-on support options, call 1-800-859-7656 to speak with one of our Solodev Customer Care Specialists.
 
-<a href="https://www.solodev.com/product/support.stml"><img src="pages/images/Solodev_Git_Support.jpg"/></a>
-
-## Case Studies
-Solodev is reinventing the CMS market with our innovative solutions. That’s why we’ve been selected as the leader in the “High Performer” category of the G2 Crowd Grid for the last five consecutive quarters. We’re launching our partners to new galaxies of digital performance, and you can read how in our [Mission Case Studies](https://www.solodev.com/resources/case-studies/)
-
-<a href="https://www.solodev.com/resources/case-studies/"><img src="pages/images/Solodev_Git_Badges.jpg"/></a>
+<a href="https://www.solodev.com/product/support.stml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_Git_Support.jpg"/></a>
 
 ## Need Help?
 
