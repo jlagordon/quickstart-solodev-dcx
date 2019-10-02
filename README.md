@@ -28,7 +28,7 @@ Mission control, we have options! Choose from a range of Solodev DCX products th
 	</tr>
 </table>
 
-## Solodev: The CMS for AWS
+## Solodev: The DCX for AWS
 Built for the cloud – and built for the future. With Solodev and AWS, the possibilities are limitless. Now you can focus on your business, and not the infrastructure that powers it. Scale your capacity in seconds, and meet unexpected spikes in traffic without any downtime. Solodev and AWS give you the freedom to focus on your customers, and leave behind the heavy lifting of racking, stacking, and managing servers. And now, you can get it all with an AWS Marketplace subscription.
 
 As an <a href="https://aws.amazon.com/partners/technology/">AWS Advanced Technology Partner</a>, Solodev delivers best-of-breed features, service, and support with rigorous competencies in key areas such as education, government, and marketing & commerce.
@@ -51,7 +51,7 @@ To learn more about our add-on support options, call 1-800-859-7656 to speak wit
 <a href="https://www.solodev.com/product/support.stml"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_Git_Support.jpg"/></a>
 
 ## Case Studies
-Solodev is reinventing the CMS market with our innovative solutions. That’s why we’ve been selected as the leader in the “High Performer” category of the G2 Crowd Grid for the last five consecutive quarters. We’re launching our partners to new galaxies of digital performance, and you can read how in our [Mission Case Studies](https://www.solodev.com/resources/case-studies/)
+Solodev is reinventing the DCX and CMS markets with our innovative solutions. That’s why we’ve been selected as the leader in the “High Performer” category of the G2 Crowd Grid for the last five consecutive quarters. We’re launching our partners to new galaxies of digital performance, and you can read how in our [Mission Case Studies](https://www.solodev.com/resources/case-studies/)
 
 <a href="https://www.solodev.com/resources/case-studies/"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/Solodev_Git_Badges.jpg"/></a>
 
