@@ -205,7 +205,7 @@ Resources:
         DependsOn: VPC
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/solodev.yaml
+            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}ecs/solodev.yaml
             Parameters:
                 ResourceName: !Ref ResourceName
                 VPCID: !GetAtt VPC.Outputs.VPCID

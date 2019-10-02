@@ -235,7 +235,7 @@ Resources:
     ALB:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/alb.yaml
+            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}ecs/alb.yaml
             Parameters:
                 EnvironmentName: !Ref ResourceName
                 VPC: !Ref VPCID
@@ -245,7 +245,7 @@ Resources:
     EFS:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/efs.yaml             
+            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}ecs/efs.yaml             
             Parameters:
                 EnvironmentName: !Ref ResourceName
                 VPC: !Ref VPCID
@@ -256,7 +256,7 @@ Resources:
     ECS:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/ecs.yaml          
+            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}ecs/ecs.yaml          
             Parameters:
                 EnvironmentName: !Ref ResourceName
                 InstanceType: !Ref InstanceType
@@ -271,7 +271,7 @@ Resources:
     RDS:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/rds.yaml
+            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}ecs/rds.yaml
             Parameters:
                 EnvironmentName: !Ref ResourceName
                 DatabaseName: !Ref DatabaseName
@@ -287,7 +287,7 @@ Resources:
         Type: AWS::CloudFormation::Stack
         DependsOn: RDS
         Properties:
-            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/ecs-solodev.yaml
+            TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}ecs/ecs-solodev.yaml
             Parameters:
                 EnvironmentName: !Ref ResourceName
                 VPC: !Ref VPCID
