@@ -581,6 +581,7 @@ initWeave(){
 }
 
 initServiceAccount(){
+    echo "aws eks describe-cluster --name ${K8S_CLUSTER_NAME} --region ${REGION} --query cluster.identity.oidc.issuer --output text"
     ISSUER_URL=$(aws eks describe-cluster --name ${K8S_CLUSTER_NAME} --region ${REGION} --query cluster.identity.oidc.issuer --output text )
     echo $ISSUER_URL
     ISSUER_URL_WITHOUT_PROTOCOL=$(echo $ISSUER_URL | sed 's/https:\/\///g' )
