@@ -119,23 +119,6 @@ echo "$(jq .clusterDNS=[\"$DNS_CLUSTER_IP\"] $KUBELET_CONFIG)" > $KUBELET_CONFIG
 INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 INSTANCE_TYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
 
-initCNI(){
-    echo "Disable AWS CNI"
-    kubectl --kubeconfig /var/lib/kubelet/kubeconfig delete ds aws-node -n kube-system
-    echo "Reinstall AWS CNI"
-    kubectl --kubeconfig=$KUBECONFIG set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_EXTERNALSNAT=true
-    echo "Install CNI Genie"
-    kubectl --kubeconfig=$KUBECONFIG apply -f https://raw.githubusercontent.com/Huawei-PaaS/CNI-Genie/master/conf/1.8/genie-plugin.yaml
-    #WEAVE
-    initWeave
-}
-
-initWeave(){
-    echo "Install Weave CNI"
-    curl --location -o ./weave-net.yaml "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')&env.IPALLOC_RANGE=192.168.0.0/16"
-    kubectl --kubeconfig /var/lib/kubelet/kubeconfig apply -f weave-net.yaml
-}
-
 if [[ "$USE_MAX_PODS" = "true" ]]; then
     MAX_PODS_FILE="/etc/eks/eni-max-pods.txt"
     set +o pipefail
@@ -146,8 +129,6 @@ if [[ "$USE_MAX_PODS" = "true" ]]; then
     else
         echo "No entry for $INSTANCE_TYPE in $MAX_PODS_FILE. Not setting max pods for kubelet"
     fi
-else
-    initCNI
 fi
 
 cat <<EOF > /etc/systemd/system/kubelet.service.d/10-kubelet-args.conf
@@ -160,89 +141,6 @@ if [[ -n "$KUBELET_EXTRA_ARGS" ]]; then
 [Service]
 Environment='KUBELET_EXTRA_ARGS=$KUBELET_EXTRA_ARGS'
 EOF
-fi
-
-initServiceAccount(){
-    ISSUER_URL=$(aws eks describe-cluster --name ${CLUSTER_NAME} --region ${AWS_DEFAULT_REGION} --query cluster.identity.oidc.issuer --output text )
-    echo $ISSUER_URL
-    ISSUER_URL_WITHOUT_PROTOCOL=$(echo $ISSUER_URL | sed 's/https:\/\///g' )
-    ISSUER_HOSTPATH=$(echo $ISSUER_URL_WITHOUT_PROTOCOL | sed "s/\/id.*//" )
-    rm *.crt || echo "No files that match *.crt exist"
-    ROOT_CA_FILENAME=$(openssl s_client -showcerts -connect $ISSUER_HOSTPATH:443 < /dev/null \
-                        | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; out="cert"a".crt"; print > out } END {print "cert"a".crt"}')
-    ROOT_CA_FINGERPRINT=$(openssl x509 -fingerprint -noout -in $ROOT_CA_FILENAME \
-                        | sed 's/://g' | sed 's/SHA1 Fingerprint=//')
-    aws iam create-open-id-connect-provider \
-                        --url $ISSUER_URL \
-                        --thumbprint-list $ROOT_CA_FINGERPRINT \
-                        --client-id-list sts.amazonaws.com \
-                        --region ${AWS_DEFAULT_REGION} || echo "A provider for $ISSUER_URL already exists"
-    ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-    PROVIDER_ARN="arn:aws:iam::$ACCOUNT_ID:oidc-provider/$ISSUER_URL_WITHOUT_PROTOCOL"
-    cat > trust-policy.json << EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Principal": {
-            "Federated": "${PROVIDER_ARN}"
-        },
-        "Action": "sts:AssumeRoleWithWebIdentity",
-        "Condition": {
-            "StringEquals": {
-                "${ISSUER_URL_WITHOUT_PROTOCOL}:sub": "system:serviceaccount:${NAMESPACE}:solodev-serviceaccount"
-            }
-        }
-    }]
-}
-EOF
-
-    ROLE_NAME=solodev-usage-${CLUSTER_NAME}
-    aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://trust-policy.json
-    cat > iam-policy.json << EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "aws-marketplace:RegisterUsage"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        }
-    ]
-}
-EOF
-
-    POLICY_ARN=$(aws iam create-policy --policy-name AWSMarketplacePolicy-${CLUSTER_NAME} --policy-document file://iam-policy.json --query Policy.Arn | sed 's/"//g')
-    echo ${POLICY_ARN}
-    aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn $POLICY_ARN
-    echo $ROLE_NAME
-    applyServiceAccount $ROLE_NAME
-}
-
-applyServiceAccount(){
-    ROLE_NAME="${args[1]}"
-    NAMESPACE="default"
-    echo "Role="$ROLE_NAME
-    ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
-    kubectl --kubeconfig /var/lib/kubelet/kubeconfig create sa solodev-serviceaccount --namespace ${NAMESPACE}
-    kubectl --kubeconfig /var/lib/kubelet/kubeconfig annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
-    echo "Service Account Created: solodev-serviceaccount"
-}
-
-initNetwork(){
-    helm --kubeconfig /var/lib/kubelet/kubeconfig install --name nginx-ingress stable/nginx-ingress --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"=nlb --set controller.publishService.enabled=true,controller.stats.enabled=true,controller.metrics.enabled=true,controller.hostNetwork=true,controller.kind=DaemonSet
-
-    helm --kubeconfig /var/lib/kubelet/kubeconfig install --name external-dns stable/external-dns --set logLevel=debug \
-        --set policy=sync --set domainFilters={${DOMAIN}} --set rbac.create=true \
-        --set aws.zoneType=public --set txtOwnerId=${OWNERID} 
-        # --set controller.hostNetwork=true,controller.kind=DaemonSet
-}
-
-if [[ "$SOLODEV_NETWORK" = "true" ]]; then
-    initServiceAccount
-    initNetwork
 fi
 
 systemctl daemon-reload

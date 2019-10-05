@@ -259,7 +259,8 @@ Resources:
           K8S_ROLE_ARN=${IamStack.Outputs.ControlPlaneProvisionRoleArn},
           K8S_CLUSTER_NAME=${EKSControlPlane.EKSName},
           K8S_CA_DATA=${EKSControlPlane.CAData},
-          K8S_ENDPOINT=${EKSControlPlane.EKSEndpoint}${Joiner}
+          K8S_ENDPOINT=${EKSControlPlane.EKSEndpoint}${Joiner},
+          ProvisionSolodevDCXNetwork=${ProvisionSolodevDCXNetwork}
           ${BastionVariables}
         - Joiner: !If [AdditionalVars, ",", ""]
   NodeGroupStack:
