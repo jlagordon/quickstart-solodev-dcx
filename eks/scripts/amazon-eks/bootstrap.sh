@@ -145,8 +145,9 @@ if [[ "$USE_MAX_PODS" = "true" ]]; then
         echo "$(jq .maxPods=$MAX_PODS $KUBELET_CONFIG)" > $KUBELET_CONFIG
     else
         echo "No entry for $INSTANCE_TYPE in $MAX_PODS_FILE. Not setting max pods for kubelet"
-        initCNI
     fi
+else
+    initCNI
 fi
 
 cat <<EOF > /etc/systemd/system/kubelet.service.d/10-kubelet-args.conf
