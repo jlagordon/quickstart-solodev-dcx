@@ -313,6 +313,7 @@ Resources:
                   - ec2:AssociateAddress
                   - ec2:DescribeAddresses
                   - eks:ListClusters
+                  - iam:GetRole
                   - iam:CreateRole
                   - iam:CreatePolicy
                   - iam:AttachRolePolicy
