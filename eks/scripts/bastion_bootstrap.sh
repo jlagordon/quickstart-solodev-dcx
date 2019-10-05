@@ -650,11 +650,12 @@ applyServiceAccount(){
 }
 
 initNetwork(){
-    su ${user_group} -c "/usr/local/bin/helm repo update"
-    su ${user_group} -c "/usr/local/bin/helm install --name nginx-ingress stable/nginx-ingress --set controller.service.annotations.\"service\.beta\.kubernetes\.io/aws-load-balancer-type\"=nlb --set controller.publishService.enabled=true,controller.stats.enabled=true,controller.metrics.enabled=true,controller.hostNetwork=true,controller.kind=DaemonSet"
-    su ${user_group} -c "/usr/local/bin/helm install --name external-dns stable/external-dns --set logLevel=debug \
+    helm --kubeconfig $KUBECONFIG repo update
+    helm --kubeconfig $KUBECONFIG install --name nginx-ingress stable/nginx-ingress --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"=nlb --set controller.publishService.enabled=true,controller.stats.enabled=true,controller.metrics.enabled=true,controller.hostNetwork=true,controller.kind=DaemonSet
+    helm --kubeconfig $KUBECONFIG install --name external-dns stable/external-dns --set logLevel=debug \
         --set policy=sync --set domainFilters={${DOMAIN}} --set rbac.create=true \
-        --set aws.zoneType=public --set txtOwnerId=${OWNERID}"
+        --set aws.zoneType=public --set txtOwnerId=${OWNERID} 
+        # --set controller.hostNetwork=true,controller.kind=DaemonSet
 }
 
 if [[ "$ProvisionSolodevDCXNetwork" = "Enabled" ]]; then
