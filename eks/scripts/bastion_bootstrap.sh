@@ -650,8 +650,8 @@ applyServiceAccount(){
 }
 
 initNetwork(){
+    helm repo update
     helm install --name nginx-ingress stable/nginx-ingress --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"=nlb --set controller.publishService.enabled=true,controller.stats.enabled=true,controller.metrics.enabled=true,controller.hostNetwork=true,controller.kind=DaemonSet
-
     helm install --name external-dns stable/external-dns --set logLevel=debug \
         --set policy=sync --set domainFilters={${DOMAIN}} --set rbac.create=true \
         --set aws.zoneType=public --set txtOwnerId=${OWNERID} 
