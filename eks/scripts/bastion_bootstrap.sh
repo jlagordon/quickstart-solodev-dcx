@@ -429,7 +429,7 @@ function install_kubernetes_client_tools() {
     retry_command 20 curl --retry 5 -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/kubectl
     chmod +x ./kubectl
     mv ./kubectl /usr/local/bin/
-    echo "source <(kubectl completion bash)" >> ~/.bashrc
+    echo "source <(/usr/local/bin/kubectl completion bash)" >> ~/.bashrc
     retry_command 20 curl --retry 5 -o helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.12.2-linux-amd64.tar.gz
     tar -xvf helm.tar.gz
     chmod +x ./linux-amd64/helm
@@ -559,23 +559,24 @@ prevent_process_snooping
 request_eip
 install_kubernetes_client_tools
 setup_kubeconfig
+KUBECONFIG="/home/${user_group}/.kube/config"
 
 #Network Setup
 initCNI(){
     echo "Disable AWS CNI"
-    kubectl delete ds aws-node -n kube-system
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG delete ds aws-node -n kube-system
     # echo "Reinstall AWS CNI"
     # kubectl set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_EXTERNALSNAT=true
     echo "Install CNI Genie"
-    kubectl apply -f https://raw.githubusercontent.com/Huawei-PaaS/CNI-Genie/master/conf/1.8/genie-plugin.yaml
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/Huawei-PaaS/CNI-Genie/master/conf/1.8/genie-plugin.yaml
     #WEAVE
     initWeave
 }
 
 initWeave(){
     echo "Install Weave CNI"
-    curl --location -o ./weave-net.yaml "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')&env.IPALLOC_RANGE=192.168.0.0/16"
-    kubectl apply -f weave-net.yaml
+    curl --location -o ./weave-net.yaml "https://cloud.weave.works/k8s/net?k8s-version=$(/usr/local/bin/kubectl --kubeconfig $KUBECONFIG version | base64 | tr -d '\n')&env.IPALLOC_RANGE=192.168.0.0/16"
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f weave-net.yaml
 }
 
 initServiceAccount(){
@@ -642,8 +643,8 @@ applyServiceAccount(){
     NAMESPACE="default"
     echo "Role="$ROLE_NAME
     ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
-    /usr/local/bin/kubectl create sa solodev-serviceaccount --namespace ${NAMESPACE}
-    /usr/local/bin/kubectl annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
     echo "Service Account Created: solodev-serviceaccount"
 }
 
