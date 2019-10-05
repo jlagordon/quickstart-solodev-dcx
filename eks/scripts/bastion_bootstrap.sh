@@ -560,6 +560,7 @@ request_eip
 install_kubernetes_client_tools
 setup_kubeconfig
 KUBECONFIG="/home/${user_group}/.kube/config"
+NAMESPACE="default"
 
 #Network Setup
 initCNI(){
@@ -640,7 +641,6 @@ EOF
 
 applyServiceAccount(){
     ROLE_NAME=$1
-    NAMESPACE="default"
     echo "Role="$ROLE_NAME
     ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
     /usr/local/bin/kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
