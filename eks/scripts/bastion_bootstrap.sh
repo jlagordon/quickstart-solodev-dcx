@@ -562,6 +562,9 @@ setup_kubeconfig
 KUBECONFIG="/home/${user_group}/.kube/config"
 NAMESPACE="default"
 
+su ${user_group} -c "/usr/local/bin/helm repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'"
+su ${user_group} -c "/usr/local/bin/helm repo update"
+
 #Network Setup
 initCNI(){
     echo "Disable AWS CNI"
@@ -650,8 +653,6 @@ applyServiceAccount(){
 }
 
 initNetwork(){
-    su ${user_group} -c "/usr/local/bin/helm repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'"
-    su ${user_group} -c "/usr/local/bin/helm repo update"
     export PATH=/usr/local/bin/:$PATH
     su ${user_group} -c "/usr/local/bin/helm install --name nginx-ingress stable/nginx-ingress --set controller.service.annotations.\"service\.beta\.kubernetes\.io/aws-load-balancer-type\"=nlb \
         --set controller.publishService.enabled=true,controller.stats.enabled=true,controller.metrics.enabled=true,controller.hostNetwork=true,controller.kind=DaemonSet"
@@ -662,7 +663,6 @@ initNetwork(){
 }
 
 initDashboard(){
-    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG delete ns kubernetes-dashboard
     DOWNLOAD_URL=$(curl --silent "https://api.github.com/repos/kubernetes-incubator/metrics-server/releases/latest" | jq -r .tarball_url)
     DOWNLOAD_VERSION=$(grep -o '[^/v]*$' <<< $DOWNLOAD_URL)
     curl -Ls $DOWNLOAD_URL -o metrics-server-$DOWNLOAD_VERSION.tar.gz
