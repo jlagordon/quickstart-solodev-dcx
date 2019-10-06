@@ -609,7 +609,7 @@ initServiceAccount(){
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
             "StringEquals": {
-                "${ISSUER_URL_WITHOUT_PROTOCOL}:sub": "system:serviceaccount:${NAMESPACE}:solodev-serviceaccount"
+                "${ISSUER_URL_WITHOUT_PROTOCOL}:sub": "system:serviceaccount:${NAMESPACE}:aws-serviceaccount"
             }
         }
     }]
@@ -644,19 +644,54 @@ applyServiceAccount(){
     ROLE_NAME=$1
     echo "Role="$ROLE_NAME
     ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
-    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
-    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
-    echo "Service Account Created: solodev-serviceaccount"
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG create sa aws-serviceaccount --namespace ${NAMESPACE}
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG annotate sa aws-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
+    echo "Service Account Created: aws-serviceaccount"
 }
 
 initNetwork(){
-    su ${user_group} -c "/usr/local/bin/helm repo update --client-only"
+    su ${user_group} -c "/usr/local/bin/helm repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'"
+    su ${user_group} -c "/usr/local/bin/helm repo update"
+    export PATH=/usr/local/bin/:$PATH
     su ${user_group} -c "/usr/local/bin/helm install --name nginx-ingress stable/nginx-ingress --set controller.service.annotations.\"service\.beta\.kubernetes\.io/aws-load-balancer-type\"=nlb \
-        --set controller.publishService.enabled=true,controller.stats.enabled=true,controller.metrics.enabled=true,controller.hostNetwork=true,controller.kind=DaemonSet --client-only"
+        --set controller.publishService.enabled=true,controller.stats.enabled=true,controller.metrics.enabled=true,controller.hostNetwork=true,controller.kind=DaemonSet"
     su ${user_group} -c "/usr/local/bin/helm install --name external-dns stable/external-dns --set logLevel=debug \
         --set policy=sync --set domainFilters={${DOMAIN}} --set rbac.create=true \
-        --set aws.zoneType=public --set txtOwnerId=${K8S_CLUSTER_NAME} 
-        # --set controller.hostNetwork=true,controller.kind=DaemonSet --client-only"
+        --set aws.zoneType=public --set txtOwnerId=${K8S_CLUSTER_NAME}"
+        # --set controller.hostNetwork=true,controller.kind=DaemonSet"
+}
+
+initDashboard(){
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG delete ns kubernetes-dashboard
+    DOWNLOAD_URL=$(curl --silent "https://api.github.com/repos/kubernetes-incubator/metrics-server/releases/latest" | jq -r .tarball_url)
+    DOWNLOAD_VERSION=$(grep -o '[^/v]*$' <<< $DOWNLOAD_URL)
+    curl -Ls $DOWNLOAD_URL -o metrics-server-$DOWNLOAD_VERSION.tar.gz
+    mkdir metrics-server-$DOWNLOAD_VERSION
+    tar -xzf metrics-server-$DOWNLOAD_VERSION.tar.gz --directory metrics-server-$DOWNLOAD_VERSION --strip-components 1
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f metrics-server-$DOWNLOAD_VERSION/deploy/1.8+/
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG get deployment metrics-server -n kube-system
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/alternative.yaml
+    cat > eks-admin-service-account.yaml << EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: eks-admin
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: eks-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: eks-admin
+  namespace: kube-system
+EOF
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f eks-admin-service-account.yaml
 }
 
 if [[ "$ProvisionSolodevDCXNetwork" = "Enabled" ]]; then
@@ -664,5 +699,8 @@ if [[ "$ProvisionSolodevDCXNetwork" = "Enabled" ]]; then
     initServiceAccount
     initNetwork
 fi
+
+#Dashboard Setup
+initDashboard
 
 echo "Bootstrap complete."
