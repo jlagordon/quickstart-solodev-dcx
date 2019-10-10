@@ -311,7 +311,7 @@ Parameters:
     Default: "Disabled"
   PXKubernetesVersion:
     Type: String
-    Default: "v1.13.0"
+    Default: "v1.14.3"
     Description:  The tag for the Portworx container image version.
   PortworxVersion:
     Type: String
