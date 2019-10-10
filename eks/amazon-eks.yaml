@@ -145,7 +145,7 @@ Parameters:
     Description: "[OPTIONAL] Comma separated list of IAM user/role Amazon Resource Names (ARNs) to be granted admin access to the EKS cluster"
     Type: CommaDelimitedList
   NodeInstanceType:
-    Default: t2.medium
+    Default: t2.xlarge
     AllowedValues:
       - t2.small
       - t2.medium
@@ -323,7 +323,7 @@ Parameters:
     Description: The version of the Portworx Lighthouse UI.
   VolumeTemplateString:
     Type: String
-    Default: "type=gp2,size=100"
+    Default: "type=gp2,size=200"
     Description: The template string used for partitioning. For more information, see https://docs.portworx.com/cloud-references/auto-disk-provisioning/aws/.
 Rules:
   EKSSupport:
