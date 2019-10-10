@@ -377,7 +377,7 @@ Resources:
         EfsThroughputMode: !Ref EfsThroughputMode
         EfsProvisionedThroughputInMibps: !Ref EfsProvisionedThroughputInMibps
         ProvisionSolodevDCXNetwork: !Ref ProvisionSolodevDCXNetwork
-        BootstrapArguments: !If [EnableSolodevDCXNetwork, '--use-max-pods int32 --solodev-network true', '']
+        BootstrapArguments: !If [EnableSolodevDCXNetwork, '--use-max-pods eint32 --solodev-network true', '']
 
   PortworxStack:
     Type: AWS::CloudFormation::Stack
