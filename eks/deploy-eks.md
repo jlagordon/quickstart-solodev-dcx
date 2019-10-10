@@ -100,7 +100,7 @@ The following parameters must be configured to launch your Solodev DCX CloudForm
 		<td colspan="2"><strong>Optional Solodev DCX configuration</strong></td>
 	<tr>
 		<td width="33%">ProvisionSolodevDCXNetwork</td>
-		<td width="600px">Whether or not to also deploy the <a href="pages/deploy-solodev-dcx-network.md">Solodev DCX Network</a>. Recommended to keep "Disabled" unless a Solodev developer.</td>
+		<td width="600px">Whether or not to also deploy the <a href="deploy-solodev-dcx-network.md">Solodev DCX Network</a>. Recommended to keep "Disabled" unless a Solodev developer.</td>
 	</tr>   		
 	<tr>
 		<td>ZoneName</td>
