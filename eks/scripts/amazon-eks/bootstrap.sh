@@ -129,6 +129,10 @@ if [[ "$USE_MAX_PODS" = "true" ]]; then
     MAX_PODS_FILE="/etc/eks/eni-max-pods.txt"
     set +o pipefail
     MAX_PODS=$(grep $INSTANCE_TYPE $MAX_PODS_FILE | awk '{print $2}')
+
+    if [[ "$SOLODEV_NETWORK" = "true" ]]; then
+        MAX_PODS=$(($MAX_PODS*5))
+    fi
     set -o pipefail
     if [[ -n "$MAX_PODS" ]]; then
         echo "$(jq .maxPods=$MAX_PODS $KUBELET_CONFIG)" > $KUBELET_CONFIG
