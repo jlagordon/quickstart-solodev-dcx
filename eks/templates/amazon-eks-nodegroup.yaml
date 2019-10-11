@@ -643,18 +643,23 @@ Resources:
       AWS::CloudFormation::Init:
         config:
           files:
-            /etc/eks/bootstrap.sh:
+            /tmp/worker/bootstrap.sh:
               source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/bootstrap.sh
               group: root
               owner: root
               mode: '000644'
               authentication: S3Auth
-            /etc/systemd/system/multi-user.target.wants/kubelet.service:
+            /tmp/worker/kubelet.service:
               source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/kubelet.service
               group: root
               owner: root
               mode: '000644'
               authentication: S3Auth
+          commands:
+            a-install:
+              command: /tmp/worker/install-worker.sh
+            b-bootstrap:
+              command: !Sub /etc/eks/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
     Properties:
       AssociatePublicIpAddress: false
       IamInstanceProfile: !Ref NodeInstanceProfile
@@ -688,7 +693,6 @@ Resources:
                 --stack ${AWS::StackName} \
                 --resource NodeLaunchConfig \
                 --region ${AWS::Region}
-            /etc/eks/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
             /opt/aws/bin/cfn-signal --exit-code $? \
                   --stack  ${AWS::StackName} \
                   --resource NodeGroup  \
