@@ -678,7 +678,10 @@ Resources:
       KeyName: !Ref KeyPairName
       SecurityGroups:
         - !Ref NodeSecurityGroup
-      UserData: |
+      UserData: !If
+        - AmznOS
+        - Fn::Base64:
+            !Sub |
             #!/bin/bash
             set -o xtrace
             /usr/bin/cfn-init \
@@ -690,6 +693,9 @@ Resources:
                   --stack  ${AWS::StackName} \
                   --resource NodeGroup  \
                   --region ${AWS::Region}
+        - Fn::Base64:
+            !Sub |
+            #!/bin/bash
 Outputs:
   EKSNodeSecurityGroup:
     Value: !Ref NodeSecurityGroup
