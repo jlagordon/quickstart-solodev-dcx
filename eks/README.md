@@ -20,14 +20,14 @@ Solodev is a professionally managed, enterprise-class Digital Customer Experienc
 Already have a Solodev license? Call <a href="tel:1.800.859.7656">1-800-859-7656</a> and we’ll activate your subscription for you.<br /><br />
 
 ## Step 2: Choose Deployment Option
-How you deploy Solodev DCX Enterprise Edition for Kubernetes depends upon your experience, comfort level with deployment technologies, and existing infrastructure. Comfortable with Helm and command line? Visit the <a href="https://github.com/techcto/charts">Solodev Charts</a> repository for instructions on deploying to new or existing clusters with Helm commands. Prefer a streamlined experience? With just a few configurables, you can <a href="pages/deploy-via-cloudformation.md">deploy Solodev DCX by CloudFormation</a> and have everything in a managed stack.
+How you deploy Solodev DCX Enterprise Edition for Kubernetes depends upon your experience, comfort level with deployment technologies, and existing infrastructure. Comfortable with Helm and command line? Visit the <a href="https://github.com/techcto/charts">Solodev Helm Charts</a> repository for instructions on deploying to new or existing clusters with Helm commands. Prefer a streamlined experience? With just a few configurables, you can <a href="pages/deploy-via-cloudformation.md">deploy Solodev DCX by CloudFormation</a> and have everything in a managed stack.
 
 <table>
 	<tr>
 		<td width="25%"><a href="deploy-eks.md"><img src="https://via.placeholder.com/476x541" /></a></td>
 		<td>
 			<h3>Deploy via Helm Charts</h3>
-			<p>For those looking to install Solodev DCX to a new or existing Kubernetes cluster via Helm and command line, visit the Solodev Charts repository for further instructions.</p>
+			<p>For those looking to install Solodev DCX to a new or existing Kubernetes cluster via Helm and command line, visit the Solodev Helm Charts repository for further instructions.</p>
 			<p align="right"><a href="https://github.com/techcto/charts"><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/solodev-launch-btn.png" width="200" /></a></p>
 		</td>
 	</tr>
