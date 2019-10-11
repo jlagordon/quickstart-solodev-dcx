@@ -74,6 +74,12 @@ if [ -z "$CLUSTER_NAME" ]; then
     exit  1
 fi
 
+if [[ "$SOLODEV_NETWORK" = "true" ]]; then
+    CLOUD_PROVIDER="--cloud-provider external"
+else
+    CLOUD_PROVIDER="--cloud-provider aws"
+fi
+
 ZONE=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
 AWS_DEFAULT_REGION=$(echo $ZONE | awk '{print substr($0, 1, length($0)-1)}')
 
