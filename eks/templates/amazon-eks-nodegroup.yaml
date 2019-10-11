@@ -684,13 +684,7 @@ Resources:
             !Sub |
             #!/bin/bash
             set -o xtrace
-            if [ -e /etc/os-release ] && grep SLES /etc/os-release; then
-                zypper in -y python2-setuptools
-                update-alternatives --set easy_install /usr/bin/easy_install-2.7
-            fi
-
-            easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.zip
-            /usr/bin/cfn-init \
+            /opt/aws/bin/cfn-init \
                 --stack ${AWS::StackName} \
                 --resource NodeLaunchConfig \
                 --region ${AWS::Region}
