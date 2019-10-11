@@ -678,10 +678,8 @@ Resources:
       KeyName: !Ref KeyPairName
       SecurityGroups:
         - !Ref NodeSecurityGroup
-      UserData: !If
-        - AmznOS
-        - Fn::Base64:
-            !Sub |
+      UserData: 
+        - Fn::Base64: !Sub |
             #!/bin/bash
             set -o xtrace
             /usr/bin/cfn-init \
