@@ -693,6 +693,11 @@ subjects:
   namespace: kube-system
 EOF
     /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f eks-admin-service-account.yaml
+    /usr/local/bin/kubectl --kubeconfig=$KUBECONFIG create clusterrolebinding permissive-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts;
+}
+
+initStorage(){
+    kubectl --kubeconfig=$KUBECONFIG apply -f https://raw.githubusercontent.com/techcto/charts/master/solodev-network/templates/storage-class.yaml --namespace portworx
 }
 
 if [[ "$ProvisionSolodevDCXNetwork" = "Enabled" ]]; then
