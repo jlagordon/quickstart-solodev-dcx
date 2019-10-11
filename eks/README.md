@@ -24,7 +24,7 @@ How you deploy Solodev DCX Enterprise Edition for Kubernetes depends upon your e
 
 <table>
 	<tr>
-		<td width="25%"><a href="deploy-eks.md"><img src="https://via.placeholder.com/476x541" /></a></td>
+		<td width="25%"><a href="https://github.com/techcto/charts"><img src="img/deploy-via-heml.png" /></a></td>
 		<td>
 			<h3>Deploy via Helm Charts</h3>
 			<p>For those looking to install Solodev DCX to a new or existing Kubernetes cluster via Helm and command line, visit the Solodev Helm Charts repository for further instructions.</p>
@@ -35,7 +35,7 @@ How you deploy Solodev DCX Enterprise Edition for Kubernetes depends upon your e
 
 <table>
 	<tr>
-		<td width="25%"><a href="pages/deploy-via-cloudformation.md"><img src="https://via.placeholder.com/476x541" /></a></td>
+		<td width="25%"><a href="pages/deploy-via-cloudformation.md"><img src="img/deploy-via-cloudformation.png" /></a></td>
 		<td>
 			<h3>Deploy via CloudFormation</h3>
 			<p>Launch a new EKS cluster and deploy Solodev DCX via AWS CloudFormation. By following the configuration instructions, you will be able to have your stacks created in no time.</p>
