@@ -697,6 +697,7 @@ EOF
 }
 
 initStorage(){
+    kubectl --kubeconfig=$KUBECONFIG apply -f https://raw.githubusercontent.com/techcto/charts/master/solodev-network/templates/portworx.yaml --namespace portworx
     kubectl --kubeconfig=$KUBECONFIG apply -f https://raw.githubusercontent.com/techcto/charts/master/solodev-network/templates/storage-class.yaml --namespace portworx
 }
 
@@ -704,6 +705,7 @@ if [[ "$ProvisionSolodevDCXNetwork" = "Enabled" ]]; then
     initCNI
     initServiceAccount
     initNetwork
+    initStorage
 fi
 
 #Dashboard Setup

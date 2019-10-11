@@ -56,14 +56,14 @@ Metadata:
           - ProvisionSolodevDCXNetwork
           - ZoneName
           - ZoneId
-      - Label:
-          default: Optional Portworx configuration
-        Parameters:
-          - ProvisionPortworx
-          - PXKubernetesVersion
-          - PortworxVersion
-          - LightHouseVersion
-          - VolumeTemplateString
+      # - Label:
+      #     default: Optional Portworx configuration
+      #   Parameters:
+      #     - ProvisionPortworx
+      #     - PXKubernetesVersion
+      #     - PortworxVersion
+      #     - LightHouseVersion
+      #     - VolumeTemplateString
     ParameterLabels:
       KeyPairName:
         default: SSH key name
@@ -305,26 +305,26 @@ Parameters:
   ZoneId:
     Type: String
     Default: ""
-  ProvisionPortworx:
-    Type: String
-    AllowedValues: [ "Enabled", "Disabled" ]
-    Default: "Disabled"
-  PXKubernetesVersion:
-    Type: String
-    Default: "v1.14.3"
-    Description:  The tag for the Portworx container image version.
-  PortworxVersion:
-    Type: String
-    Default: "2.1.5"
-    Description: The version of Portworx that is deployed by this Quick Start.
-  LightHouseVersion:
-    Type: String
-    Default: "2.0.4"
-    Description: The version of the Portworx Lighthouse UI.
-  VolumeTemplateString:
-    Type: String
-    Default: "type=gp2,size=200"
-    Description: The template string used for partitioning. For more information, see https://docs.portworx.com/cloud-references/auto-disk-provisioning/aws/.
+  # ProvisionPortworx:
+  #   Type: String
+  #   AllowedValues: [ "Enabled", "Disabled" ]
+  #   Default: "Disabled"
+  # PXKubernetesVersion:
+  #   Type: String
+  #   Default: "v1.14.3"
+  #   Description:  The tag for the Portworx container image version.
+  # PortworxVersion:
+  #   Type: String
+  #   Default: "2.1.5"
+  #   Description: The version of Portworx that is deployed by this Quick Start.
+  # LightHouseVersion:
+  #   Type: String
+  #   Default: "2.0.4"
+  #   Description: The version of the Portworx Lighthouse UI.
+  # VolumeTemplateString:
+  #   Type: String
+  #   Default: "type=gp2,size=200"
+  #   Description: The template string used for partitioning. For more information, see https://docs.portworx.com/cloud-references/auto-disk-provisioning/aws/.
 Rules:
   EKSSupport:
     Assertions:
@@ -346,8 +346,7 @@ Rules:
           - !Ref 'AWS::Region'
 Conditions:
   EnableSolodevDCXNetwork: !Equals [!Ref 'ProvisionSolodevDCXNetwork', 'Enabled']
-  EnablePortworx: !Equals [!Ref 'ProvisionPortworx', 'Enabled']
-  IsMarketPlace: !Not [Condition: EnableSolodevDCXNetwork]
+  # EnablePortworx: !Equals [!Ref 'ProvisionPortworx', 'Enabled']
 Resources:
   EKSStack:
     Type: AWS::CloudFormation::Stack
@@ -379,21 +378,21 @@ Resources:
         ProvisionSolodevDCXNetwork: !Ref ProvisionSolodevDCXNetwork
         BootstrapArguments: !If [EnableSolodevDCXNetwork, '--solodev-network true', '']
 
-  PortworxStack:
-    Type: AWS::CloudFormation::Stack
-    Condition: EnablePortworx
-    Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/portworx.yaml'
-      Parameters:
-        KubeConfigPath: !GetAtt EKSStack.Outputs.KubeConfigPath
-        KubeConfigKmsContext: "EKSQuickStart"
-        KubeManifestLambdaArn: !GetAtt EKSStack.Outputs.KubeManifestLambdaArn
-        PortworxClusterName: !Join [ "-", [ !GetAtt EKSStack.Outputs.EKSClusterName, "portworx-cluster" ] ]
-        NodeGroupIAMRole: !GetAtt EKSStack.Outputs.NodeInstanceRoleName
-        PXKubernetesVersion: !Ref PXKubernetesVersion
-        PortworxVersion: !Ref PortworxVersion
-        LightHouseVersion: !Ref LightHouseVersion
-        VolumeTemplateString: !Ref VolumeTemplateString
+  # PortworxStack:
+  #   Type: AWS::CloudFormation::Stack
+  #   Condition: EnablePortworx
+  #   Properties:
+  #     TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/portworx.yaml'
+  #     Parameters:
+  #       KubeConfigPath: !GetAtt EKSStack.Outputs.KubeConfigPath
+  #       KubeConfigKmsContext: "EKSQuickStart"
+  #       KubeManifestLambdaArn: !GetAtt EKSStack.Outputs.KubeManifestLambdaArn
+  #       PortworxClusterName: !Join [ "-", [ !GetAtt EKSStack.Outputs.EKSClusterName, "portworx-cluster" ] ]
+  #       NodeGroupIAMRole: !GetAtt EKSStack.Outputs.NodeInstanceRoleName
+  #       PXKubernetesVersion: !Ref PXKubernetesVersion
+  #       PortworxVersion: !Ref PortworxVersion
+  #       LightHouseVersion: !Ref LightHouseVersion
+  #       VolumeTemplateString: !Ref VolumeTemplateString
 
 Outputs:
   KubeConfigPath:
