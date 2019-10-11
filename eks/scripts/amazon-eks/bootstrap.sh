@@ -159,7 +159,7 @@ Environment='KUBELET_EXTRA_ARGS=$KUBELET_EXTRA_ARGS'
 EOF
 fi
 
-if [[ -n "$CLOUD_PROVIDER" ]]; then
+if [[ "$SOLODEV_NETWORK" = "true" ]]; then
     cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
 [Service]
 Environment='CLOUD_PROVIDER=$CLOUD_PROVIDER'
