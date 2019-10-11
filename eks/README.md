@@ -24,7 +24,7 @@ How you deploy Solodev DCX Enterprise Edition for Kubernetes depends upon your e
 
 <table>
 	<tr>
-		<td width="25%"><a href="https://github.com/techcto/charts"><img src="img/deploy-via-heml.png" /></a></td>
+		<td width="25%"><a href="https://github.com/techcto/charts"><img src="img/deploy-via-helm.png" /></a></td>
 		<td>
 			<h3>Deploy via Helm Charts</h3>
 			<p>For those looking to install Solodev DCX to a new or existing Kubernetes cluster via Helm and command line, visit the Solodev Helm Charts repository for further instructions.</p>
