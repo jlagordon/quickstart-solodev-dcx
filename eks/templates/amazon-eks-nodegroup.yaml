@@ -678,8 +678,7 @@ Resources:
       KeyName: !Ref KeyPairName
       SecurityGroups:
         - !Ref NodeSecurityGroup
-      UserData: 
-        - Fn::Base64: !Sub |
+      UserData: |
             #!/bin/bash
             set -o xtrace
             /usr/bin/cfn-init \
