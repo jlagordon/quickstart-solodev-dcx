@@ -98,7 +98,6 @@ Parameters:
   NodeAMIOS:
     AllowedValues:
       - Amazon-Linux-HVM
-      - SUSE-SLES-15-HVM
     Default: Amazon-Linux-HVM
     Description: The Linux distribution for the AMI to be used for the node
       instances.
@@ -263,9 +262,6 @@ Conditions:
   AmznOS: !Equals
     - !Ref NodeAMIOS
     - Amazon-Linux-HVM
-  SuseOS: !Equals
-    - !Ref NodeAMIOS
-    - SUSE-SLES-15-HVM
   DisableTargetGroups: !Equals
     - !Join [",", !Ref 'TargetGroupARNs' ]
     - ""
@@ -376,13 +372,6 @@ Mappings:
       EKS111GPU: AMZNEKS111GPU
       EKS113: AMZNEKS113
       EKS113GPU: AMZNEKS113GPU
-    SUSE-SLES-15-HVM:
-      EKS112: SLES15EKS112
-      EKS112GPU: SLES15EKS112GPU
-      EKS111: SLES15EKS111
-      EKS111GPU: SLES15EKS111GPU
-      EKS113: SLES15EKS113
-      EKS113GPU: SLES15EKS113GPU
   AWSAMIRegionMap:
     ap-northeast-1:
       AMZNEKS113: ami-0fde798d17145fae1
@@ -654,78 +643,6 @@ Resources:
       AWS::CloudFormation::Init:
         config:
           files:
-            /tmp/worker/bootstrap.sh:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/bootstrap.sh
-              group: root
-              owner: root
-              mode: '000644'
-              authentication: S3Auth
-            /tmp/worker/docker-daemon.json:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/docker-daemon.json
-              group: root
-              owner: root
-              mode: '000644'
-              authentication: S3Auth
-            /tmp/worker/eni-max-pods.txt:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/eni-max-pods.txt
-              group: root
-              owner: root
-              mode: '000644'
-              authentication: S3Auth
-            /tmp/worker/install-worker.sh:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/install-worker.sh
-              group: root
-              owner: root
-              mode: '000755'
-              authentication: S3Auth
-            /tmp/worker/kubelet-config.json:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/kubelet-config.json
-              group: root
-              owner: root
-              mode: '000644'
-              authentication: S3Auth
-            /tmp/worker/kubelet-kubeconfig:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/kubelet-kubeconfig
-              group: root
-              owner: root
-              mode: '000644'
-              authentication: S3Auth
-            /tmp/worker/kubelet.service:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/kubelet.service
-              group: root
-              owner: root
-              mode: '000644'
-              authentication: S3Auth
-            /tmp/worker/logrotate-kube-proxy:
-              source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/logrotate-kube-proxy
-              group: root
-              owner: root
-              mode: '000644'
-              authentication: S3Auth
-          commands:
-            a-install:
-              command: /tmp/worker/install-worker.sh
-              env:
-                BINARY_BUCKET_NAME: amazon-eks
-                BINARY_BUCKET_PATH: !FindInMap
-                  - K8sVersionMap
-                  - !Ref KubernetesVersion
-                  - BinaryPath
-                BINARY_BUCKET_REGION: us-west-2
-            b-bootstrap:
-              command: !Sub /etc/eks/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
-  AmznOSNodeLaunchConfig:
-    Type: AWS::AutoScaling::LaunchConfiguration
-    Metadata:
-      AWS::CloudFormation::Authentication:
-        S3Auth:
-          buckets:
-            - !Ref QSS3BucketName
-          roleName: !Ref NodeInstanceRoleName
-          type: S3
-      AWS::CloudFormation::Init:
-        config:
-          files:
             /etc/eks/bootstrap.sh:
               source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/bootstrap.sh
               group: root
@@ -761,12 +678,6 @@ Resources:
       KeyName: !Ref KeyPairName
       SecurityGroups:
         - !Ref NodeSecurityGroup
-      BlockDeviceMappings:
-        - DeviceName: !If [ SuseOS, /dev/sda1, /dev/xvda ]
-          Ebs:
-            VolumeSize: !Ref NodeVolumeSize
-            VolumeType: gp2
-            DeleteOnTermination: true
       UserData: !If
         - AmznOS
         - Fn::Base64:
@@ -775,37 +686,13 @@ Resources:
             set -o xtrace
             /usr/bin/cfn-init \
                 --stack ${AWS::StackName} \
-                --resource AmznOSNodeLaunchConfig \
+                --resource NodeLaunchConfig \
                 --region ${AWS::Region}
             /etc/eks/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
             /opt/aws/bin/cfn-signal --exit-code $? \
                   --stack  ${AWS::StackName} \
                   --resource NodeGroup  \
                   --region ${AWS::Region}
-        - Fn::Base64:
-            !Sub |
-            #!/bin/bash -e
-
-            if [ -e /etc/os-release ] && grep SLES /etc/os-release; then
-                zypper in -y python2-setuptools
-                update-alternatives --set easy_install /usr/bin/easy_install-2.7
-            fi
-
-            easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.zip
-            /usr/bin/cfn-init \
-                --stack ${AWS::StackName} \
-                --resource NodeLaunchConfig \
-                --region ${AWS::Region}
-            /usr/bin/cfn-signal --exit-code $? \
-                --stack ${AWS::StackName} \
-                --resource NodeGroup \
-                --region ${AWS::Region}
-            if [ -e /etc/os-release ] && grep SLES /etc/os-release; then
-                # Need to enable some kernel boot options and reboot
-                sed -i 's|GRUB_CMDLINE_LINUX=""|GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1" |' /etc/default/grub
-                grub2-mkconfig -o /boot/grub2/grub.cfg
-                reboot
-            fi
 Outputs:
   EKSNodeSecurityGroup:
     Value: !Ref NodeSecurityGroup
