@@ -150,6 +150,7 @@ if [[ -n "$KUBELET_EXTRA_ARGS" ]]; then
     cat <<EOF > /etc/systemd/system/kubelet.service.d/30-kubelet-extra-args.conf
 [Service]
 Environment='KUBELET_EXTRA_ARGS=$KUBELET_EXTRA_ARGS'
+Environment='CLOUD_PROVIDER=$CLOUD_PROVIDER'
 EOF
 fi
 
