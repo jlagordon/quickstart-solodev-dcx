@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#https://aws-quickstart.s3.amazonaws.com/quickstart-amazon-eks/scripts/amazon-eks/bootstrap.sh
 
 set -o pipefail
 set -o nounset
