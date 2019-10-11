@@ -20,6 +20,7 @@ function print_help {
     echo "--b64-cluster-ca The base64 encoded cluster CA content. Only valid when used with --apiserver-endpoint. Bypasses calling \"aws eks describe-cluster\""
     echo "--apiserver-endpoint The EKS cluster API Server endpoint. Only valid when used with --b64-cluster-ca. Bypasses calling \"aws eks describe-cluster\""
     echo "--kubelet-extra-args Extra arguments to add to the kubelet. Useful for adding labels or taints."
+    echo "--solodev-network Enable Solodev network settings (default: false)."
 }
 
 POSITIONAL=()
@@ -48,6 +49,11 @@ while [[ $# -gt 0 ]]; do
             ;;
         --kubelet-extra-args)
             KUBELET_EXTRA_ARGS=$2
+            shift
+            shift
+            ;;
+        --solodev-network)
+            SOLODEV_NETWORK=$2
             shift
             shift
             ;;
@@ -150,6 +156,12 @@ if [[ -n "$KUBELET_EXTRA_ARGS" ]]; then
     cat <<EOF > /etc/systemd/system/kubelet.service.d/30-kubelet-extra-args.conf
 [Service]
 Environment='KUBELET_EXTRA_ARGS=$KUBELET_EXTRA_ARGS'
+EOF
+fi
+
+if [[ "$SOLODEV_NETWORK" = "true" ]]; then
+    cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
+[Service]
 Environment='CLOUD_PROVIDER=$CLOUD_PROVIDER'
 EOF
 fi
