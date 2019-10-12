@@ -647,7 +647,7 @@ Resources:
               source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/install-worker.sh
               group: root
               owner: root
-              mode: '000644'
+              mode: '000755'
               authentication: S3Auth
             /tmp/worker/bootstrap.sh:
               source: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}scripts/amazon-eks/bootstrap.sh
@@ -661,11 +661,11 @@ Resources:
               owner: root
               mode: '000644'
               authentication: S3Auth
-          # commands:
-          #   a-install:
-          #     command: /tmp/worker/install-worker.sh
-          #   b-bootstrap:
-          #     command: !Sub /tmp/worker/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
+          commands:
+            a-install:
+              command: /tmp/worker/install-worker.sh
+            b-bootstrap:
+              command: !Sub /etc/eks/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
     Properties:
       AssociatePublicIpAddress: false
       IamInstanceProfile: !Ref NodeInstanceProfile
