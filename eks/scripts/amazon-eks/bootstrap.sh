@@ -108,12 +108,6 @@ API_RETRY_ATTEMPTS="${API_RETRY_ATTEMPTS:-3}"
 DOCKER_CONFIG_JSON="${DOCKER_CONFIG_JSON:-}"
 PAUSE_CONTAINER_VERSION="${PAUSE_CONTAINER_VERSION:-3.1}"
 
-if [[ "$SOLODEV_NETWORK" = "true" ]]; then
-    CLOUD_PROVIDER="--cloud-provider external"
-else
-    CLOUD_PROVIDER="--cloud-provider aws"
-fi
-
 function get_pause_container_account_for_region () {
     local region="$1"
     case "${region}" in
@@ -243,7 +237,7 @@ fi
 if [[ "$SOLODEV_NETWORK" = "true" ]]; then
     cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
 [Service]
-Environment='CLOUD_PROVIDER=$CLOUD_PROVIDER'
+Environment='AWS_VPC_K8S_CNI_EXTERNALSNAT=true'
 EOF
 fi
 
