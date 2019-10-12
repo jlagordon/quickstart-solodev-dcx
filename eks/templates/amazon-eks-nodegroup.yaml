@@ -662,10 +662,10 @@ Resources:
               mode: '000644'
               authentication: S3Auth
           commands:
-            a-install:
-              command: /tmp/worker/install-worker.sh
-            b-bootstrap:
-              command: !Sub /tmp/worker/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
+            # a-install:
+            #   command: /tmp/worker/install-worker.sh
+            # b-bootstrap:
+            #   command: !Sub /tmp/worker/bootstrap.sh ${EKSControlPlane} ${BootstrapArguments}
     Properties:
       AssociatePublicIpAddress: false
       IamInstanceProfile: !Ref NodeInstanceProfile
