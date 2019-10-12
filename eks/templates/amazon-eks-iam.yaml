@@ -280,7 +280,7 @@ Resources:
                 Resource: "*"
         - PolicyName: PwxWorkerNodePolicy
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: 2012-10-17
             Statement:
               - Effect: Allow
                 Action:
@@ -297,7 +297,7 @@ Resources:
                   - ec2:DescribeVolumes
                   - ec2:DescribeInstances
                 Resource: "*"
-    BastionRole:
+  BastionRole:
     Condition: EnableBastionRole
     Type: "AWS::IAM::Role"
     Properties:
