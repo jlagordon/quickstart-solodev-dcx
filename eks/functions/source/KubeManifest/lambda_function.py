@@ -240,7 +240,7 @@ def handler_init(event):
     bucket, key, kms_context = get_config_details(event)
     create_kubeconfig(bucket, key, kms_context)
     if 'CNI' in event['ResourceProperties'].keys():
-        outp = run_command("kubectl %s delete ds aws-node -n kube-system" % kw)
+        outp = run_command("kubectl delete ds aws-node -n kube-system")
         logger.debug(outp)
     if 'Users' in event['ResourceProperties'].keys():
         username = None
