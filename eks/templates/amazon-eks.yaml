@@ -405,6 +405,7 @@ Resources:
         CleanupLoadBalancersLambdaArn: !GetAtt FunctionStack.Outputs.CleanupLoadBalancersLambdaArn
         GetCallerArnLambdaArn: !GetAtt FunctionStack.Outputs.GetCallerArnLambdaArn
         ControlPlaneProvisionRoleArn: !GetAtt IamStack.Outputs.ControlPlaneProvisionRoleArn
+        ProvisionSolodevDCXNetwork: !Ref ProvisionSolodevDCXNetwork
   KmsKey:
     Type: "AWS::KMS::Key"
     Properties:
