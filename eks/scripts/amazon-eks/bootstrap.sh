@@ -221,6 +221,15 @@ Environment='KUBELET_EXTRA_ARGS=$KUBELET_EXTRA_ARGS'
 EOF
 fi
 
+if [[ "$SOLODEV_NETWORK" = "true" ]]; then
+    rm -f /etc/cni/net.d/10-aws.conflist
+#     cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
+# [Service]
+# Environment='WARM_ENI_TARGET=0'
+# Environment='WARM_IP_TARGET=0'
+# EOF
+fi
+
 # Replace with custom docker config contents.
 if [[ -n "$DOCKER_CONFIG_JSON" ]]; then
     echo "$DOCKER_CONFIG_JSON" > /etc/docker/daemon.json
@@ -232,15 +241,6 @@ if [[ "$ENABLE_DOCKER_BRIDGE" = "true" ]]; then
     # prevents docker from recreating the default bridge network on restart
     echo "$(jq '.bridge="docker0" | ."live-restore"=false' /etc/docker/daemon.json)" > /etc/docker/daemon.json
     systemctl restart docker
-fi
-
-if [[ "$SOLODEV_NETWORK" = "true" ]]; then
-#     rm -f /etc/cni/net.d/10-aws.conflist
-#     cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
-# [Service]
-# Environment='WARM_ENI_TARGET=0'
-# Environment='WARM_IP_TARGET=0'
-# EOF
 fi
 
 systemctl daemon-reload
