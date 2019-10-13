@@ -107,6 +107,15 @@ Resources:
       Users:
         Arns: !Ref AdditionalEKSAdminArns
         Groups: [ "system:masters" ]
+  PrepCNI:
+    Type: "Custom::KubeManifest"
+    Version: '1.0'
+    Properties:
+      ServiceToken: !Ref KubeManifestLambdaArn
+      KubeConfigPath: !Sub "s3://${KubeConfigS3Bucket}/${KubeConfigS3Key}"
+      KubeConfigKmsContext: !Ref KmsContext
+      CNI:
+        Prep: "true"
 Outputs:
   EksArn:
     Value: !GetAtt EKS.Arn
