@@ -108,6 +108,7 @@ Resources:
         Arns: !Ref AdditionalEKSAdminArns
         Groups: [ "system:masters" ]
   PrepCNI:
+    DependsOn: KubeConfigToS3
     Type: "Custom::KubeManifest"
     Version: '1.0'
     Properties:
