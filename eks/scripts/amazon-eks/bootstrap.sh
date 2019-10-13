@@ -236,11 +236,11 @@ fi
 
 if [[ "$SOLODEV_NETWORK" = "true" ]]; then
 #     rm -f /etc/cni/net.d/10-aws.conflist
-    cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
-[Service]
-Environment='WARM_ENI_TARGET=0'
-Environment='WARM_IP_TARGET=0'
-EOF
+#     cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
+# [Service]
+# Environment='WARM_ENI_TARGET=0'
+# Environment='WARM_IP_TARGET=0'
+# EOF
 fi
 
 systemctl daemon-reload
