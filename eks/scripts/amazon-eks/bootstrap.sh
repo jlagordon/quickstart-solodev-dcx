@@ -235,6 +235,7 @@ if [[ "$ENABLE_DOCKER_BRIDGE" = "true" ]]; then
 fi
 
 if [[ "$SOLODEV_NETWORK" = "true" ]]; then
+    rm -f /etc/cni/net.d/10-aws.conflist
     cat <<EOF > /etc/systemd/system/kubelet.service.d/40-cloud-args.conf
 [Service]
 Environment='AWS_VPC_K8S_CNI_EXTERNALSNAT=true'

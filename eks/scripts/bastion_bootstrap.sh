@@ -571,8 +571,8 @@ initCNI(){
     /usr/local/bin/kubectl --kubeconfig $KUBECONFIG delete ds aws-node -n kube-system
     # echo "Reinstall AWS CNI"
     # kubectl set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_EXTERNALSNAT=true
-    echo "Install CNI Genie"
-    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/Huawei-PaaS/CNI-Genie/master/conf/1.8/genie-plugin.yaml
+    # echo "Install CNI Genie"
+    # /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/Huawei-PaaS/CNI-Genie/master/conf/1.8/genie-plugin.yaml
     #WEAVE
     initWeave
 }
