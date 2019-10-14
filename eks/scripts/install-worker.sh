@@ -22,15 +22,6 @@ sudo systemctl disable kubelet
 # sudo systemctl enable iscsid
 # sudo systemctl start iscsid
 
-################################################################################
-### Weave ########################################################################
-################################################################################
-# sudo mkdir -p /opt/cni/bin
-# sudo mkdir -p /etc/cni/net.d
-# sudo curl -L git.io/weave -o /usr/local/bin/weave
-# sudo chmod a+x /usr/local/bin/weave
-# sudo /usr/local/bin/weave setup
-
 sudo mkdir -p /etc/eks
 sudo touch /etc/eks/solodev.txt
 sudo mv $TEMPLATE_DIR/bootstrap.sh /etc/eks/bootstrap.sh
