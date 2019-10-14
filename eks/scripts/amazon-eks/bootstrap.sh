@@ -209,6 +209,14 @@ if [[ "$USE_MAX_PODS" = "true" ]]; then
     fi
 fi
 
+if [[ $(ec2-metadata --instance-type) =~ 'large' ]]; then
+    mem_reserved=1Gi
+else
+    mem_reserved=0.5Gi
+fi
+
+KUBELET_EXTRA_ARGS="${KUBELET_EXTRA_ARGS} --kube-reserved cpu=250m,memory=${mem_reserved},ephemeral-storage=1Gi --system-reserved cpu=250m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard memory.available<500Mi,nodefs.available<10%"
+
 cat <<EOF > /etc/systemd/system/kubelet.service.d/10-kubelet-args.conf
 [Service]
 Environment='KUBELET_ARGS=--node-ip=$INTERNAL_IP --pod-infra-container-image=$(get_pause_container_account_for_region "${AWS_DEFAULT_REGION}").dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/eks/pause-${ARCH}:$PAUSE_CONTAINER_VERSION'
