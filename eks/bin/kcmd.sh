@@ -5,14 +5,16 @@ args=("$@")
 export KUBECONFIG="eksconfig"
 
 #GET VALUES FROM CLOUDFORMATION OUTPUT OF EKS STACK
-export CAData=""
-export EKSEndpoint=""
 export EKSName=""
 export ControlPlaneProvisionRoleArn=""
 
 #AWS
 export REGION="us-east-1"
 export USER_ARN=""
+export KEY="server.pem"
+export BASTION="12.123.12.1"
+#aws configure --profile profile1
+export AWS_PROFILE="profile1"
 
 #Solodev
 export RELEASE="solodev-dcx-aws"
@@ -23,8 +25,8 @@ export DBPASSWORD="password"
 
 #ADMIN
 proxy(){
-    token
-    kubectl --kubeconfig=$KUBECONFIG proxy
+    #http://localhost:8080/#/overview?namespace=_all
+    kubectl --kubeconfig=$KUBECONFIG port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8080:80
 }
 
 ls(){
@@ -53,65 +55,30 @@ update(){
     helm --kubeconfig $KUBECONFIG repo list
 }
 
-log(){
-    POD="${args[1]}"
-    kubectl --kubeconfig=$KUBECONFIG logs -f $POD
-}
-
 clean(){
     NAME="${args[1]}"
-    kubectl --kubeconfig $KUBECONFIG delete --all daemonsets,replicasets,statefulsets,services,deployments,pods,rc,configmap --namespace=${NAME} --grace-period=0 --force
-    kubectl --kubeconfig $KUBECONFIG delete --namespace ${NAME} --all pvc
+    kubectl --kubeconfig $KUBECONFIG delete --all daemonsets,replicasets,statefulsets,services,ingress,deployments,pods,rc,configmap --namespace=${NAME} --grace-period=0 --force
+    kubectl --kubeconfig $KUBECONFIG delete --namespace ${NAME} --all pvc,pv
 }
 
 #INIT
 init(){
-    addTrustPolicy
-    sleep 30
-    generateConfig
-    kubectl --kubeconfig $KUBECONFIG create namespace ${NAMESPACE} 
+    initConfig
     helm --kubeconfig $KUBECONFIG init
     helm --kubeconfig $KUBECONFIG repo add charts 'https://raw.githubusercontent.com/techcto/charts/master/'
-    rbac
-    initServiceAccount
 }
 
-generateConfig(){
-    cat > ${KUBECONFIG} << EOF
-apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority-data: ${CAData}	
-    server: ${EKSEndpoint}	
-  name: kubernetes
-contexts:
-- context:
-    cluster: kubernetes
-    user: aws
-  name: aws
-current-context: aws
-kind: Config
-preferences: {}
-users:
-- name: aws
-  user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1alpha1
-      args:
-      - token
-      - -i
-      - ${EKSName}
-      - -r
-      - ${ControlPlaneProvisionRoleArn}
-      command: aws-iam-authenticator
-      env: null
-EOF
+initConfig(){
+    addTrustPolicy
+    echo "Sleep for 30 seconds"
+    sleep 30
+    aws eks --region $REGION update-kubeconfig --name $EKSName --role-arn $ControlPlaneProvisionRoleArn --kubeconfig $KUBECONFIG
 }
 
 addTrustPolicy(){
     if [ "$USER_ARN" != "" ]; then
         ROLE_NAME=$(echo $ControlPlaneProvisionRoleArn | awk -F/ '{print $NF}')
-        aws iam get-role --role-name ${ROLE_NAME} > role-trust-policy.json
+        aws iam get-role --role-name ${ROLE_NAME} --profile ${AWS_PROFILE} > role-trust-policy.json
         POLICY='{
         "Effect": "Allow",
         "Principal": {
@@ -120,118 +87,13 @@ addTrustPolicy(){
         "Action": "sts:AssumeRole"
         }'
         jq --argjson obj "${POLICY}" '.Role.AssumeRolePolicyDocument.Statement += [$obj] | .Role.AssumeRolePolicyDocument' role-trust-policy.json > output-policy.json
-        aws iam update-assume-role-policy --role-name ${ROLE_NAME} --policy-document file://output-policy.json
+        aws iam update-assume-role-policy --role-name ${ROLE_NAME} --policy-document file://output-policy.json --profile ${AWS_PROFILE}
     fi
 }
 
-rbac(){
-    kubectl --kubeconfig=$KUBECONFIG create clusterrolebinding permissive-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts;
-}
-
-initServiceAccount(){
-    ISSUER_URL=$(aws eks describe-cluster --name ${EKSName} --region ${REGION} --query cluster.identity.oidc.issuer --output text )
-    echo $ISSUER_URL
-    ISSUER_URL_WITHOUT_PROTOCOL=$(echo $ISSUER_URL | sed 's/https:\/\///g' )
-    ISSUER_HOSTPATH=$(echo $ISSUER_URL_WITHOUT_PROTOCOL | sed "s/\/id.*//" )
-    rm *.crt || echo "No files that match *.crt exist"
-    ROOT_CA_FILENAME=$(openssl s_client -showcerts -connect $ISSUER_HOSTPATH:443 < /dev/null \
-                        | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; out="cert"a".crt"; print > out } END {print "cert"a".crt"}')
-    ROOT_CA_FINGERPRINT=$(openssl x509 -fingerprint -noout -in $ROOT_CA_FILENAME \
-                        | sed 's/://g' | sed 's/SHA1 Fingerprint=//')
-    aws iam create-open-id-connect-provider \
-                        --url $ISSUER_URL \
-                        --thumbprint-list $ROOT_CA_FINGERPRINT \
-                        --client-id-list sts.amazonaws.com \
-                        --region ${REGION} || echo "A provider for $ISSUER_URL already exists"
-    ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-    PROVIDER_ARN="arn:aws:iam::$ACCOUNT_ID:oidc-provider/$ISSUER_URL_WITHOUT_PROTOCOL"
-    cat > trust-policy.json << EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Principal": {
-            "Federated": "${PROVIDER_ARN}"
-        },
-        "Action": "sts:AssumeRoleWithWebIdentity",
-        "Condition": {
-            "StringEquals": {
-                "${ISSUER_URL_WITHOUT_PROTOCOL}:sub": "system:serviceaccount:${NAMESPACE}:solodev-serviceaccount"
-            }
-        }
-    }]
-}
-EOF
-
-    ROLE_NAME=solodev-usage-${EKSName}
-    aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://trust-policy.json
-    cat > iam-policy.json << EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "aws-marketplace:RegisterUsage"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        }
-    ]
-}
-EOF
-
-    POLICY_ARN=$(aws iam create-policy --policy-name AWSMarketplacePolicy-${EKSName} --policy-document file://iam-policy.json --query Policy.Arn | sed 's/"//g')
-    echo ${POLICY_ARN}
-    aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn $POLICY_ARN
-    echo $ROLE_NAME
-    applyServiceAccount $ROLE_NAME
-}
-
-applyServiceAccount(){
-    if [ "$1" == "" ]; then
-        ROLE_NAME="${args[1]}"
-    else
-        ROLE_NAME=$1
-    fi
-    echo "Role="$ROLE_NAME
-    ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
-    kubectl --kubeconfig $KUBECONFIG create sa solodev-serviceaccount --namespace ${NAMESPACE}
-    kubectl --kubeconfig $KUBECONFIG annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
-    echo "Service Account Created: solodev-serviceaccount"
-}
-
-setServiceAccount(){
-    SERVICE_ACCOUNT="${args[1]}"
-    kubectl --kubeconfig $KUBECONFIG set serviceaccount deployment solodev-deployment ${SERVICE_ACCOUNT}
-}
-
-installDashboard(){
-    #https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html
-    kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
-    kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml
-    kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml
-    kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/rbac/heapster-rbac.yaml
-    cat > eks-admin-service-account.yaml << EOF
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: eks-admin
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: eks-admin
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: eks-admin
-  namespace: kube-system
-EOF
-    kubectl --kubeconfig $KUBECONFIG apply -f eks-admin-service-account.yaml
+ssh(){
+    HOST="${args[1]}"
+    echo "ssh -i $KEY  ec2-user@$HOST -o \"proxycommand ssh -W %h:%p -i ${KEY} ec2-user@${BASTION}\""
 }
 
 
