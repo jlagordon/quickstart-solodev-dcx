@@ -112,7 +112,7 @@ Resources:
       Users:
         Arns: !Ref AdditionalEKSAdminArns
         Groups: [ "system:masters" ]
-  PrepCNI:
+  CNI:
     Condition: EnableSolodevDCXNetwork
     DependsOn: KubeConfigToS3
     Type: "Custom::KubeManifest"
