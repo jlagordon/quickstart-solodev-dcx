@@ -579,7 +579,7 @@ initCNI(){
 
 initWeave(){
     echo "Install Weave CNI"
-    curl --location -o ./weave-net.yaml "https://cloud.weave.works/k8s/net?k8s-version=$(/usr/local/bin/kubectl --kubeconfig $KUBECONFIG version | base64 | tr -d '\n')&env.IPALLOC_RANGE=192.168.0.0/16"
+    curl --location -o ./weave-net.yaml "https://cloud.weave.works/k8s/net?k8s-version=$(/usr/local/bin/kubectl --kubeconfig $KUBECONFIG version | base64 | tr -d '\n')"
     /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f weave-net.yaml
 }
 
