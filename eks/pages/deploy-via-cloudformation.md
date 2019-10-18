@@ -55,8 +55,6 @@ Please follow the instructions below depending upon your current environment. If
 	</tr>
 </table>
 
-<pre>Note: Solodev Developer? Please see instructions regarding setting up a <a href="deploy-solodev-dcx-network.md">Solodev DCX Network</a> for your EKS cluster.</pre>
-
 ## Support
 Houston, we have no problems… because Solodev Customer Care has your back at every step! From our world-class HelpDesk to our focused training sessions, you’ve got the best team on the ground to get you to the stars. 
 
