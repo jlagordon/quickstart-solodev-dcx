@@ -202,9 +202,9 @@ Mappings:
       STD: EKS113
       GPU: EKS113GPU
   InstanceTypes:
-    a1.xlarge: { Type: STD }
-    a1.2xlarge: { Type: STD }
-    a1.4xlarge: { Type: STD }
+    a1.xlarge: { Type: ARM }
+    a1.2xlarge: { Type: ARM }
+    a1.4xlarge: { Type: ARM }
     t2.small: { Type: STD }
     t2.medium: { Type: STD }
     t2.large: { Type: STD }
