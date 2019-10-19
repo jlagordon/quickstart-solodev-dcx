@@ -139,9 +139,9 @@ Parameters:
   NodeInstanceType:
     Default: t3.xlarge
     AllowedValues:
-      - a1.xlarge
-      - a1.2xlarge
-      - a1.4xlarge
+      # - a1.xlarge
+      # - a1.2xlarge
+      # - a1.4xlarge
       - t2.small
       - t2.medium
       - t2.large
