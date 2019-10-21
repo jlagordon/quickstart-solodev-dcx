@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Params
-CLUSTER=0
+CLUSTER=1
 MEGACLUSTER=0
 NETWORK=0
 DEPLOYMENT=0
