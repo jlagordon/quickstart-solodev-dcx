@@ -33,7 +33,7 @@ initServiceAccount(){
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
             "StringEquals": {
-                "${ISSUER_URL_WITHOUT_PROTOCOL}:sub": "system:serviceaccount:${NAMESPACE}:solodev-serviceaccount"
+                "${ISSUER_URL_WITHOUT_PROTOCOL}:sub": "system:serviceaccount:${NAMESPACE}:aws-serviceaccount"
             }
         }
     }]
@@ -72,9 +72,9 @@ applyServiceAccount(){
     fi
     echo "Role="$ROLE_NAME
     ROLE_ARN=$(aws iam get-role --role-name ${ROLE_NAME} --query Role.Arn --output text)
-    kubectl create sa solodev-serviceaccount --namespace ${NAMESPACE}
-    kubectl annotate sa solodev-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
-    echo "Service Account Created: solodev-serviceaccount"
+    kubectl create sa aws-serviceaccount --namespace ${NAMESPACE}
+    kubectl annotate sa aws-serviceaccount eks.amazonaws.com/role-arn=$ROLE_ARN --namespace ${NAMESPACE}
+    echo "Service Account Created: aws-serviceaccount"
 }
 
 $*

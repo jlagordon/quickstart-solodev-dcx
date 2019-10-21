@@ -79,7 +79,7 @@ Parameters:
 
   ServiceRoleName:
     Type: String
-    Default: ''
+    Default: 'aws-serviceaccount'
 
 Resources:
   SolodevDCX:
