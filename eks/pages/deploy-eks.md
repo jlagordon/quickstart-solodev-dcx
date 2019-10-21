@@ -252,8 +252,14 @@ This will generate the necessary config file that the kcmd.sh script uses to con
 Keep the proxy running within your terminal (open another terminal window if you need to run additional commands) and access the Kubernetes dasboard by going to the following URL:
 
 <pre>
- #http://localhost:8080/#/overview?namespace=_all
+ http://localhost:8080/#/overview?namespace=_all
 </pre>
+
+<table>
+	<tr>
+		<td><img src="https://raw.githubusercontent.com/solodev/aws/master/pages/images/install/kubernetes-dashboard-solodev-cms-eks.jpg" /></td>
+	</tr>
+</table>
 
 ## Step 7: Launch Solodev DCX
 With your EKS stack successfully launched, your outputs collected, and you connected to the cluster via the Kubernetes Dashboard, you can proceed to launch Solodev DCX.
