@@ -94,8 +94,8 @@ Resources:
       ValueYaml: !Sub |
         env: prod
         storage:
-          className: gp2
-          size: 10G
+          className: portworx
+          size: 500M
         solodev:
           image:
             registry: docker.io
@@ -106,8 +106,8 @@ Resources:
           port: 9000
           protocol: TCP
           storage:
-            className: efs
-            size: 10G
+            className: portworx-shared
+            size: 5G
             mount: /var/www/solodev/clients/solodev
           settings:
             debug: false
@@ -135,8 +135,8 @@ Resources:
         mysql:
           image:
             registry: docker.io
-            repository: mysql
-            tag: 5.7
+            repository: mariadb
+            tag: 10.3
             pullPolicy: IfNotPresent
           port: 3306
           read:
