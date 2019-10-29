@@ -14,7 +14,8 @@ Metadata:
         Label: 
           default: "Advanced Settings"
         Parameters: 
-          - ZoneName
+          - DomainName
+          - ClusterZone
           - DatabaseName
           - DatabasePassword
           - AppSecret
@@ -27,7 +28,12 @@ Metadata:
           - KubeConfigKmsContext
 
 Parameters:
-  ZoneName:
+  DomainName:
+    Description: This is the DNS Zone for all clusters
+    Type: String
+
+  ClusterZone:
+    Description: This is the DNS Zone that for a single cluster
     Type: String
 
   AdminUser:
@@ -94,7 +100,7 @@ Resources:
       ValueYaml: !Sub |
         env: prod
         storage:
-          className: portworx
+          className: gp2
           size: 500M
         solodev:
           image:
@@ -102,11 +108,12 @@ Resources:
             repository: solodev/cms
             tag: latest
             pullPolicy: IfNotPresent
-          cname: ${ZoneName}
+          domainName: ${DomainName}
+          clusterZone: ${ClusterZone}
           port: 9000
           protocol: TCP
           storage:
-            className: portworx-shared
+            className: gp2
             size: 5G
             mount: /var/www/solodev/clients/solodev
           settings:
