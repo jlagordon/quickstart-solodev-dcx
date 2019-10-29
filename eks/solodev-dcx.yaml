@@ -171,7 +171,7 @@ Outputs:
 
     AdminUrl: 
         Description: Point your DNS to this CNAME.
-        Value: !Join ["", [ !Ref "AWS::StackName", ".", !Ref ZoneName ]]
+        Value: !Join ["", [ !Ref "AWS::StackName", ".", !Ref ClusterZone ]]
     AdminUsername: 
         Description: Solodev admin username.
         Value: !Ref AdminUser
