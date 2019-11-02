@@ -263,7 +263,7 @@ Parameters:
   EfsStorageClass:
     Type: String
     AllowedValues: [ Enabled, Disabled ]
-    Default: Enabled
+    Default: Disabled
     Description: Choose Enabled to enable EFS storage class, which will create the required EFS volume.
   EfsPerformanceMode:
     Type: String
