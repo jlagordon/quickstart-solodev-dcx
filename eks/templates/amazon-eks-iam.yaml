@@ -336,6 +336,7 @@ Resources:
                   - iam:CreateRole
                   - iam:CreatePolicy
                   - iam:AttachRolePolicy
+                  - iam:CreateOpenIDConnectProvider 
                 Resource: "*"
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
