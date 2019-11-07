@@ -422,6 +422,10 @@ EOF
 }
 
 function install_kubernetes_client_tools() {
+    echo "Installing Pip"
+    easy_install pip
+    echo "Upgrading AWS CLI"
+    /usr/local/bin/pip3 install awscli --upgrade
     mkdir -p /usr/local/bin/
     echo "Install AWS IAM Auth"
     # retry_command 20 curl --retry 5 -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator
