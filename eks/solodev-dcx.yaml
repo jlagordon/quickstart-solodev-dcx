@@ -85,6 +85,10 @@ Parameters:
     Type: String
     Default: "EKSQuickStart"
 
+  StorageClass:
+    Type: String
+    Default: "ebs"
+
 Resources:
   SolodevDCX:
     Type: "Custom::Helm"
@@ -100,12 +104,12 @@ Resources:
       ValueYaml: !Sub |
         env: prod
         storage:
-          className: gp2
           size: 500M
+          className: ${StorageClass}
         solodev:
           image:
             registry: docker.io
-            repository: solodev/cms
+            repository: vortala/solodev
             tag: latest
             pullPolicy: IfNotPresent
           domainName: ${DomainName}
@@ -113,7 +117,7 @@ Resources:
           port: 9000
           protocol: TCP
           storage:
-            className: gp2
+            className: ${StorageClass}
             size: 5G
             mount: /var/www/solodev/clients/solodev
           settings:
@@ -126,11 +130,12 @@ Resources:
             dbUser: solodev
             dbPassword: ${DatabasePassword}
             mongoDbName: solodev_views
+            isISV: 'true'
           pullSecret: solodev
         ui:
           image:
             registry: docker.io
-            repository: solodev/cms-apache
+            repository: vortala/solodev-ui
             tag: latest
             pullPolicy: IfNotPresent
           http:
@@ -144,7 +149,6 @@ Resources:
             registry: docker.io
             repository: mariadb
             tag: 10.3
-            pullPolicy: IfNotPresent
           port: 3306
           read:
             port: 3307
@@ -162,7 +166,7 @@ Resources:
         redis:
           image:
             registry: docker.io
-            repository: redis
+            repository: techcto/redis
             tag: latest
             pullPolicy: IfNotPresent
           port: 6379
