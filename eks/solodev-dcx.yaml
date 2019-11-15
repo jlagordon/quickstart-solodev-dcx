@@ -109,7 +109,7 @@ Resources:
         solodev:
           image:
             registry: docker.io
-            repository: vortala/solodev
+            repository: solodev/cms
             tag: latest
             pullPolicy: IfNotPresent
           domainName: ${DomainName}
@@ -135,7 +135,7 @@ Resources:
         ui:
           image:
             registry: docker.io
-            repository: vortala/solodev-ui
+            repository: solodev/cms-apache
             tag: latest
             pullPolicy: IfNotPresent
           http:
