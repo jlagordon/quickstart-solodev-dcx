@@ -716,9 +716,10 @@ initServiceAccount
 
 if [[ "$ProvisionSolodevDCXNetwork" = "Enabled" ]]; then
     initCNI
-    initNetwork
-    initStorage
 fi
+
+initNetwork
+initStorage
 
 #Dashboard Setup
 initDashboard
