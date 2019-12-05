@@ -19,6 +19,8 @@ Metadata:
           - DatabaseName
           - DatabasePassword
           - AppSecret
+          - ClientId
+          - ClientSecret
       - 
         Label: 
           default: "EKS Cluster"
@@ -89,6 +91,14 @@ Parameters:
     Type: String
     Default: "ebs"
 
+  ClientId:
+    Type: String
+    Default: ""
+    
+  ClientSecret:
+    Type: String
+    Default: ""
+
 Resources:
   SolodevDCX:
     Type: "Custom::Helm"
@@ -131,6 +141,8 @@ Resources:
             dbPassword: ${DatabasePassword}
             mongoDbName: solodev_views
             isISV: 'true'
+            clientId: ${ClientId}
+            clientSecret: ${ClientSecret}
           pullSecret: solodev
         ui:
           image:
