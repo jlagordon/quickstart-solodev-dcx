@@ -681,7 +681,7 @@ initDashboard(){
     tar -xzf metrics-server-$DOWNLOAD_VERSION.tar.gz --directory metrics-server-$DOWNLOAD_VERSION --strip-components 1
     /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f metrics-server-$DOWNLOAD_VERSION/deploy/1.8+/
     /usr/local/bin/kubectl --kubeconfig $KUBECONFIG get deployment metrics-server -n kube-system
-    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/alternative.yaml
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta6/aio/deploy/alternative.yaml
     cat > eks-admin-service-account.yaml << EOF
 apiVersion: v1
 kind: ServiceAccount

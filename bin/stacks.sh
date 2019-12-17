@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 #Params
-CLUSTER=0
-MEGACLUSTER=0
-NETWORK=0
+CLUSTER=1
+MEGACLUSTER=1
 DEPLOYMENT=0
 MPDEPLOYMENT=0
 
@@ -25,17 +24,6 @@ echo $(aws s3 cp s3://build-secure/params/amazon-eks-mega.json - ) > amazon-eks.
 aws cloudformation create-stack --disable-rollback --stack-name eksmega-${DATE} --disable-rollback --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
     --parameters file:///${CODEBUILD_SRC_DIR}/amazon-eks.json \
     --template-url https://s3.amazonaws.com/solodev-quickstarts/eks/amazon-eks.yaml \
-    # --notification-arns $NOTIFICATION_ARN
-
-fi
-
-if [ $NETWORK == 1 ]; then
-
-echo "Install Solodev DCX Network"
-echo $(aws s3 cp s3://build-secure/params/solodev-dcx-network.json - ) > solodev-dcx-network.json
-aws cloudformation create-stack --disable-rollback --stack-name solonet-tmp-${DATE} --disable-rollback --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
-    --parameters file:///${CODEBUILD_SRC_DIR}/solodev-dcx-network.json \
-    --template-url https://s3.amazonaws.com/solodev-quickstarts/eks/templates/solodev-dcx-network.yaml \
     # --notification-arns $NOTIFICATION_ARN
 
 fi
