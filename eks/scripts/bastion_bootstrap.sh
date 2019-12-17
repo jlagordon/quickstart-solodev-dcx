@@ -577,7 +577,7 @@ su ${user_group} -c "/usr/local/bin/helm repo update"
 #Network Setup
 initCNI(){
     echo "Disable AWS CNI"
-    # /usr/local/bin/kubectl --kubeconfig $KUBECONFIG delete ds aws-node -n kube-system
+    /usr/local/bin/kubectl --kubeconfig $KUBECONFIG delete ds aws-node -n kube-system
     # echo "Reinstall AWS CNI"
     # kubectl set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_EXTERNALSNAT=true
     # echo "Install CNI Genie"
