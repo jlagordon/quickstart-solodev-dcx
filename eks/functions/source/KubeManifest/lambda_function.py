@@ -241,7 +241,7 @@ def handler_init(event):
     create_kubeconfig(bucket, key, kms_context)
     if 'CNI' in event['ResourceProperties'].keys():
         try:
-            outp = run_command("kubectl delete ds aws-node -n kube-system")
+            outp = run_command("kubectl delete ds aws-node -n kube-system --ignore-not-found=true")
             logger.debug(outp)
         except Exception as e:
             cleanCNI = True
